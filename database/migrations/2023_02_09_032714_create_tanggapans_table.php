@@ -15,6 +15,11 @@ return new class extends Migration
     {
         Schema::create('tanggapans', function (Blueprint $table) {
             $table->id();
+            // $table->integer('id_tanggapan');
+            $table->foreignId('pengaduan_id');
+            $table->date('tgl_tanggapan');
+            $table->text('tanggapan');
+            $table->foreignId('petugas_id');
             $table->timestamps();
         });
     }
