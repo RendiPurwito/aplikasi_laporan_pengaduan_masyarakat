@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function index(Request $request){
         $users = User::All()->sortBy('name');
-        return view('', compact('users'));
+        return view('admin.user.index', compact('users'));
     }
 
     public function create(){

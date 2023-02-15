@@ -7,10 +7,11 @@
     <meta charset="utf-8" />
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-
     <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
-
     <meta name="description" content="" />
+
+    {{--! JQuery --}}
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/sneat/assets/img/favicon/favicon.ico" />
@@ -35,8 +36,6 @@
 
     <link rel="stylesheet" href="/sneat/assets/vendor/libs/apex-charts/apex-charts.css" />
 
-    <!-- Page CSS -->
-
     <!-- Helpers -->
     <script src="/sneat/assets/vendor/js/helpers.js"></script>
 
@@ -46,6 +45,12 @@
 
     {{--! Unicons --}}
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    {{--! Boxicons --}}
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+
+    {{--! DataTable CSS --}}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.css">
 </head>
 
 <body>
@@ -114,12 +119,58 @@
 
                 <ul class="menu-inner py-1">
                     <!-- Dashboard -->
-                    <li class="menu-item active">
-                        <a href="index.html" class="menu-link">
+                    @if (auth()->user()->level == 'admin')
+                    <li class="menu-item @if (\Request::is('admin/dashboard')) active  @endif">
+                        <a href="{{route('admin.dashboard')}}" class="menu-link">
                             <i class="menu-icon tf-icons bx bx-home-circle"></i>
                             <div data-i18n="Analytics">Dashboard</div>
                         </a>
                     </li>
+                    
+                    <li class="menu-item @if (\Request::is('admin/user')) active  @endif">
+                        <a href="{{route('admin.user.index')}}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-user"></i>
+                            <div data-i18n="Analytics">Users</div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item @if (\Request::is('admin/masyarakat')) active  @endif">
+                        <a href="{{route('admin.masyarakat.index')}}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-user"></i>
+                            <div data-i18n="Analytics">Masyarakat</div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item @if (\Request::is('admin/petugas')) active  @endif">
+                        <a href="{{route('admin.petugas.index')}}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-user"></i>
+                            <div data-i18n="Analytics">Petugas</div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="{{route('admin.pengaduan.index')}}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-detail"></i>
+                            <div data-i18n="Pengaduan">Pengaduan</div>
+                        </a>
+                    </li>
+
+                    <li class="menu-item">
+                        <a href="{{route('admin.tanggapan.index')}}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-detail"></i>
+                            <div data-i18n="Tanggapan">Tanggapan</div>
+                        </a>
+                    </li>
+                    @endif
+
+                    @if (auth()->user()->level == 'petugas')
+                    <li class="menu-item @if (\Request::is('dashboard')) active  @endif">
+                        <a href="{{route('petugas.dashboard')}}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                            <div data-i18n="Analytics">Dashboard</div>
+                        </a>
+                    </li>
+                    @endif
 
                     <!-- Layouts -->
                     <li class="menu-item">
@@ -476,8 +527,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <span class="fw-semibold d-block">John Doe</span>
-                                                    <small class="text-muted">Admin</small>
+                                                    <span class="fw-semibold d-block">{{auth()->user()->nama}}</span>
+                                                    <small class="text-muted">{{ucfirst(auth()->user()->level)}}</small>
                                                 </div>
                                             </div>
                                         </a>
@@ -485,7 +536,7 @@
                                     <li>
                                         <div class="dropdown-divider"></div>
                                     </li>
-                                    <li>
+                                    {{-- <li>
                                         <a class="dropdown-item" href="#">
                                             <i class="bx bx-user me-2"></i>
                                             <span class="align-middle">My Profile</span>
@@ -509,9 +560,9 @@
                                     </li>
                                     <li>
                                         <div class="dropdown-divider"></div>
-                                    </li>
+                                    </li> --}}
                                     <li>
-                                        <a class="dropdown-item" href="auth-login-basic.html">
+                                        <a class="dropdown-item" href="{{route('logout')}}">
                                             <i class="bx bx-power-off me-2"></i>
                                             <span class="align-middle">Log Out</span>
                                         </a>
@@ -554,17 +605,14 @@
     <script src="/sneat/assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
 
-    <!-- Vendors JS -->
-    <script src="/sneat/assets/vendor/libs/apex-charts/apexcharts.js"></script>
-
     <!-- Main JS -->
     <script src="/sneat/assets/js/main.js"></script>
 
-    <!-- Page JS -->
-    <script src="/sneat/assets/js/dashboards-analytics.js"></script>
+    {{--! DataTable JS CDN --}}
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js"></script>
 
-    <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    {{--! Custom JS --}}
+    <script src="/js/script.js"></script>
 </body>
 
 </html>
