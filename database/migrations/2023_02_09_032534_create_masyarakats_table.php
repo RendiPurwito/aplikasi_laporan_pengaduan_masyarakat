@@ -15,13 +15,21 @@ return new class extends Migration
     {
         Schema::create('masyarakats', function (Blueprint $table) {
             $table->id();
-            $table->char('nik', 16);
-            // $table->string('nama', 35);
-            // $table->string('username', 25);
-            // $table->string('password', 32);
-            // $table->string('telp', 13);
-            $table->foreignId('user_id');
+            // $table->char('nik', 16);
+            $table->string('nama', 35);
+            $table->string('username', 25);
+            $table->string('password');
+            $table->string('telp', 13);
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            // $table->foreignId('user_id');
+            $table->rememberToken();
             $table->timestamps();
+        });
+
+        Schema::table('masyarakats', function (Blueprint $table) {
+            $table->char('nik', 16)->after('id')->primary();
+            $table->dropColumn('id');
         });
     }
 

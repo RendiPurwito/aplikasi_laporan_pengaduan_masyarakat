@@ -15,46 +15,66 @@ use Illuminate\Support\Facades\Mail;
 class AuthController extends Controller
 {
     // Login
-    public function login(){
+    public function showLoginForm(){
         return view('auth.login');
     }
 
-    public function authenticate(Request $request ){
-        $this->validate ($request, [
-            // 'email' => 'required|email:dns',
-            'username' => 'required',
-            'password' => 'required'
-        ]);
+    public function login(Request $request ){
+        $credentials = $request->only('username', 'password');
+        $petugas = Auth::guard('petugas')->attempt($credentials);
+        $masyarakat = Auth::guard('masyarakats')->attempt($credentials);
 
-        $remember_me = $request->has('remember_me') ? true : false; 
-
-        if (Auth::attempt(['username' => $request->input('username'), 'password' => $request->input('password')], $remember_me)) {
-            if(auth()->user()->level == 'admin'){
+        if($petugas) {
+            if (Auth::guard('petugas')->user()->level == 'admin') {
                 $request->session()->regenerate();
-                return redirect()->intended('/admin/dashboard');
-            }elseif(auth()->user()->level == 'petugas'){
+                return redirect()->intended('/petugas/admin/dashboard');
+            } else {
                 $request->session()->regenerate();
-                return redirect()->intended('/dashboard');
-            }else{
-                $request->session()->regenerate();
-                return redirect()->intended('/index');
+                return redirect()->intended('/petugas/dashboard');
             }
+        }elseif ($masyarakat) {
+            $request->session()->regenerate();
+            return redirect()->intended('/home');
+        }else {
+            return redirect('/login')->withErrors([
+                'error' => 'Username atau password salah.'
+            ]);
         }
+
+        // if(Auth::guard('petugas')->attempt(['username' => $request->input('username'), 'password' => $request->input('password')])){
+        //     if(auth()->user()->level == 'admin'){
+        //         $request->session()->regenerate();
+        //         return redirect()->intended('/petugas/admin/dashboard');
+        //     }else{
+        //         $request->session()->regenerate();
+        //         return redirect()->intended('/petugas/dashboard');
+        //     }
+        // }
+
+        // if(Auth::guard('masyarakats')->attempt(['username' => $request->input('username'), 'password' => $request->input('password')], $remember_me)){
+        //     $request->session()->regenerate();
+        //     return redirect()->intended('');
+        // }
+
+        
         return back()->with('error', 'Login failed! Please try again');
     }
 
     // Log Out
     public function logout(Request $request){
-        Auth::logout();
-        return redirect('/');
+        Auth::guard('petugas')->logout();
+        Auth::guard('masyarakats')->logout();
+        return redirect('/login');
+        // Auth::logout();
+        // return redirect('/login');
     }
 
     // Register
-    public function getRegister(){
+    public function showRegisterForm(){
         return view('auth.register');
     }
 
-    public function postRegister(Request $request)
+    public function register(Request $request)
     {
         $request->validate([
             'nama'  => 'required|string|',

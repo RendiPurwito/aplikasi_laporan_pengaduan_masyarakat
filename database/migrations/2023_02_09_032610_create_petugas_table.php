@@ -16,12 +16,15 @@ return new class extends Migration
         Schema::create('petugas', function (Blueprint $table) {
             $table->id();
             // $table->integer('id_petugas');
-            // $table->string('nama_petugas', 35);
-            // $table->string('username', 25);
-            // $table->string('password', 32);
-            // $table->string('telp', 13);
-            $table->foreignId('user_id');
+            $table->string('nama', 35);
+            $table->string('username', 25)->unique();
+            $table->string('password');
+            $table->string('telp', 13);
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            // $table->foreignId('user_id');
             $table->enum('level', ['admin', 'petugas']);
+            $table->rememberToken();
             $table->timestamps();
         });
     }

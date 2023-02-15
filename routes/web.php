@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PetugasController;
+use App\Http\Controllers\PengaduanController;
+use App\Http\Controllers\TanggapanController;
+use App\Http\Controllers\MasyarakatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,21 +32,34 @@ use App\Http\Controllers\AuthController;
 // });
 
 // Auth
-Route::get('/login', [AuthController::class, 'login']);
-Route::post('/login', [AuthController::class, 'authenticate'])->name('login')->middleware('guest');
+Route::get('/login', [AuthController::class, 'showLoginForm']);
+Route::post('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
-Route::get('/register', [AuthController::class, 'getregister'])->middleware('guest');
-Route::post('/register', [AuthController::class, 'postregister'])->name('register')->middleware('guest');
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->middleware('guest');
+Route::post('/register', [AuthController::class, 'register'])->name('register')->middleware('guest');
 Route::get('/forgot-password', [AuthController::class, 'getForgotPassword'])->name('forgot.password.get')->middleware('guest');
 Route::post('/forgot-password', [AuthController::class, 'postForgotPassword'])->name('forgot.password.post')->middleware('guest');
 Route::get('/reset-password/{token}', [AuthController::class, 'getResetPassword'])->name('reset.password.get');
 Route::post('/reset-password/{token}', [AuthController::class, 'postResetPassword'])->name('reset.password.post');
 
-// Petugas
-Route::get('/admin/dashboard', function () {
-    return view('petugas.admin-dashboard');
-})->middleware('admin');
+// Petugas & Admin
+Route::prefix('petugas')->group(function (){
+    // Petugas
+    Route::get('/dashboard', function () {
+        return view('petugas.dashboard');
+    })->name('petugas.dashboard')->middleware('petugas');
 
-Route::get('/dashboard', function () {
-    return view('petugas.dashboard');
-})->middleware('petugas');
+    // Admin
+    Route::prefix('admin')->group(function (){
+        Route::get('/dashboard', function () {
+            return view('admin.admin-dashboard');
+        })->name('admin.dashboard')->middleware('admin');
+        
+        Route::get('/user', [UserController::class, 'index'])->name('admin.user.index');
+        Route::get('/masyarakat', [MasyarakatController::class, 'index'])->name('admin.masyarakat.index');
+        Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('admin.pengaduan.index');
+        Route::get('/petugas', [PetugasController::class, 'index'])->name('admin.petugas.index');
+        Route::get('/tanggapan', [TanggapanController::class, 'index'])->name('admin.tanggapan.index');
+    });
+});
+

@@ -17,7 +17,7 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::check() && Auth::user()->level == 'admin'){
+        if(Auth::guard('petugas')->check() && Auth::guard('petugas')->user()->level == 'admin'){
             return $next($request);
         }
         abort(403);

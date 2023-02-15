@@ -4,15 +4,37 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Masyarakat extends Model
+class Masyarakat extends Authenticatable
 {
     use HasFactory;
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
+    protected $table ='masyarakats';
+
+    protected $guard ='masyarakats';
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'nik',
+        'nama',
+        'username',
+        'password',
+        'telp',
+        'email',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 
     public function pengaduans()
     {

@@ -17,7 +17,7 @@ class IsPetugas
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::check() && Auth::user()->level == 'petugas'){
+        if(Auth::guard('petugas')->check() && Auth::guard('petugas')->user()->level == 'petugas'){
             return $next($request);
         }
         abort(403);
