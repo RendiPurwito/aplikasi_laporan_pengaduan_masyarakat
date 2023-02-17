@@ -2,7 +2,16 @@
 
 @section('content')
 <div class="card">
-    <h5 class="card-header">Users</h5>
+    <div class="card-header d-flex justify-content-between">
+        <h5 class="fw-bold">Petugas</h5>
+        <div class="btn-toolbar" role="toolbar">
+            <div class="btn-group" role="group" aria-label="Third group">
+                <a href="{{route('admin.petugas.create')}}" class="btn btn-primary">
+                    Create
+                </a>
+            </div>
+        </div>
+    </div>
     <div class="card-body">
         <div class="table-responsive text-nowrap">
             <table class="table table-striped " id="table">
@@ -11,8 +20,9 @@
                         <th>#</th>
                         <th>Nama</th>
                         <th>Username</th>
-                        <th>Telp</th>
                         <th>Level</th>
+                        <th>Telp</th>
+                        <th>Email</th>
                         <th data-sortable="false">Action</th>
                     </tr>
                 </thead>
@@ -23,33 +33,35 @@
                             {{ $loop->iteration }}
                         </td>
                         <td>
-                            {{ $row->user->nama }}
+                            {{ $row->nama }}
                         </td>
                         <td>
-                            {{ $row->user->username }}
+                            {{ $row->username }}
                         </td>
                         <td>
-                            {{ $row->user->telp }}
+                            {{ $row->level }}
                         </td>
                         <td>
-                            {{ $row->user->level }}
+                            {{ $row->telp }}
                         </td>
                         <td>
-                            !
-                            {{-- <a href="/admin/user/{{ $user->id }}/edit" class="btn btn-primary btn-sm"
-                                title="Edit user '{{ $user->name }}'">
-                                <i class="fa-solid fa-pencil"></i>
+                            {{ $row->email }}
+                        </td>
+                        <td>
+                            <a href="{{route('admin.petugas.edit', $row->id)}}" class="btn btn-primary btn-sm"
+                                title="Edit petugas '{{ $row->nama }}'">
+                                <i class='bx bx-edit-alt'></i>
                             </a>
     
-                            <form action="{{ route('delUser', $user) }}" method="POST" class="d-inline-block">
+                            <form action="{{ route('admin.petugas.delete', $row) }}" method="POST" class="d-inline-block">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm" id="deleteButton"
-                                    data-message="Delete user '{{ $user->nama }}' ?"
-                                    title="Delete user '{{ $user->nama }}'">
-                                    <i class="fa fa-trash-o"></i>
+                                    data-message="Delete petugas '{{ $row->nama }}' ?"
+                                    title="Delete petugas '{{ $row->nama }}'">
+                                    <i class='bx bx-trash-alt'></i>
                                 </button>
-                            </form> --}}
+                            </form>
                         </td>
                     </tr>
                     @endforeach

@@ -2,54 +2,57 @@
 
 @section('content')
 <div class="card">
-    <h5 class="card-header">Users</h5>
+    <h5 class="card-header">Masyarakat</h5>
     <div class="card-body">
         <div class="table-responsive text-nowrap">
             <table class="table table-striped " id="table">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        {{-- <th>#</th> --}}
                         <th>NIK</th>
                         <th>Nama</th>
                         <th>Username</th>
                         <th>Telp</th>
+                        <th>Email</th>
                         <th data-sortable="false">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($data as $row)
                     <tr>
-                        <td>
+                        {{-- <td>
                             {{ $loop->iteration }}
-                        </td>
+                        </td> --}}
                         <td>
                             {{ $row->nik }}
                         </td>
                         <td>
-                            {{ $row->user->nama }}
+                            {{ $row->nama }}
                         </td>
                         <td>
-                            {{ $row->user->username }}
+                            {{ $row->username }}
                         </td>
                         <td>
-                            {{ $row->user->telp }}
+                            {{ $row->telp }}
                         </td>
                         <td>
-                            !
-                            {{-- <a href="/admin/user/{{ $user->id }}/edit" class="btn btn-primary btn-sm"
-                                title="Edit user '{{ $user->name }}'">
-                                <i class="fa-solid fa-pencil"></i>
+                            {{ $row->email }}
+                        </td>
+                        <td>
+                            <a href="{{route('admin.masyarakat.edit', $row->nik)}}" class="btn btn-primary btn-sm"
+                                title="Edit masyarakat '{{ $row->nama }}'">
+                                <i class='bx bx-edit-alt'></i>
                             </a>
     
-                            <form action="{{ route('delUser', $user) }}" method="POST" class="d-inline-block">
+                            <form action="{{ route('admin.masyarakat.delete', $row) }}" method="POST" class="d-inline-block">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm" id="deleteButton"
-                                    data-message="Delete user '{{ $user->nama }}' ?"
-                                    title="Delete user '{{ $user->nama }}'">
-                                    <i class="fa fa-trash-o"></i>
+                                    data-message="Delete masyarakat '{{ $row->nama }}' ?"
+                                    title="Delete masyarakat '{{ $row->nama }}'">
+                                    <i class='bx bx-trash-alt'></i>
                                 </button>
-                            </form> --}}
+                            </form>
                         </td>
                     </tr>
                     @endforeach

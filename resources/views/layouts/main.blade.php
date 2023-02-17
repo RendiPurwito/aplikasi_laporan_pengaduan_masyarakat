@@ -11,7 +11,8 @@
     <meta name="description" content="" />
 
     {{--! JQuery --}}
-    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.js"
+        integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/sneat/assets/img/favicon/favicon.ico" />
@@ -53,7 +54,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.css">
 
     {{--! Toastr CSS CDN --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
+        integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -122,51 +125,7 @@
 
                 <ul class="menu-inner py-1">
                     <!-- Dashboard -->
-                    @if (Auth::guard('petugas')->user()->level == 'admin')
-                    <li class="menu-item @if (\Request::is('petugas/admin/dashboard')) active  @endif">
-                        <a href="{{route('admin.dashboard')}}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div data-i18n="Analytics">Dashboard</div>
-                        </a>
-                    </li>
                     
-                    <li class="menu-item @if (\Request::is('petugas/admin/masyarakat')) active  @endif">
-                        <a href="{{route('admin.masyarakat.index')}}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-user"></i>
-                            <div data-i18n="Analytics">Masyarakat</div>
-                        </a>
-                    </li>
-
-                    <li class="menu-item @if (\Request::is('petugas/admin/petugas')) active  @endif">
-                        <a href="{{route('admin.petugas.index')}}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-user"></i>
-                            <div data-i18n="Analytics">Petugas</div>
-                        </a>
-                    </li>
-                    @endif
-
-                    @if (Auth::guard('petugas')->user()->level == 'petugas')
-                    <li class="menu-item @if (\Request::is('dashboard')) active  @endif">
-                        <a href="{{route('petugas.dashboard')}}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                            <div data-i18n="Analytics">Dashboard</div>
-                        </a>
-                    </li>
-                    @endif
-
-                    <li class="menu-item @if (\Request::is('petugas/pengaduan')) active  @endif">
-                        <a href="{{route('pengaduan.index')}}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-detail"></i>
-                            <div data-i18n="Pengaduan">Pengaduan</div>
-                        </a>
-                    </li>
-
-                    <li class="menu-item @if (\Request::is('petugas/tanggapan')) active  @endif">
-                        <a href="{{route('tanggapan.index')}}" class="menu-link">
-                            <i class="menu-icon tf-icons bx bx-detail"></i>
-                            <div data-i18n="Tanggapan">Tanggapan</div>
-                        </a>
-                    </li>
                 </ul>
             </aside>
             <!-- / Menu -->
@@ -187,9 +146,7 @@
                         <!-- Search -->
                         <div class="navbar-nav align-items-center">
                             <div class="nav-item d-flex align-items-center">
-                                <i class="bx bx-search fs-4 lh-0"></i>
-                                <input type="text" class="form-control border-0 shadow-none" placeholder="Search..."
-                                    aria-label="Search..." />
+                                
                             </div>
                         </div>
                         <!-- /Search -->
@@ -215,8 +172,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <span class="fw-semibold d-block">{{Auth::guard('petugas')->user()->nama}}</span>
-                                                    <small class="text-muted">{{ucfirst(Auth::guard('petugas')->user()->level)}}</small>
+                                                    <span
+                                                        class="fw-semibold d-block">{{Auth::guard('masyarakats')->user()->nama}}</span>
                                                 </div>
                                             </div>
                                         </a>
@@ -224,31 +181,6 @@
                                     <li>
                                         <div class="dropdown-divider"></div>
                                     </li>
-                                    {{-- <li>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="bx bx-user me-2"></i>
-                                            <span class="align-middle">My Profile</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <i class="bx bx-cog me-2"></i>
-                                            <span class="align-middle">Settings</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            <span class="d-flex align-items-center align-middle">
-                                                <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                                                <span class="flex-grow-1 align-middle">Billing</span>
-                                                <span
-                                                    class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <div class="dropdown-divider"></div>
-                                    </li> --}}
                                     <li>
                                         <a class="dropdown-item" href="{{route('logout')}}">
                                             <i class="bx bx-power-off me-2"></i>
@@ -297,7 +229,8 @@
     <script src="/sneat/assets/js/main.js"></script>
 
     {{--! DataTable JS CDN --}}
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.js">
+    </script>
 
     {{--! Custom JS --}}
     <script src="/js/script.js"></script>
@@ -306,7 +239,9 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     {{--! Toastr JS CDN --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
         toastr.options = {

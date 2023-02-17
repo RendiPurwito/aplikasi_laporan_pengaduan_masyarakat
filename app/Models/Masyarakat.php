@@ -11,8 +11,10 @@ class Masyarakat extends Authenticatable
     use HasFactory;
 
     protected $table ='masyarakats';
-
     protected $guard ='masyarakats';
+    protected $primaryKey = 'nik';
+    public $incrementing = false;
+    protected $keyType = 'string';
     /**
      * The attributes that are mass assignable.
      *
@@ -38,6 +40,6 @@ class Masyarakat extends Authenticatable
 
     public function pengaduans()
     {
-        return $this->hasMany(Pengaduan::class);
+        return $this->hasMany(Pengaduan::class, 'nik_pelapor', 'nik');
     }
 }

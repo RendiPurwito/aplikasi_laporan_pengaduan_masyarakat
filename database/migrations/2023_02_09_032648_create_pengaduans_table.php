@@ -16,10 +16,12 @@ return new class extends Migration
         Schema::create('pengaduans', function (Blueprint $table) {
             $table->id();
             // $table->integer('id_pengaduan');
-            $table->date('tgl_pengaduan');
-            $table->foreignId('masyarakat_id');
+            // $table->date('tgl_pengaduan');
+            // $table->foreignId('masyarakat_nik');
+            $table->string('nik_pelapor');
+            $table->foreign('nik_pelapor')->references('nik')->on('masyarakats');
             $table->text('isi_laporan');
-            $table->string('foto');
+            $table->string('foto')->nullable();
             $table->enum('status', ['0', 'proses', 'selesai']);
             $table->timestamps();
         });

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Petugas;
+use App\Models\Pengaduan;
 use App\Models\Tanggapan;
 use Illuminate\Http\Request;
 
@@ -9,6 +11,30 @@ class TanggapanController extends Controller
 {
     public function index(Request $request){
         $data = Tanggapan::all();
-        return view('admin.tanggapan.index', compact('data'));
+        $pengaduan = Pengaduan::all();
+        $petugas = Petugas::all();
+        return view('Tanggapan.index', compact('data', 'pengaduan', 'petugas'));
+    }
+
+    public function create($id){
+        return view('Tanggapan.create',[
+            'data' => Tanggapan::all(),
+            'pengaduan' => Pengaduan::find($id)
+        ]);
+    }
+
+    public function store(Request $request){
+        $request->validate([
+            'pengaduan_id'  => 'required',
+            'tanggapan'  => 'required',
+            'petugas_id'  => 'required',
+        ]);
+
+        $data = new Tanggapan;
+        $data->pengaduan_id = $request->pengaduan_id;
+        $data->tanggapan = $request->tanggapan;
+        $data->petugas_id = $request->petugas_id;
+        $data->save();
+        return redirect()->route('tanggapan.index')->with('success','Tanggapan berhasil ditambahkan!');
     }
 }

@@ -21,17 +21,17 @@ class RedirectIfAuthenticated
     {
         $guards = empty($guards) ? [null] : $guards;
 
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
-                if(auth()->user()->level == 'admin'){
-                    return '/admin/dashboard';
-                }elseif(auth()->user()->level == 'petugas'){
-                    return '/dashboard';
-                }else{
-                    return '/index';
-                }
-            }
-        }
+        // foreach ($guards as $guard) {
+        //     if (Auth::guard($guard)->check()) {
+        //         if(auth()->user()->level == 'admin'){
+        //             return '/admin/dashboard';
+        //         }elseif(auth()->user()->level == 'petugas'){
+        //             return '/dashboard';
+        //         }else{
+        //             return '/index';
+        //         }
+        //     }
+        // }
 
         return $next($request);
     }

@@ -11,11 +11,11 @@ class Tanggapan extends Model
 
     public function pengaduan()
     {
-        return $this->belongsTo(Pengaduan::class, 'pengaduan_id');
+        return $this->belongsTo(Pengaduan::class, 'pengaduan_id', 'id');
     }
 
     public function petugas()
     {
-        return $this->belongsTo(Petugas::class, 'petugas_id');
+        return $this->belongsTo(Petugas::class, 'petugas_id', 'id');
     }
 }

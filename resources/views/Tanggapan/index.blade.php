@@ -2,36 +2,39 @@
 
 @section('content')
 <div class="card">
-    <h5 class="card-header">Users</h5>
+    <h5 class="card-header">Tanggapan</h5>
     <div class="card-body">
         <div class="table-responsive text-nowrap">
             <table class="table table-striped " id="table">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Nama</th>
-                        <th>UserName</th>
-                        <th>Level</th>
-                        <th>Telp</th>
-                        <th>Email</th>
+                        <th>Pengaduan</th>
+                        <th>Tgl Tanggapan</th>
+                        <th>Tanggapan</th>
+                        <th>Petugas</th>
                         <th data-sortable="false">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($users as $user)
+                    @foreach ($data as $row)
                     <tr>
                         <td>
                             {{ $loop->iteration }}
                         </td>
                         <td>
-                            {{ $user->nama }}
+                            {{ $row->pengaduan->isi_laporan }}
+                            {{-- {{ $row->pengaduan_id}} --}}
                         </td>
                         <td>
-                            {{ $user->username }}
+                            {{ date('Y-m-d', strtotime($row->created_at)) }}
                         </td>
-                        <td>{{ (ucfirst($user->level)) }}</td>
-                        <td>{{ $user->telp }}</td>
-                        <td>{{ $user->email }}</td>
+                        <td>
+                            {{ $row->tanggapan }}
+                        </td>
+                        <td>
+                            {{ $row->petugas->nama }}
+                        </td>
                         <td>
                             !
                             {{-- <a href="/admin/user/{{ $user->id }}/edit" class="btn btn-primary btn-sm"

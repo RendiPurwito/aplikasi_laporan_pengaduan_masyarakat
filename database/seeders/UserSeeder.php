@@ -42,12 +42,16 @@ class UserSeeder extends Seeder
         //     ],
         // ]);
 
-        // DB::table('masyarakats')->insert([
-        //     [
-        //         'nik' => '2901921091',
-        //         'user_id' => '3',
-        //     ]
-        // ]);
+        DB::table('masyarakats')->insert([
+            [
+                'nik' => '3270012810821123',
+                'nama' => 'Majiid Muhammad',
+                'username' => 'mjd831',
+                'password' => bcrypt('12345'),
+                'telp' => '081297096073',
+                'email' => 'majiid@gmail.com',
+            ]
+        ]);
 
         DB::table('petugas')->insert([
             [
@@ -68,23 +72,23 @@ class UserSeeder extends Seeder
             ],
         ]);
 
-        // DB::table('pengaduans')->insert([
-        //     [
-        //         'tgl_pengaduan' => '2023-02-13',
-        //         'masyarakat_id' => '1',
-        //         'isi_laporan' => 'Laporan',
-        //         'foto' => 'BUKTIPERMANEN_SISWA_0055968134.jpeg',
-        //         'status' => 'selesai',
-        //     ]
-        // ]);
+        DB::table('pengaduans')->insert([
+            [
+                'nik_pelapor' => '3270012810821123',
+                'isi_laporan' => 'Laporan',
+                'foto' => 'BUKTIPERMANEN_SISWA_0055968134.jpeg',
+                'status' => 'selesai',
+                'created_at' => '2023-02-17 03:05:01'
+            ]
+        ]);
 
-        // DB::table('tanggapans')->insert([
-        //     [
-        //         'pengaduan_id' => '1',
-        //         'tgl_tanggapan' => '2023-02-14',
-        //         'tanggapan' => 'ytta',
-        //         'petugas_id' => '1',
-        //     ]
-        // ]);
+        DB::table('tanggapans')->insert([
+            [
+                'pengaduan_id' => '1',
+                'tanggapan' => 'ytta',
+                'petugas_id' => '2',
+                'created_at' => '2023-02-17 03:05:01'
+            ]
+        ]);
     }
 }

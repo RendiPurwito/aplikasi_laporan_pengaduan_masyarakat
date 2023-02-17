@@ -18,12 +18,12 @@ return new class extends Migration
             // $table->integer('id_petugas');
             $table->string('nama', 35);
             $table->string('username', 25)->unique();
+            $table->enum('level', ['admin', 'petugas']);
             $table->string('password');
             $table->string('telp', 13);
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             // $table->foreignId('user_id');
-            $table->enum('level', ['admin', 'petugas']);
             $table->rememberToken();
             $table->timestamps();
         });
