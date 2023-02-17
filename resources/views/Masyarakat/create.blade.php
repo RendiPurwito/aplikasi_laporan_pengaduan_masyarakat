@@ -37,11 +37,6 @@
             <div class="mb-3">
                 <label for="formFile" class="form-label">Foto</label>
                 <input class="form-control" type="file" id="formFile" name="foto" />
-                @error('foto')
-                <div class="text-danger">
-                    {{ $message }}
-                </div>
-                @enderror
             </div>
 
             <div class="btn-footer d-flex justify-content-end">

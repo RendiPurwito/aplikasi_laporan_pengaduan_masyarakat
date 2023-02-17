@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pengaduan;
 use App\Models\Masyarakat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 class PengaduanController extends Controller
@@ -13,6 +14,12 @@ class PengaduanController extends Controller
         $data = Pengaduan::all();
         $masyarakat = Masyarakat::all();
         return view('pengaduan.index', compact('data', 'masyarakat'));
+    }
+
+    public function list(Request $request){
+        // $masyarakat = Auth::guard('masyarakats')->user();
+        $data = Pengaduan::where('nik_pelapor', Auth::guard('masyarakats')->user()->nik)->get();
+        return view('masyarakat.index', compact('data'));
     }
 
     public function create(){
@@ -26,7 +33,7 @@ class PengaduanController extends Controller
             // 'tgl_pengaduan'  => 'required',
             'nik_pelapor'  => 'required',
             'isi_laporan'  => 'required',
-            'foto'  => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'foto'  => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'required',
         ]);
 

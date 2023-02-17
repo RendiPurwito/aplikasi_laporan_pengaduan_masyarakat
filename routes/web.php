@@ -46,6 +46,7 @@ Route::prefix('petugas')->group(function (){
 
     // CRUD Pengaduan
     Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan.index');
+    Route::get('/pengaduan/list', [PengaduanController::class, 'list'])->name('pengaduan.list');
 
     // Tanggapan
     Route::get('/tanggapan', [TanggapanController::class, 'index'])->name('tanggapan.index');

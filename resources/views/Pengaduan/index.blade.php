@@ -43,9 +43,11 @@
                                 <i class='bx bx-edit-alt'></i>
                             </a> --}}
 
-                            <a href="{{route('tanggapan.create', $row)}}" class="btn btn-primary btn-sm">
-                                <i class='bx bx-comment'></i>
-                            </a>
+                            @if ($row->status == '0')
+                                <a href="{{route('tanggapan.create', $row)}}" class="btn btn-primary btn-sm">
+                                    <i class='bx bx-comment'></i>
+                                </a>
+                            @endif
     
                             <form action="" method="POST" class="d-inline-block">
                                 @csrf
