@@ -23,9 +23,7 @@ class PengaduanController extends Controller
     }
 
     public function create(){
-        return view('Masyarakat.create',[
-            'data' => Pengaduan::all()
-        ]);
+        return view('Masyarakat.create');
     }
 
     public function store(Request $request){

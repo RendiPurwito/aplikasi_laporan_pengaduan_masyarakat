@@ -36,21 +36,17 @@
                             {{ $row->petugas->nama }}
                         </td>
                         <td>
-                            !
-                            {{-- <a href="/admin/user/{{ $user->id }}/edit" class="btn btn-primary btn-sm"
-                                title="Edit user '{{ $user->name }}'">
-                                <i class="fa-solid fa-pencil"></i>
+                            <a href="" class="btn btn-primary btn-sm">
+                                <i class='bx bx-edit-alt'></i>
                             </a>
     
-                            <form action="{{ route('delUser', $user) }}" method="POST" class="d-inline-block">
+                            <form action="" method="POST" class="d-inline-block">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" id="deleteButton"
-                                    data-message="Delete user '{{ $user->nama }}' ?"
-                                    title="Delete user '{{ $user->nama }}'">
-                                    <i class="fa fa-trash-o"></i>
+                                <button type="submit" class="btn btn-danger btn-sm" id="deleteButton">
+                                    <i class='bx bx-trash-alt'></i>
                                 </button>
-                            </form> --}}
+                            </form>
                         </td>
                     </tr>
                     @endforeach

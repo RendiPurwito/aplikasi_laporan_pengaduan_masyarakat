@@ -53,7 +53,7 @@
             </div>
 
             <div class="btn-footer d-flex justify-content-end">
-                <a href="{{route('admin.petugas.index')}}" class="btn btn-danger me-1 cancel-button">
+                <a href="{{route('admin.masyarakat.index')}}" class="btn btn-danger me-1 cancel-button">
                     Cancel
                 </a>
                 <button type="submit" class="btn btn-primary" id="submitEditButton">Submit</button>

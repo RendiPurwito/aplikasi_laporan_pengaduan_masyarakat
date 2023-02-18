@@ -18,7 +18,6 @@ class TanggapanController extends Controller
 
     public function create($id){
         return view('Tanggapan.create',[
-            'data' => Tanggapan::all(),
             'pengaduan' => Pengaduan::find($id)
         ]);
     }

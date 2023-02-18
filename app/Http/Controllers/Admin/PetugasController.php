@@ -17,9 +17,7 @@ class PetugasController extends Controller
 
     
     public function create(){
-        return view('admin.petugas.create',[
-            'data' => Petugas::all()
-        ]);
+        return view('admin.petugas.create');
     }
 
     public function store(Request $request){

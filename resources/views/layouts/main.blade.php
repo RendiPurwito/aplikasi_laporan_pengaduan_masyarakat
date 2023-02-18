@@ -125,7 +125,12 @@
 
                 <ul class="menu-inner py-1">
                     <!-- Dashboard -->
-                    
+                    <li class="menu-item @if (\Request::is('pengaduan/list')) active  @endif">
+                        <a href="{{route('pengaduan.list')}}" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-detail"></i>
+                            <div data-i18n="Pengaduan">Pengaduan</div>
+                        </a>
+                    </li>
                 </ul>
             </aside>
             <!-- / Menu -->
