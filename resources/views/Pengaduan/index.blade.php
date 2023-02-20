@@ -4,11 +4,10 @@
 <div class="card">
     <h5 class="card-header">Pengaduan</h5>
     <div class="card-body">
-        <div class="">
+        <div class="table-responsive text-nowrap">
             <table class="table table-striped " id="table">
                 <thead>
                     <tr>
-                        <th>#</th>
                         <th>Tanggal Pengaduan</th>
                         <th>Nama Pelapor</th>
                         <th>Isi Laporan</th>
@@ -21,10 +20,8 @@
                     @foreach ($data as $row)
                     <tr>
                         <td>
-                            {{ $loop->iteration }}
-                        </td>
-                        <td>
-                            {{ date('Y-m-d', strtotime($row->created_at)) }}
+                            {{-- {{ date('Y-m-d', strtotime($row->created_at)) }} --}}
+                            {{ $row->created_at}}
                         </td>
                         <td>
                             {{ $row->masyarakat->nama }}
@@ -33,7 +30,9 @@
                             {{ $row->isi_laporan }}
                         </td>
                         <td>
-                            <img src="/foto/{{$row->foto}}" class="img-thumbnail" style="width:200px" />
+                            @if ($row->foto != "null")
+                                <img src="/foto/{{$row->foto}}" class="img-thumbnail" style="width:200px" />
+                            @endif
                         </td>
                         <td>
                             {{ ucfirst($row->status) }}
@@ -44,16 +43,20 @@
                             </a> --}}
 
                             @if ($row->status == '0')
-                                <a href="{{route('tanggapan.create', $row)}}" class="btn btn-primary btn-sm">
+                                <a href="{{route('tanggapan.create', $row)}}" class="btn btn-primary btn-sm" title="Isi Tanggapan">
                                     <i class='bx bx-comment'></i>
                                 </a>
                             @endif
+
+                            <a href="{{route('tanggapan.create', $row)}}" class="btn btn-primary btn-sm" title="Lihat Detail Laporan">
+                                <i class='bx bx-detail'></i>
+                            </a>
     
                             <form action="" method="POST" class="d-inline-block">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm" id="deleteButton"
-                                    data-message="Delete  '{{ $row->id }}' ?">
+                                    data-message="Delete  '{{ $row->id }}' ?" title="Hapus Laporan">
                                     <i class='bx bx-trash-alt'></i>
                                 </button>
                             </form>

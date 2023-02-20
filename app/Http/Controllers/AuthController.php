@@ -92,7 +92,7 @@ class AuthController extends Controller
         $user->telp = $request->telp;
         $user->password = Hash::make($request->password);
         $user->save();
-        return redirect("/")->with('succes', 'User registered successfully');
+        return redirect("/login")->with('succes', 'User registered successfully');
     }
 
     // Forgot Password

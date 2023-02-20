@@ -79,7 +79,14 @@ class UserSeeder extends Seeder
                 'foto' => 'BUKTIPERMANEN_SISWA_0055968134.jpeg',
                 'status' => 'selesai',
                 'created_at' => '2023-02-17 03:05:01'
-            ]
+            ],
+            [
+                'nik_pelapor' => '3270012810821123',
+                'isi_laporan' => 'Kenapa kapibara disebut masbro',
+                'foto' => 'BUKTIPERMANEN_SISWA_0055968134.jpeg',
+                'status' => '0',
+                'created_at' => '2023-02-17 03:05:01'
+            ],
         ]);
 
         DB::table('tanggapans')->insert([

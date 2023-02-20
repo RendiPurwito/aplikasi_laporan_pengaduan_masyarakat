@@ -17,6 +17,16 @@
             </div>
 
             <div class="mb-3">
+                <label class="form-label" for="basic-default-company">Isi Laporan</label>
+                <p>{{$pengaduan->isi_laporan}}</p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="basic-default-company">Foto</label>
+                <img src="/foto/{{$pengaduan->foto}}" class="img-thumbnail" style="width:300px" />
+            </div>
+
+            <div class="mb-3">
                 <label class="form-label" for="basic-default-company">Tanggapan</label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="tanggapan"></textarea>
                 @error('tanggapan')

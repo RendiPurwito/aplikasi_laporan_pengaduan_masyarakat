@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\PetugasController;
 use App\Http\Controllers\PengaduanController;
 use App\Http\Controllers\TanggapanController;
 use App\Http\Controllers\Admin\MasyarakatController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,24 +41,22 @@ Route::get('/pengaduan/feedback', function () {
 // Petugas & Admin
 Route::prefix('petugas')->group(function (){
     // Petugas
-    Route::get('/dashboard', function () {
-        return view('petugas.dashboard');
-    })->name('petugas.dashboard')->middleware('petugas');
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('petugas.dashboard')->middleware('petugas');
 
     // CRUD Pengaduan
     Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan.index');
     Route::get('/pengaduan/list', [PengaduanController::class, 'list'])->name('pengaduan.list');
+    Route::get('/tanggapan/{id}/pdf', [TanggapanController::class, 'pdf'])->name('tanggapan.pdf');
 
     // Tanggapan
     Route::get('/tanggapan', [TanggapanController::class, 'index'])->name('tanggapan.index');
     Route::get('/tanggapan/create/{id}', [TanggapanController::class, 'create'])->name('tanggapan.create');
-    Route::post('/tanggapan', [TanggapanController::class, 'store'])->name('tanggapan.store')->middleware('admin');
+    Route::post('/tanggapan', [TanggapanController::class, 'store'])->name('tanggapan.store');
+    Route::get('/tanggapan/{id}/pdf', [TanggapanController::class, 'pdf'])->name('tanggapan.pdf');
 
     // Admin
     Route::prefix('admin')->group(function (){
-        Route::get('/dashboard', function () {
-            return view('admin.admin-dashboard');
-        })->name('admin.dashboard')->middleware('admin');
+        Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('admin.dashboard')->middleware('admin');
 
         // CRUD Masyarakat
         Route::get('/masyarakat', [MasyarakatController::class, 'index'])->name('admin.masyarakat.index');

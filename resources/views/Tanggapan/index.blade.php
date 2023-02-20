@@ -8,9 +8,8 @@
             <table class="table table-striped " id="table">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Pengaduan</th>
                         <th>Tgl Tanggapan</th>
+                        <th>Pengaduan</th>
                         <th>Tanggapan</th>
                         <th>Petugas</th>
                         <th data-sortable="false">Action</th>
@@ -20,14 +19,12 @@
                     @foreach ($data as $row)
                     <tr>
                         <td>
-                            {{ $loop->iteration }}
+                            {{-- {{ date('Y-m-d', strtotime($row->created_at)) }} --}}
+                            {{ $row->created_at}}
                         </td>
                         <td>
                             {{ $row->pengaduan->isi_laporan }}
                             {{-- {{ $row->pengaduan_id}} --}}
-                        </td>
-                        <td>
-                            {{ date('Y-m-d', strtotime($row->created_at)) }}
                         </td>
                         <td>
                             {{ $row->tanggapan }}
