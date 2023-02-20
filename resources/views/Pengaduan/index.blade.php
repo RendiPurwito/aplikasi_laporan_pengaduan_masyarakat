@@ -8,7 +8,7 @@
             <table class="table table-striped " id="table">
                 <thead>
                     <tr>
-                        <th>Tanggal Pengaduan</th>
+                        <th>Tgl Pengaduan</th>
                         <th>Nama Pelapor</th>
                         <th>Isi Laporan</th>
                         <th>Foto</th>
@@ -20,14 +20,15 @@
                     @foreach ($data as $row)
                     <tr>
                         <td>
-                            {{-- {{ date('Y-m-d', strtotime($row->created_at)) }} --}}
-                            {{ $row->created_at}}
+                            {{ date('Y-m-d', strtotime($row->created_at)) }}
+                            {{-- {{ $row->created_at}} --}}
                         </td>
                         <td>
                             {{ $row->masyarakat->nama }}
                         </td>
                         <td>
-                            {{ $row->isi_laporan }}
+                            {{-- {{ $row->isi_laporan }} --}}
+                            {{ Str::limit($row->isi_laporan, 20, '...') }}
                         </td>
                         <td>
                             @if ($row->foto != "null")

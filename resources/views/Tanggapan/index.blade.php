@@ -23,8 +23,8 @@
                             {{ $row->created_at}}
                         </td>
                         <td>
-                            {{ $row->pengaduan->isi_laporan }}
-                            {{-- {{ $row->pengaduan_id}} --}}
+                            {{-- {{ $row->pengaduan->isi_laporan }} --}}
+                            {{ Str::limit($row->pengaduan->isi_laporan, 30, '...') }}
                         </td>
                         <td>
                             {{ $row->tanggapan }}
@@ -35,6 +35,10 @@
                         <td>
                             <a href="" class="btn btn-primary btn-sm">
                                 <i class='bx bx-edit-alt'></i>
+                            </a>
+
+                            <a href="" class="btn btn-primary btn-sm" title="Export ke pdf">
+                                <i class='bx bxs-file-pdf'></i>
                             </a>
     
                             <form action="" method="POST" class="d-inline-block">
