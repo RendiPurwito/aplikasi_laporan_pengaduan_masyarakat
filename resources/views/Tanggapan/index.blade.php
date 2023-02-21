@@ -37,9 +37,11 @@
                                 <i class='bx bx-edit-alt'></i>
                             </a>
 
-                            <a href="" class="btn btn-primary btn-sm" title="Export ke pdf">
-                                <i class='bx bxs-file-pdf'></i>
-                            </a>
+                            @if (Auth::guard('petugas')->user()->level == 'admin')
+                                <a href="{{route('tanggapan.pdf', $row->id)}}" class="btn btn-primary btn-sm" title="Export ke pdf">
+                                    <i class='bx bxs-file-pdf'></i>
+                                </a>
+                            @endif
     
                             <form action="" method="POST" class="d-inline-block">
                                 @csrf
