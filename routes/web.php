@@ -20,11 +20,11 @@ use App\Http\Controllers\DashboardController;
 */
 
 // Auth
-Route::get('/login', [AuthController::class, 'showLoginForm']);
-Route::post('/login', [AuthController::class, 'login'])->name('login')->middleware('guest');
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.get');
+Route::post('/login', [AuthController::class, 'login'])->name('login.post')->middleware('guest');
 Route::get('/logout',[AuthController::class,'logout'])->name('logout');
-Route::get('/register', [AuthController::class, 'showRegisterForm'])->middleware('guest');
-Route::post('/register', [AuthController::class, 'register'])->name('register')->middleware('guest');
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.get')->middleware('guest');
+Route::post('/register', [AuthController::class, 'register'])->name('register.post')->middleware('guest');
 Route::get('/forgot-password', [AuthController::class, 'getForgotPassword'])->name('forgot.password.get')->middleware('guest');
 Route::post('/forgot-password', [AuthController::class, 'postForgotPassword'])->name('forgot.password.post')->middleware('guest');
 Route::get('/reset-password/{token}', [AuthController::class, 'getResetPassword'])->name('reset.password.get');
@@ -56,6 +56,12 @@ Route::prefix('petugas')->group(function (){
 
     // Admin
     Route::prefix('admin')->group(function (){
+
+        // Admin registration
+        Route::get('/register', [AuthController::class, 'showAdminRegisterForm'])->name('admin.register.get')->middleware('guest');
+        Route::post('/registered', [AuthController::class, 'adminRegister'])->name('admin.register.post')->middleware('guest');
+
+        // Dashboard
         Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('admin.dashboard')->middleware('admin');
 
         // CRUD Masyarakat

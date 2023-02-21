@@ -4,13 +4,17 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Petugas;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Mail\ResetPasswordMail;
+use App\Models\Masyarakat;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
@@ -40,23 +44,6 @@ class AuthController extends Controller
                 'error' => 'Username atau password salah.'
             ]);
         }
-
-        // if(Auth::guard('petugas')->attempt(['username' => $request->input('username'), 'password' => $request->input('password')])){
-        //     if(auth()->user()->level == 'admin'){
-        //         $request->session()->regenerate();
-        //         return redirect()->intended('/petugas/admin/dashboard');
-        //     }else{
-        //         $request->session()->regenerate();
-        //         return redirect()->intended('/petugas/dashboard');
-        //     }
-        // }
-
-        // if(Auth::guard('masyarakats')->attempt(['username' => $request->input('username'), 'password' => $request->input('password')], $remember_me)){
-        //     $request->session()->regenerate();
-        //     return redirect()->intended('');
-        // }
-
-        
         return back()->with('error', 'Login failed! Please try again');
     }
 
@@ -65,8 +52,6 @@ class AuthController extends Controller
         Auth::guard('petugas')->logout();
         Auth::guard('masyarakats')->logout();
         return redirect('/login');
-        // Auth::logout();
-        // return redirect('/login');
     }
 
     // Register
@@ -77,21 +62,140 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'nama'  => 'required|string|',
-            'username'  => 'required|string|',
-            'email' => 'required|email|unique:users',
-            'telp' => 'required|string|',
-            'password' => 'required|string|min:8'
+            'nik' => [
+                'required',
+                'digits:16',
+                'unique:masyarakats',
+                function ($attribute, $value, $fail) {
+                    $regex = '/^[1-9][0-9]{15}$/';
+                    if (!preg_match($regex, $value)) {
+                        $fail($attribute . ' is invalid.');
+                    }
+                },
+            ],
+            'nama' => [
+                'required', 
+                'string', 
+                'max:255'
+            ],
+            'username' => [
+                'required', 
+                'string', 
+                'max:255', 
+                Rule::unique('petugas', 'username')
+                    ->where(function ($query) use ($request) {
+                        return $query->where('username', $request->input('username'))
+                            ->orWhere('username', $request->input('username'));
+                    }),
+                Rule::unique('masyarakats', 'username')
+                    ->where(function ($query) use ($request) {
+                        return $query->where('username', $request->input('username'))
+                            ->orWhere('username', $request->input('username'));
+                    }),
+            ],
+            'email' => [
+                'required', 
+                'string', 
+                'email', 
+                'max:255', 
+                Rule::unique('petugas', 'email')
+                    ->where(function ($query) use ($request) {
+                        return $query->where('email', $request->input('email'))
+                            ->orWhere('email', $request->input('email'));
+                    }),
+                Rule::unique('masyarakats', 'email')
+                    ->where(function ($query) use ($request) {
+                        return $query->where('email', $request->input('email'))
+                            ->orWhere('email', $request->input('email'));
+                    }),
+            ],
+            'telp' => [
+                'required', 
+                'regex:/^[0-9]{10,13}$/'
+            ],
+            'password' => [
+                'required', 
+                'string', 
+                'min:8', 
+                'confirmed'
+            ],
         ]);
 
-        $user = new User;
-        $user->nama = $request->nama;
-        $user->username = $request->username;
-        $user->level = 'admin';
-        $user->email = $request->email;
-        $user->telp = $request->telp;
-        $user->password = Hash::make($request->password);
-        $user->save();
+        $masyarakat = new Masyarakat;
+        $masyarakat->nik = $request->nik;
+        $masyarakat->nama = $request->nama;
+        $masyarakat->username = $request->username;
+        $masyarakat->email = $request->email;
+        $masyarakat->telp = $request->telp;
+        $masyarakat->password = Hash::make($request->password);
+        $masyarakat->save();
+        return redirect("/login")->with('succes', 'User registered successfully');
+    }
+
+    // Register Admin
+    public function showAdminRegisterForm(){
+        return view('auth.admin.register');
+    }
+
+    public function adminRegister(Request $request)
+    {
+        $request->validate([
+            'nama' => [
+                'required', 
+                'string', 
+                'max:255'
+            ],
+            'username' => [
+                'required', 
+                'string', 
+                'max:255', 
+                Rule::unique('petugas', 'username')
+                    ->where(function ($query) use ($request) {
+                        return $query->where('username', $request->input('username'))
+                            ->orWhere('username', $request->input('username'));
+                    }),
+                Rule::unique('masyarakats', 'username')
+                    ->where(function ($query) use ($request) {
+                        return $query->where('username', $request->input('username'))
+                            ->orWhere('username', $request->input('username'));
+                    }),
+            ],
+            'email' => [
+                'required', 
+                'string', 
+                'email', 
+                'max:255', 
+                Rule::unique('petugas', 'email')
+                    ->where(function ($query) use ($request) {
+                        return $query->where('email', $request->input('email'))
+                            ->orWhere('email', $request->input('email'));
+                    }),
+                Rule::unique('masyarakats', 'email')
+                    ->where(function ($query) use ($request) {
+                        return $query->where('email', $request->input('email'))
+                            ->orWhere('email', $request->input('email'));
+                    }),
+            ],
+            'telp' => [
+                'required', 
+                'regex:/^[0-9]{10,13}$/'
+            ],
+            'password' => [
+                'required', 
+                'string', 
+                'min:8', 
+                'confirmed'
+            ],
+        ]);
+
+        $admin = new Petugas;
+        $admin->nama = $request->nama;
+        $admin->username = $request->username;
+        $admin->level = 'admin';
+        $admin->email = $request->email;
+        $admin->telp = $request->telp;
+        $admin->password = Hash::make($request->password);
+        $admin->save();
         return redirect("/login")->with('succes', 'User registered successfully');
     }
 

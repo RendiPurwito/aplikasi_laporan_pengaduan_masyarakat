@@ -111,18 +111,8 @@
                         {{-- <h4 class="mb-2">Adventure starts here 🚀</h4>
                         <p class="mb-4">Make your app management easy and fun!</p> --}}
 
-                        <form id="formAuthentication" class="mb-3" action="{{route('register.post')}}" method="POST">
+                        <form id="formAuthentication" class="mb-3" action="{{route('admin.register.post')}}" method="POST">
                             @csrf
-                            <div class="mb-3">
-                                <label for="nik" class="form-label">NIK</label>
-                                <input type="number" class="form-control @error('nik') is-invalid @enderror" id="nik" name="nik"
-                                    placeholder="Masukan nik anda" required autocomplete="nik" autofocus />
-                                @error('nik')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
                             <div class="mb-3">
                                 <label for="nama" class="form-label">Nama</label>
                                 <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama"

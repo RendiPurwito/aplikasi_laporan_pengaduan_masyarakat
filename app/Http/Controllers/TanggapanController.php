@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Petugas;
+use PDF;
 use App\Models\Pengaduan;
 use App\Models\Tanggapan;
 use Illuminate\Http\Request;
@@ -35,5 +36,18 @@ class TanggapanController extends Controller
         $data->petugas_id = $request->petugas_id;
         $data->save();
         return redirect()->route('tanggapan.index')->with('success','Tanggapan berhasil ditambahkan!');
+    }
+
+    public function pdf($id)
+    {
+        $data = Tanggapan::find($id);
+        $pengaduan = Pengaduan::all();
+        $petugas = Petugas::all();
+        $pdf = PDF::loadview('Tanggapan.pdf',[
+            'data'=>$data,
+            'pengaduan'=>$pengaduan,
+            'petugas'=>$petugas,
+        ]);
+        return $pdf->stream();
     }
 }

@@ -111,7 +111,7 @@
                         <h4 class="mb-2">Welcome to Sneat! 👋</h4>
                         <p class="mb-4">Please sign-in to your account and start the adventure</p>
 
-                        <form id="formAuthentication" class="mb-3" action="{{route('login')}}" method="POST">
+                        <form id="formAuthentication" class="mb-3" action="{{route('login.post')}}" method="POST">
                             @csrf
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
@@ -152,7 +152,7 @@
 
                         <p class="text-center">
                             <span>New on our platform?</span>
-                            <a href="auth-register-basic.html">
+                            <a href="{{route('register.get')}}">
                                 <span>Create an account</span>
                             </a>
                         </p>
