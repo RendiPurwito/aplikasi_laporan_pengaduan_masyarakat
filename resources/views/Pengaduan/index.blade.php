@@ -44,19 +44,19 @@
                             </a> --}}
 
                             @if ($row->status == '0')
-                                <a href="{{route('tanggapan.create', $row)}}" class="btn btn-primary btn-sm" title="Isi Tanggapan">
+                                <a href="{{route('tanggapan.create', $row->id)}}" class="btn btn-primary btn-sm" title="Isi Tanggapan">
                                     <i class='bx bx-comment'></i>
                                 </a>
                             @endif
 
-                            <a href="{{route('tanggapan.create', $row)}}" class="btn btn-primary btn-sm" title="Lihat Detail Laporan">
+                            <a href="{{route('tanggapan.create', $row->id)}}" class="btn btn-primary btn-sm" title="Lihat Detail Laporan">
                                 <i class='bx bx-detail'></i>
                             </a>
     
-                            <form action="" method="POST" class="d-inline-block">
+                            <form action="{{route('pengaduan.delete', $row->id)}}" method="POST" class="d-inline-block delete-form">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" id="deleteButton"
+                                <button type="submit" class="btn btn-danger btn-sm delete-button" id="deleteButton"
                                     data-message="Delete  '{{ $row->id }}' ?" title="Hapus Laporan">
                                     <i class='bx bx-trash-alt'></i>
                                 </button>

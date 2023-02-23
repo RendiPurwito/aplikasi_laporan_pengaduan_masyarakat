@@ -19,10 +19,10 @@ return new class extends Migration
             // $table->date('tgl_pengaduan');
             // $table->foreignId('masyarakat_nik');
             $table->string('nik_pelapor');
-            $table->foreign('nik_pelapor')->references('nik')->on('masyarakats');
+            $table->foreign('nik_pelapor')->references('nik')->on('masyarakats')->onDelete('cascade');
             $table->text('isi_laporan');
             $table->string('foto')->nullable();
-            $table->enum('status', ['0', 'proses', 'selesai']);
+            $table->enum('status', ['0', 'proses', 'selesai'])->default('0');
             $table->timestamps();
         });
     }

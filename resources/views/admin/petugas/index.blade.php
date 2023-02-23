@@ -53,10 +53,10 @@
                                 <i class='bx bx-edit-alt'></i>
                             </a>
     
-                            <form action="{{ route('admin.petugas.delete', $row) }}" method="POST" class="d-inline-block">
+                            <form action="{{ route('admin.petugas.delete', $row->id) }}" method="POST" class="d-inline-block">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" id="deleteButton"
+                                <button type="submit" class="btn btn-danger btn-sm delete-button" id="deleteButton"
                                     data-message="Delete petugas '{{ $row->nama }}' ?"
                                     title="Delete petugas '{{ $row->nama }}'">
                                     <i class='bx bx-trash-alt'></i>

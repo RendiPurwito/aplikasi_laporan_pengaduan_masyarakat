@@ -4,7 +4,6 @@ $(document).ready( function () {
 
 $('#submitButton').on('click', function (e) {
     e.preventDefault();
-    var form = $(this).parents('form');
     swal({
         icon: "warning",
         title: "Apakah anda yakin ingin menyimpan data ini?",
@@ -14,7 +13,6 @@ $('#submitButton').on('click', function (e) {
     }).then((isConfirm) => {
         if (isConfirm) {
             document.getElementById("myForm").submit();
-            // form.submit();
             swal({
                 icon: "success",
                 title: 'Petugas berhasil ditambahkan!',
@@ -44,6 +42,7 @@ $('#submitEditButton').on('click', function (e) {
 
 $('#deleteButton').on('click', function (e) {
     e.preventDefault();
+    var form = $(this).parents('form');
     var message = $('#deleteButton').attr('data-message');
     swal({
         icon: "warning",
@@ -53,7 +52,7 @@ $('#deleteButton').on('click', function (e) {
         dangerMode: true
     }).then((isConfirm) => {
         if (isConfirm) {
-            document.getElementById("deleteForm").submit();
+            form.submit();
             swal({
                 icon: "success",
                 title: 'Petugas berhasil dihapus!',

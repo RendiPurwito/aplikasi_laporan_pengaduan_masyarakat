@@ -76,14 +76,14 @@ class UserSeeder extends Seeder
             [
                 'nik_pelapor' => '3270012810821123',
                 'isi_laporan' => 'Laporan',
-                'foto' => 'BUKTIPERMANEN_SISWA_0055968134.jpeg',
+                'foto' => '1.png',
                 'status' => 'selesai',
                 'created_at' => '2023-02-17 03:05:01'
             ],
             [
                 'nik_pelapor' => '3270012810821123',
                 'isi_laporan' => 'Kenapa kapibara disebut masbro',
-                'foto' => 'BUKTIPERMANEN_SISWA_0055968134.jpeg',
+                'foto' => '3.png',
                 'status' => '0',
                 'created_at' => '2023-02-17 03:05:01'
             ],

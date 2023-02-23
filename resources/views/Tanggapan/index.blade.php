@@ -43,10 +43,10 @@
                                 </a>
                             @endif
     
-                            <form action="" method="POST" class="d-inline-block">
+                            <form action="{{route('tanggapan.delete', $row->id)}}" method="POST" class="d-inline-block delete-form" >
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" id="deleteButton">
+                                <button type="submit" class="btn btn-danger btn-sm delete-button" id="deleteButton">
                                     <i class='bx bx-trash-alt'></i>
                                 </button>
                             </form>

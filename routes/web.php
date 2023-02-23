@@ -36,6 +36,10 @@ Route::post('/pengaduan/feedback', [PengaduanController::class, 'store'])->name(
 Route::get('/pengaduan/feedback', function () {
     return view('Masyarakat.feedback');
 });
+Route::get('/pengaduan/list', [PengaduanController::class, 'list'])->name('pengaduan.list');
+Route::get('/pengaduan/{id}/edit', [PengaduanController::class, 'edit'])->name('pengaduan.edit');
+Route::post('/pengaduan/{id}', [PengaduanController::class, 'update'])->name('pengaduan.update');
+
 
 
 // Petugas & Admin
@@ -45,13 +49,16 @@ Route::prefix('petugas')->group(function (){
 
     // CRUD Pengaduan
     Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan.index');
-    Route::get('/pengaduan/list', [PengaduanController::class, 'list'])->name('pengaduan.list');
-    Route::get('/tanggapan/{id}/pdf', [TanggapanController::class, 'pdf'])->name('tanggapan.pdf');
+    Route::get('/pengaduan/{id}/pdf', [PengaduanController::class, 'pdf'])->name('pengaduan.pdf');
+    Route::delete('/pengaduan/{id}', [PengaduanController::class, 'destroy'])->name('pengaduan.delete')->middleware('admin');
 
     // Tanggapan
     Route::get('/tanggapan', [TanggapanController::class, 'index'])->name('tanggapan.index');
     Route::get('/tanggapan/create/{id}', [TanggapanController::class, 'create'])->name('tanggapan.create');
     Route::post('/tanggapan', [TanggapanController::class, 'store'])->name('tanggapan.store');
+    Route::get('/tanggapan/{id}/edit', [TanggapanController::class, 'edit'])->name('tanggapan.edit');
+    Route::post('/tanggapan/{id}', [TanggapanController::class, 'update'])->name('tanggapan.update');
+    Route::delete('/tanggapan/{id}', [TanggapanController::class, 'destroy'])->name('tanggapan.delete');
     Route::get('/tanggapan/{id}/pdf', [TanggapanController::class, 'pdf'])->name('tanggapan.pdf');
 
     // Admin

@@ -38,6 +38,12 @@ class TanggapanController extends Controller
         return redirect()->route('tanggapan.index')->with('success','Tanggapan berhasil ditambahkan!');
     }
 
+    public function destroy($id){
+        $data = Tanggapan::where('id', $id)->firstOrFail();
+        $data->delete();
+        return redirect()->route('tanggapan.index')->with('success','Laporan berhasil dihapus!');
+    }
+
     public function pdf($id)
     {
         $data = Tanggapan::find($id);

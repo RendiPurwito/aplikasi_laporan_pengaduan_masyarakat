@@ -73,4 +73,10 @@ class PengaduanController extends Controller
         $data->update();
         return redirect()->route('')->with('success', 'Data Berhasil Diedit');
     }
+
+    public function destroy($id){
+        $data = Pengaduan::where('id', $id)->firstOrFail();
+        $data->delete();
+        return redirect()->route('pengaduan.index')->with('success','Laporan berhasil dihapus!');
+    }
 }
