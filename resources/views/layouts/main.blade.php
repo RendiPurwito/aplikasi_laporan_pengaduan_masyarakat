@@ -57,6 +57,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
         integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        .layout-menu-fixed:not(.layout-menu-collapsed) .layout-page,
+    .layout-menu-fixed-offcanvas:not(.layout-menu-collapsed) .layout-page {
+        padding-left: 0;
+    }
+    </style>
 </head>
 
 <body>
@@ -65,7 +72,7 @@
         <div class="layout-container">
             <!-- Menu -->
 
-            <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+            {{-- <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
                 <div class="app-brand demo">
                     <a href="index.html" class="app-brand-link">
                         <span class="app-brand-logo demo">
@@ -132,7 +139,7 @@
                         </a>
                     </li>
                 </ul>
-            </aside>
+            </aside> --}}
             <!-- / Menu -->
 
             <!-- Layout container -->
@@ -185,6 +192,12 @@
                                     </li>
                                     <li>
                                         <div class="dropdown-divider"></div>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="{{route('pengaduan.list')}}">
+                                            <i class="bx bx-detail me-2"></i>
+                                            <span class="align-middle">Laporan Saya</span>
+                                        </a>
                                     </li>
                                     <li>
                                         <a class="dropdown-item" href="{{route('logout')}}">

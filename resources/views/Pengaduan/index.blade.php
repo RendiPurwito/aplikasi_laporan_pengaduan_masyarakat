@@ -10,14 +10,16 @@
                     <tr>
                         <th>Tgl Pengaduan</th>
                         <th>Nama Pelapor</th>
-                        <th>Isi Laporan</th>
-                        <th>Foto</th>
+                        <th>Kategori Laporan</th>
+                        <th>Judul Laporan</th>
+                        {{-- <th>Isi Laporan</th>
+                        <th>Foto</th> --}}
                         <th>Status</th>
                         <th data-sortable="false">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data as $row)
+                    @foreach ($pengaduan as $row)
                     <tr>
                         <td>
                             {{ date('Y-m-d', strtotime($row->created_at)) }}
@@ -26,41 +28,42 @@
                         <td>
                             {{ $row->masyarakat->nama }}
                         </td>
+
                         <td>
-                            {{-- {{ $row->isi_laporan }} --}}
+                            {{ (ucfirst(str_replace('_', ' ', $row->kategori))) }}
+                        </td>
+
+                        <td>
+                            {{ $row->judul_laporan}}
+                        </td>
+                        {{-- <td>
+                            {{ $row->isi_laporan }}
                             {{ Str::limit($row->isi_laporan, 20, '...') }}
                         </td>
                         <td>
-                            @if ($row->foto != "null")
-                                <img src="/foto/{{$row->foto}}" class="img-thumbnail" style="width:200px" />
-                            @endif
-                        </td>
+                            <a href="{{asset('foto/'.$row->foto)}}" target="_blank"
+                                rel="noopener noreferrer">Lihat Gambar</a>
+                            <img src="/foto/{{$row->foto}}" class="img-thumbnail" style="width:200px" />
+                        </td> --}}
                         <td>
                             {{ ucfirst($row->status) }}
                         </td>
                         <td>
-                            {{-- <a href="" class="btn btn-primary btn-sm">
-                                <i class='bx bx-edit-alt'></i>
-                            </a> --}}
-
                             @if ($row->status == '0')
+                            <a href="{{route('pengaduan.verifikasi.get', $row->id)}}" class="btn btn-primary btn-sm" title="Verifikasi Laporan">
+                                <i class='bx bx-check'></i>
+                            </a>
+                            @endif
+
+                            @if ($row->status == 'proses')
                                 <a href="{{route('tanggapan.create', $row->id)}}" class="btn btn-primary btn-sm" title="Isi Tanggapan">
                                     <i class='bx bx-comment'></i>
                                 </a>
                             @endif
 
-                            <a href="{{route('tanggapan.create', $row->id)}}" class="btn btn-primary btn-sm" title="Lihat Detail Laporan">
+                            <a href="{{route('pengaduan.detail', $row->id)}}" class="btn btn-primary btn-sm" title="Lihat Detail Laporan">
                                 <i class='bx bx-detail'></i>
                             </a>
-    
-                            <form action="{{route('pengaduan.delete', $row->id)}}" method="POST" class="d-inline-block delete-form">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm delete-button" id="deleteButton"
-                                    data-message="Delete  '{{ $row->id }}' ?" title="Hapus Laporan">
-                                    <i class='bx bx-trash-alt'></i>
-                                </button>
-                            </form>
                         </td>
                     </tr>
                     @endforeach

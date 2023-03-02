@@ -18,7 +18,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data as $row)
+                    @foreach ($masyarakat as $row)
                     <tr>
                         {{-- <td>
                             {{ $loop->iteration }}
@@ -40,7 +40,7 @@
                         </td>
                         <td>
                             <a href="{{route('admin.masyarakat.edit', $row->nik)}}" class="btn btn-primary btn-sm"
-                                title="Edit masyarakat '{{ $row->nama }}'">
+                                title="Edit '{{ $row->nama }}'">
                                 <i class='bx bx-edit-alt'></i>
                             </a>
     
@@ -48,8 +48,8 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm" id="deleteButton"
-                                    data-message="Delete masyarakat '{{ $row->nama }}' ?"
-                                    title="Delete masyarakat '{{ $row->nama }}'">
+                                    data-message="Delete '{{ $row->nama }}' ?"
+                                    title="Delete '{{ $row->nama }}'">
                                     <i class='bx bx-trash-alt'></i>
                                 </button>
                             </form>

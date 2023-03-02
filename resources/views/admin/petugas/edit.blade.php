@@ -9,7 +9,7 @@
             @csrf
             <div class="mb-3">
                 <label class="form-label" for="basic-default-fullname">Nama</label>
-                <input type="text" class="form-control" id="basic-default-fullname" placeholder="Nama Petugas" id="nama" name="nama" autocomplete="off" value="{{$data->nama}}"/>
+                <input type="text" class="form-control" id="basic-default-fullname" placeholder="Nama Petugas" id="nama" name="nama" autocomplete="off" value="{{$petugas->nama}}"/>
                 @error('nama')
                     <div class="text-danger">
                         {{ $message }}
@@ -19,7 +19,7 @@
 
             <div class="mb-3">
                 <label class="form-label" for="basic-default-company">Username</label>
-                <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc." id="username" name="username" autocomplete="off" value="{{$data->username}}"/>
+                <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc." id="username" name="username" autocomplete="off" value="{{$petugas->username}}"/>
                 @error('username')
                     <div class="text-danger">
                         {{ $message }}
@@ -39,7 +39,7 @@
             <div class="mb-3">
                 <label class="form-label" for="basic-default-phone">No Telp</label>
                 <input type="number" id="basic-default-phone" class="form-control phone-mask"
-                    placeholder="658 799 8941" name="telp" value="{{$data->telp}}"/>
+                    placeholder="658 799 8941" name="telp" value="{{$petugas->telp}}"/>
                     @error('telp')
                     <div class="text-danger">
                         {{ $message }}
@@ -51,7 +51,7 @@
                 <label class="form-label" for="basic-default-email">Email</label>
                 <div class="input-group input-group-merge">
                     <input type="text" id="basic-default-email" class="form-control" placeholder="john.doe"
-                        aria-label="john.doe" aria-describedby="basic-default-email2" name="email" value="{{$data->email}}"/>
+                        aria-label="john.doe" aria-describedby="basic-default-email2" name="email" value="{{$petugas->email}}"/>
                     <span class="input-group-text" id="basic-default-email2">@gmail.com</span>
                 </div>
                 @error('email')

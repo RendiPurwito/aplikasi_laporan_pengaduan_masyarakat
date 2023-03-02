@@ -1,9 +1,9 @@
 @extends('Layouts.main')
 @section('content')
 <div class="card mb-4">
-    {{-- <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0"></h5>
-    </div> --}}
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h4 class="mb-0">Sampaikan Laporan Anda</h4>
+    </div>
     <div class="card-body">
         <form action="{{route('pengaduan.store')}}" method="POST" id="myForm" enctype="multipart/form-data">
             @csrf
@@ -25,7 +25,37 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label" for="basic-default-company">Laporan</label>
+                <label class="form-label" for="basic-default-company">Kategori Laporan</label>
+                <select id="defaultSelect" class="form-select" name="kategori">
+                    <option selected>Pilih Kategori</option>
+                    <option value="agama">Agama</option>
+                    <option value="corona_virus">Corona Virus</option>
+                    <option value="ekonomi">Ekonomi dan Keuangan</option>
+                    <option value="kesehatan">Kesehatan</option>
+                    <option value="kesetaraan_gender">Kesetaraan Gender</option>
+                    <option value="ketertiban_umum">Ketertiban Umum</option>
+                    <option value="lingkungan_hidup">Lingkungan Hidup</option>
+                    <option value="pendidikan">Pendidikan</option>
+                    <option value="pertanian">Pertanian</option>
+                    <option value="peternakan">Peternakan</option>
+                    <option value="politik">Politik</option>
+                    <option value="kekerasan">Kekerasan</option>
+                    <option value="teknologi_informasi">Teknologi Informasi dan Komunikasi</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="basic-default-company">Judul Laporan</label>
+                <input type="text" class="form-control" name="judul_laporan"/>
+                @error('judul_laporan')
+                <div class="text-danger">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label" for="basic-default-company">Isi Laporan</label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" name="isi_laporan"></textarea>
                 @error('isi_laporan')
                 <div class="text-danger">

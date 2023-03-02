@@ -17,7 +17,7 @@ class IsMasyarakat
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::guard('masyarakat')->check()){
+        if(Auth::guard('masyarakats')->check()){
             return $next($request);
         }
         abort(403);

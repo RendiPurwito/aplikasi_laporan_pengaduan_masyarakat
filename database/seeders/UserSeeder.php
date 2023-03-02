@@ -75,6 +75,8 @@ class UserSeeder extends Seeder
         DB::table('pengaduans')->insert([
             [
                 'nik_pelapor' => '3270012810821123',
+                'kategori' => 'agama',
+                'judul_laporan' => 'Laporan',
                 'isi_laporan' => 'Laporan',
                 'foto' => '1.png',
                 'status' => 'selesai',
@@ -82,6 +84,8 @@ class UserSeeder extends Seeder
             ],
             [
                 'nik_pelapor' => '3270012810821123',
+                'kategori' => 'lingkungan_hidup',
+                'judul_laporan' => 'Laporan',
                 'isi_laporan' => 'Kenapa kapibara disebut masbro',
                 'foto' => '3.png',
                 'status' => '0',

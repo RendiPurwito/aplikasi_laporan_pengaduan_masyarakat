@@ -9,18 +9,18 @@ use App\Http\Controllers\Controller;
 class MasyarakatController extends Controller
 {
     public function index(Request $request){
-        $data = Masyarakat::All()->sortBy('name');
-        return view('admin.masyarakat.index', compact('data'));
+        $masyarakat = Masyarakat::All()->sortBy('name');
+        return view('admin.masyarakat.index', compact('masyarakat'));
     }
 
     public function edit($nik){
         return view('admin.masyarakat.edit',[
-            'data' => Masyarakat::find($nik),
+            'masyarakat' => Masyarakat::find($nik),
         ]);
     }
 
     public function update(Request $request, $nik){
-        $data = Masyarakat::find($nik);
+        $masyarakat = Masyarakat::find($nik);
         $this->validate($request,[
             'nama' => ['required'],
             'username' => ['required'],
@@ -33,13 +33,13 @@ class MasyarakatController extends Controller
         $input['username'] = $request['username'];
         $input['telp'] = $request['telp'];
         $input['email'] = $request['email'];
-        $data->update($input);
+        $masyarakat->update($input);
         return redirect()->route('admin.masyarakat.index')->with('success','Petugas berhasil diupdate!');
     }
 
     public function destroy($nik){
-        $data = Masyarakat::where('nik', $nik)->firstOrFail();
-        $data->delete();
+        $masyarakat = Masyarakat::where('nik', $nik)->firstOrFail();
+        $masyarakat->delete();
         return redirect()->route('admin.masyarakat.index')->with('success','Petugas berhasil dihapus!');
     }
 }

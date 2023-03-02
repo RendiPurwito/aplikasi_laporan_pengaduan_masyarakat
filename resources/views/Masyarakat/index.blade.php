@@ -4,13 +4,14 @@
 <div class="card">
     <h5 class="card-header">Pengaduan</h5>
     <div class="card-body">
-        <div class="">
+        <div class="table-responsive text-nowrap">
             <table class="table table-striped " id="table">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Tanggal Pengaduan</th>
-                        <th>Nama Pelapor</th>
+                        <th>Tgl Pengaduan</th>
+                        {{-- <th>Nama Pelapor</th> --}}
+                        <th>Kategori Laporan</th>
+                        <th>Judul Laporan</th>
                         <th>Isi Laporan</th>
                         <th>Foto</th>
                         <th>Status</th>
@@ -18,29 +19,38 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data as $row)
+                    @foreach ($pengaduan as $row)
                     <tr>
                         <td>
-                            {{ $loop->iteration }}
-                        </td>
-                        <td>
                             {{ date('Y-m-d', strtotime($row->created_at)) }}
+                            {{-- {{ $row->created_at}} --}}
                         </td>
-                        <td>
+                        {{-- <td>
                             {{ $row->masyarakat->nama }}
+                        </td> --}}
+
+                        <td>
+                            {{ (ucfirst(str_replace('_', ' ', $row->kategori))) }}
+                        </td>
+
+                        <td>
+                            {{ $row->judul_laporan}}
                         </td>
                         <td>
                             {{ $row->isi_laporan }}
+                            {{ Str::limit($row->isi_laporan, 20, '...') }}
                         </td>
                         <td>
-                            <img src="/foto/{{$row->foto}}" class="img-thumbnail" style="width:200px" />
+                            <a href="{{asset('foto/'.$row->foto)}}" target="_blank"
+                                rel="noopener noreferrer">Lihat Gambar</a>
+                            {{-- <img src="/foto/{{$row->foto}}" class="img-thumbnail" style="width:200px" /> --}}
                         </td>
                         <td>
                             {{ ucfirst($row->status) }}
                         </td>
                         <td>
-                            <a href="" class="btn btn-primary btn-sm">
-                                <i class='bx bx-edit-alt'></i>
+                            <a href="{{route('pengaduan.detail', $row->id)}}" class="btn btn-primary btn-sm" title="Lihat Detail Laporan">
+                                <i class='bx bx-detail'></i>
                             </a>
                         </td>
                     </tr>

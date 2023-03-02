@@ -19,7 +19,6 @@ use App\Http\Controllers\Admin\MasyarakatController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes(['verify' => true]);
 
 //! Auth
     //! Login Form 
@@ -85,6 +84,15 @@ Route::prefix('petugas')->group(function (){
         //! Delete
         Route::delete('/pengaduan/{id}', [PengaduanController::class, 'destroy'])->name('pengaduan.delete')->middleware('petugas.admin');
 
+        //! Verifikasi
+        Route::get('/pengaduan/{id}/verifikasi', [PengaduanController::class, 'verify'])->name('pengaduan.verifikasi.get')->middleware('petugas.admin');
+
+        //! Diverifikasi
+        Route::post('/pengaduan/{id}', [PengaduanController::class, 'verified'])->name('pengaduan.verifikasi.post')->middleware('petugas.admin');
+
+        //! Detail
+        Route::get('/pengaduan/{id}/detail', [PengaduanController::class, 'detail'])->name('pengaduan.detail')->middleware('petugas.admin');
+
         //! PDF
         Route::get('/pengaduan/{id}/pdf', [PengaduanController::class, 'pdf'])->name('pengaduan.pdf')->middleware('petugas.admin');
 
@@ -99,14 +107,8 @@ Route::prefix('petugas')->group(function (){
         //! Store
         Route::post('/tanggapan', [TanggapanController::class, 'store'])->name('tanggapan.store')->middleware('petugas.admin');
 
-        //! Edit
-        Route::get('/tanggapan/{id}/edit', [TanggapanController::class, 'edit'])->name('tanggapan.edit')->middleware('petugas.admin');
-
-        //! Update
-        Route::post('/tanggapan/{id}', [TanggapanController::class, 'update'])->name('tanggapan.update')->middleware('petugas.admin');
-
-        //! Delete
-        Route::delete('/tanggapan/{id}', [TanggapanController::class, 'destroy'])->name('tanggapan.delete')->middleware('petugas.admin');
+        //! Detail
+        Route::get('/tanggapan/{id}/detail', [TanggapanController::class, 'detail'])->name('tanggapan.detail')->middleware('petugas.admin');
 
         //! PDF
         Route::get('/tanggapan/{id}/pdf', [TanggapanController::class, 'pdf'])->name('tanggapan.pdf')->middleware('admin');
@@ -122,39 +124,39 @@ Route::prefix('petugas')->group(function (){
             Route::post('/registered', [AuthController::class, 'adminRegister'])->name('admin.register.post')->middleware('guest');
 
         //! Dashboard
-        Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('admin.dashboard')->middleware(['admin', 'verified']);
+        Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('admin.dashboard')->middleware('admin');
 
         //! CRUD Masyarakat
             //! Index 
-            Route::get('/masyarakat', [MasyarakatController::class, 'index'])->name('admin.masyarakat.index')->middleware(['admin', 'verified']);
+            Route::get('/masyarakat', [MasyarakatController::class, 'index'])->name('admin.masyarakat.index')->middleware('admin');
 
             //! Edit
-            Route::get('/masyarakat/{id}/edit', [MasyarakatController::class, 'edit'])->name('admin.masyarakat.edit')->middleware(['admin', 'verified']);
+            Route::get('/masyarakat/{id}/edit', [MasyarakatController::class, 'edit'])->name('admin.masyarakat.edit')->middleware('admin');
 
             //! Update
-            Route::post('/masyarakat/{id}', [MasyarakatController::class, 'update'])->name('admin.masyarakat.update')->middleware(['admin', 'verified']);
+            Route::post('/masyarakat/{id}', [MasyarakatController::class, 'update'])->name('admin.masyarakat.update')->middleware('admin');
 
             //! Delete
-            Route::delete('/masyarakat/{id}', [MasyarakatController::class, 'destroy'])->name('admin.masyarakat.delete')->middleware(['admin', 'verified']);
+            Route::delete('/masyarakat/{id}', [MasyarakatController::class, 'destroy'])->name('admin.masyarakat.delete')->middleware('admin');
 
         //! CRUD Petugas
             //! Index
-            Route::get('/petugas', [PetugasController::class, 'index'])->name('admin.petugas.index')->middleware(['admin', 'verified']);
+            Route::get('/petugas', [PetugasController::class, 'index'])->name('admin.petugas.index')->middleware('admin');
 
             //! Create
-            Route::get('/petugas/create', [PetugasController::class, 'create'])->name('admin.petugas.create')->middleware(['admin', 'verified']);
+            Route::get('/petugas/create', [PetugasController::class, 'create'])->name('admin.petugas.create')->middleware('admin');
 
             //! Store
-            Route::post('/petugas', [PetugasController::class, 'store'])->name('admin.petugas.store')->middleware(['admin', 'verified']);
+            Route::post('/petugas', [PetugasController::class, 'store'])->name('admin.petugas.store')->middleware('admin');
 
             //! Edit
-            Route::get('/petugas/{id}/edit', [PetugasController::class, 'edit'])->name('admin.petugas.edit')->middleware(['admin', 'verified']);
+            Route::get('/petugas/{id}/edit', [PetugasController::class, 'edit'])->name('admin.petugas.edit')->middleware('admin');
 
             //! Update
-            Route::post('/petugas/{id}', [PetugasController::class, 'update'])->name('admin.petugas.update')->middleware(['admin', 'verified']);
+            Route::post('/petugas/{id}', [PetugasController::class, 'update'])->name('admin.petugas.update')->middleware('admin');
 
             //! Delete
-            Route::delete('/petugas/{id}', [PetugasController::class, 'destroy'])->name('admin.petugas.delete')->middleware(['admin', 'verified']);
+            Route::delete('/petugas/{id}', [PetugasController::class, 'destroy'])->name('admin.petugas.delete')->middleware('admin');
     });
 });
 

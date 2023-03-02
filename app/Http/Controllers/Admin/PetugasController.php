@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Hash;
 class PetugasController extends Controller
 {
     public function index(Request $request){
-        $data = Petugas::All()->sortBy('name');
-        return view('admin.petugas.index', compact('data'));
+        $petugas = Petugas::All()->sortBy('name');
+        return view('admin.petugas.index', compact('petugas'));
     }
 
     
@@ -30,25 +30,25 @@ class PetugasController extends Controller
             'password' => 'required',
         ]);
 
-        $data = new Petugas;
-        $data->nama = $request->nama;
-        $data->username = $request->username;
-        $data->level = $request->level;
-        $data->telp = $request->telp;
-        $data->email = $request->email;
-        $data->password = Hash::make($request->password);
-        $data->save();
+        $petugas = new Petugas;
+        $petugas->nama = $request->nama;
+        $petugas->username = $request->username;
+        $petugas->level = $request->level;
+        $petugas->telp = $request->telp;
+        $petugas->email = $request->email;
+        $petugas->password = Hash::make($request->password);
+        $petugas->save();
         return redirect()->route('admin.petugas.index')->with('success','Petugas berhasil ditambahkan!');
     }
 
     public function edit($id){
         return view('admin.petugas.edit',[
-            'data' => Petugas::find($id),
+            'petugas' => Petugas::find($id),
         ]);
     }
 
     public function update(Request $request, $id){
-        $data = Petugas::find($id);
+        $petugas = Petugas::find($id);
         $this->validate($request,[
             'nama' => ['required'],
             'username' => ['required'],
@@ -63,13 +63,13 @@ class PetugasController extends Controller
         $input['level'] = $request['level'];
         $input['telp'] = $request['telp'];
         $input['email'] = $request['email'];
-        $data->update($input);
+        $petugas->update($input);
         return redirect()->route('admin.petugas.index')->with('success','Petugas berhasil diupdate!');
     }
 
     public function destroy($id){
-        $data = Petugas::find($id);
-        $data->delete();
+        $petugas = Petugas::find($id);
+        $petugas->delete();
         return redirect()->route('admin.petugas.index')->with('success','Petugas berhasil dihapus!');
     }
 }

@@ -11,11 +11,11 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function adminDashboard(){
-        $jumlahmasyarakat = Masyarakat::count();
-        $jumlahpetugas = Petugas::count();
-        $jumlahpengaduan = Pengaduan::count();
+        $belumdiverifikasi = Pengaduan::where('status', '0')->count();
+        $sudahdiverifikasi = Pengaduan::where('status', 'proses')->count();
+        $sudahditanggapi = Pengaduan::where('status', 'selesai')->count();
         $jumlahtanggapan = Tanggapan::count();
-        return view('Admin.dashboard', compact('jumlahmasyarakat', 'jumlahpetugas', 'jumlahpengaduan', 'jumlahtanggapan'));
+        return view('Admin.dashboard', compact('belumdiverifikasi', 'sudahdiverifikasi', 'sudahditanggapi', 'jumlahtanggapan'));
     }
 
     public function dashboard(){

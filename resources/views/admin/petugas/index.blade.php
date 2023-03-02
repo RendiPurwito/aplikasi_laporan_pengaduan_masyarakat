@@ -27,7 +27,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data as $row)
+                    @foreach ($petugas as $row)
                     <tr>
                         <td>
                             {{ $loop->iteration }}
@@ -57,8 +57,8 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm delete-button" id="deleteButton"
-                                    data-message="Delete petugas '{{ $row->nama }}' ?"
-                                    title="Delete petugas '{{ $row->nama }}'">
+                                    data-message="Delete '{{ $row->nama }}' ?"
+                                    title="Delete '{{ $row->nama }}'">
                                     <i class='bx bx-trash-alt'></i>
                                 </button>
                             </form>

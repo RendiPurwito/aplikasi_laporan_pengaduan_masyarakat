@@ -11,8 +11,8 @@
                             alt="chart success" class="rounded" />
                     </div>
                     <div>
-                        <h4 class="card-title mb-2">{{$jumlahmasyarakat}}</h4>
-                        <span class="fw-semibold d-block mb-1">Masyarakat</span>
+                        <h4 class="card-title mb-2">{{$belumdiverifikasi}}</h4>
+                        <span class="fw-semibold d-block mb-1">Belum Diverifikasi</span>
                         {{-- <div class="btn btn-outline-primary float-end">See More</div> --}}
                     </div>
                 </div>
@@ -28,8 +28,8 @@
                             alt="chart success" class="rounded" />
                     </div>
                     <div>
-                        <h4 class="card-title mb-2">{{$jumlahpetugas}}</h4>
-                        <span class="fw-semibold d-block mb-1">Petugas</span>
+                        <h4 class="card-title mb-2">{{$sudahdiverifikasi}}</h4>
+                        <span class="fw-semibold d-block mb-1">Sudah Diverifikasi</span>
                         {{-- <div class="btn btn-outline-primary float-end">See More</div> --}}
                     </div>
                 </div>
@@ -45,8 +45,8 @@
                             alt="chart success" class="rounded" />
                     </div>
                     <div>
-                        <h4 class="card-title mb-2">{{$jumlahpengaduan}}</h4>
-                        <span class="fw-semibold d-block mb-1">Pengaduan</span>
+                        <h4 class="card-title mb-2">{{$sudahditanggapi}}</h4>
+                        <span class="fw-semibold d-block mb-1">Sudah Ditanggapi</span>
                         {{-- <div class="btn btn-outline-primary float-end">See More</div> --}}
                     </div>
                 </div>
