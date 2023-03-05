@@ -25,6 +25,7 @@ return new class extends Migration
             $table->text('isi_laporan');
             $table->string('foto')->nullable();
             $table->enum('status', ['0', 'proses', 'selesai'])->default('0');
+            $table->enum('visibilitas', ['public', 'private'])->default('0');
             $table->timestamps();
         });
     }

@@ -10,11 +10,11 @@ class MasyarakatController extends Controller
 {
     public function index(Request $request){
         $masyarakat = Masyarakat::All()->sortBy('name');
-        return view('admin.masyarakat.index', compact('masyarakat'));
+        return view('User Admin.masyarakat.index', compact('masyarakat'));
     }
 
     public function edit($nik){
-        return view('admin.masyarakat.edit',[
+        return view('User Admin.masyarakat.edit',[
             'masyarakat' => Masyarakat::find($nik),
         ]);
     }

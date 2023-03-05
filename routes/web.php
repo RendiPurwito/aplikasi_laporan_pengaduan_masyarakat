@@ -49,15 +49,15 @@ use App\Http\Controllers\Admin\MasyarakatController;
     Route::post('/reset-password/{token}', [AuthController::class, 'postResetPassword'])->name('reset.password.post');
 
 //! Masyarakat Routes
-    //! Create
-    Route::get('/pengaduan/create', [PengaduanController::class, 'create'])->name('pengaduan.create')->middleware('masyarakat');
+    //! Form Laporan
+    Route::get('/pengaduan/form-laporan', [PengaduanController::class, 'create'])->name('pengaduan.create')->middleware('masyarakat');
     
     //! Store
     Route::post('/pengaduan/feedback', [PengaduanController::class, 'store'])->name('pengaduan.store')->middleware('masyarakat');
     
     //! Feedback
     Route::get('/pengaduan/feedback', function () {
-        return view('Masyarakat.feedback');
+        return view('User Masyarakat.feedback');
     })->middleware('masyarakat');
     
     //! List pengaduan
@@ -82,13 +82,13 @@ Route::prefix('petugas')->group(function (){
         Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan.index')->middleware('petugas.admin');
 
         //! Delete
-        Route::delete('/pengaduan/{id}', [PengaduanController::class, 'destroy'])->name('pengaduan.delete')->middleware('petugas.admin');
+        // Route::delete('/pengaduan/{id}', [PengaduanController::class, 'destroy'])->name('pengaduan.delete')->middleware('petugas.admin');
 
         //! Verifikasi
-        Route::get('/pengaduan/{id}/verifikasi', [PengaduanController::class, 'verify'])->name('pengaduan.verifikasi.get')->middleware('petugas.admin');
+        // Route::get('/pengaduan/{id}', [PengaduanController::class, 'verify'])->name('pengaduan.verifikasi.get')->middleware('petugas.admin');
 
         //! Diverifikasi
-        Route::post('/pengaduan/{id}', [PengaduanController::class, 'verified'])->name('pengaduan.verifikasi.post')->middleware('petugas.admin');
+        Route::post('/pengaduan/{id}', [PengaduanController::class, 'verified'])->name('pengaduan.verifikasi')->middleware('petugas.admin');
 
         //! Detail
         Route::get('/pengaduan/{id}/detail', [PengaduanController::class, 'detail'])->name('pengaduan.detail')->middleware('petugas.admin');
@@ -102,10 +102,10 @@ Route::prefix('petugas')->group(function (){
         Route::get('/tanggapan', [TanggapanController::class, 'index'])->name('tanggapan.index')->middleware('petugas.admin');
 
         //! Create
-        Route::get('/tanggapan/create/{id}', [TanggapanController::class, 'create'])->name('tanggapan.create')->middleware('petugas.admin');
+        Route::get('/pengaduan/{id}', [TanggapanController::class, 'create'])->name('tanggapan.create')->middleware('petugas.admin');
 
         //! Store
-        Route::post('/tanggapan', [TanggapanController::class, 'store'])->name('tanggapan.store')->middleware('petugas.admin');
+        Route::post('/tanggapan/{id}', [TanggapanController::class, 'store'])->name('tanggapan.store')->middleware('petugas.admin');
 
         //! Detail
         Route::get('/tanggapan/{id}/detail', [TanggapanController::class, 'detail'])->name('tanggapan.detail')->middleware('petugas.admin');

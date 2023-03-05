@@ -38,7 +38,7 @@ class AuthController extends Controller
             }
         }elseif ($masyarakat) {
             $request->session()->regenerate();
-            return redirect()->intended('/pengaduan/create');
+            return redirect()->intended('/pengaduan/form-laporan');
         }else {
             return redirect('/login')->withErrors([
                 'error' => 'Username atau password salah.'

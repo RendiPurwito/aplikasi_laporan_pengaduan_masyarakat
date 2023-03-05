@@ -12,12 +12,12 @@ class PetugasController extends Controller
 {
     public function index(Request $request){
         $petugas = Petugas::All()->sortBy('name');
-        return view('admin.petugas.index', compact('petugas'));
+        return view('User Admin.petugas.index', compact('petugas'));
     }
 
     
     public function create(){
-        return view('admin.petugas.create');
+        return view('User Admin.petugas.create');
     }
 
     public function store(Request $request){
@@ -42,7 +42,7 @@ class PetugasController extends Controller
     }
 
     public function edit($id){
-        return view('admin.petugas.edit',[
+        return view('User Admin.petugas.edit',[
             'petugas' => Petugas::find($id),
         ]);
     }

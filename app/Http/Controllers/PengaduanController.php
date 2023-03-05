@@ -19,17 +19,19 @@ class PengaduanController extends Controller
     public function list(Request $request){
         // $masyarakat = Auth::guard('masyarakats')->user();
         $pengaduan = Pengaduan::where('nik_pelapor', Auth::guard('masyarakats')->user()->nik)->orderBy('created_at')->get();
-        return view('masyarakat.index', compact('pengaduan'));
+        return view('User Masyarakat.index', compact('pengaduan'));
     }
 
     public function create(){
-        return view('Masyarakat.create');
+        return view('User Masyarakat.form-laporan');
     }
 
     public function store(Request $request){
         $request->validate([
             // 'tgl_pengaduan'  => 'required',
             'nik_pelapor'  => 'required',
+            'kategori'  => 'required',
+            'judul_laporan'  => 'required',
             'isi_laporan'  => 'required',
             'foto'  => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'status' => 'required',
@@ -37,6 +39,8 @@ class PengaduanController extends Controller
 
         $pengaduan = new Pengaduan;
         $pengaduan->nik_pelapor = $request->nik_pelapor;
+        $pengaduan->kategori = $request->kategori;
+        $pengaduan->judul_laporan = $request->judul_laporan;
         $pengaduan->isi_laporan = $request->isi_laporan;
         $pengaduan->status = $request->status;
 

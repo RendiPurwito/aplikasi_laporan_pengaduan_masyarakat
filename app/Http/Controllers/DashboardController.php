@@ -15,12 +15,12 @@ class DashboardController extends Controller
         $sudahdiverifikasi = Pengaduan::where('status', 'proses')->count();
         $sudahditanggapi = Pengaduan::where('status', 'selesai')->count();
         $jumlahtanggapan = Tanggapan::count();
-        return view('Admin.dashboard', compact('belumdiverifikasi', 'sudahdiverifikasi', 'sudahditanggapi', 'jumlahtanggapan'));
+        return view('User Admin.dashboard', compact('belumdiverifikasi', 'sudahdiverifikasi', 'sudahditanggapi', 'jumlahtanggapan'));
     }
 
     public function dashboard(){
         $jumlahpengaduan = Pengaduan::count();
         $jumlahtanggapan = Tanggapan::count();
-        return view('Petugas.dashboard', compact('jumlahpengaduan', 'jumlahtanggapan'));
+        return view('User Petugas.dashboard', compact('jumlahpengaduan', 'jumlahtanggapan'));
     }
 }

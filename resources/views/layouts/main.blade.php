@@ -158,7 +158,9 @@
                         <!-- Search -->
                         <div class="navbar-nav align-items-center">
                             <div class="nav-item d-flex align-items-center">
-                                
+                                <a href="" class="me-5">Home</a>
+                                <a href="{{route('pengaduan.create')}}" class="me-5">Lapor</a>
+                                <a href="{{route('pengaduan.list')}}" class="me-5">Laporan Saya</a>
                             </div>
                         </div>
                         <!-- /Search -->
