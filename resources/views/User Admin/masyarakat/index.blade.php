@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="card">
-    <h5 class="card-header">Masyarakat</h5>
     <div class="card-body">
+        <h5 class="card-title">Masyarakat</h5>
         <div class="table-responsive text-nowrap">
             <table class="table table-striped " id="table">
                 <thead>
@@ -14,7 +14,7 @@
                         <th>Username</th>
                         <th>Telp</th>
                         <th>Email</th>
-                        <th data-sortable="false">Action</th>
+                        {{-- <th data-sortable="false">Action</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -38,7 +38,7 @@
                         <td>
                             {{ $row->email }}
                         </td>
-                        <td>
+                        {{-- <td>
                             <a href="{{route('admin.masyarakat.edit', $row->nik)}}" class="btn btn-primary btn-sm"
                                 title="Edit '{{ $row->nama }}'">
                                 <i class='bx bx-edit-alt'></i>
@@ -53,7 +53,7 @@
                                     <i class='bx bx-trash-alt'></i>
                                 </button>
                             </form>
-                        </td>
+                        </td> --}}
                     </tr>
                     @endforeach
                 </tbody>

@@ -1,10 +1,8 @@
 @extends('layouts.app')
 @section('content')
 <div class="card mb-4">
-    <div class="card-header d-flex justify-content-between align-items-center">
-        <h5 class="mb-0">Tambah Petugas</h5>
-    </div>
     <div class="card-body">
+        <h5 class="card-title">Tambah Petugas</h5>
         <form action="{{route('admin.petugas.store')}}" method="POST" id="myForm">
             @csrf
             <div class="mb-3">
@@ -74,7 +72,7 @@
                 <a href="{{route('admin.petugas.index')}}" class="btn btn-danger me-1 cancel-button">
                     Batal
                 </a>
-                <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
+                <button type="submit" class="btn btn-primary" id="submitButton">Simpan</button>
             </div> 
         </form>
     </div>

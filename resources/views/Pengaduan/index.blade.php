@@ -2,19 +2,20 @@
 
 @section('content')
 <div class="card">
-    <h5 class="card-header">Pengaduan</h5>
     <div class="card-body">
+        <h5 class="card-title">Pengaduan</h5>
         <div class="table-responsive text-nowrap">
             <table class="table table-striped " id="table">
                 <thead>
                     <tr>
                         <th>Tgl Pengaduan</th>
-                        <th>Nama Pelapor</th>
-                        <th>Kategori Laporan</th>
+                        {{-- <th>Visibilitas</th> --}}
                         <th>Judul Laporan</th>
+                        <th>Kategori Laporan</th>
+                        <th>Nama Pelapor</th>
+                        <th>Status</th>
                         {{-- <th>Isi Laporan</th>
                         <th>Foto</th> --}}
-                        <th>Status</th>
                         <th data-sortable="false">Action</th>
                     </tr>
                 </thead>
@@ -22,20 +23,40 @@
                     @foreach ($pengaduan as $row)
                     <tr>
                         <td>
-                            {{ date('Y-m-d', strtotime($row->created_at)) }}
+                            {{ \Carbon\Carbon::parse($row->created_at)->formatLocalized('%d %B %Y') }}
                             {{-- {{ $row->created_at}} --}}
                         </td>
+
+
+                        {{-- <td>
+                            {{ ucfirst($row->visibilitas) }}
+                        </td> --}}
+
+                        <td>
+                            {{ Str::limit($row->judul_laporan, 20, '...') }}
+                        </td>
+                        
+                        <td>
+                            {{ (ucfirst(str_replace('_', ' ', $row->kategori))) }}
+                        </td>
+                        
                         <td>
                             {{ $row->masyarakat->nama }}
                         </td>
 
                         <td>
-                            {{ (ucfirst(str_replace('_', ' ', $row->kategori))) }}
+                            {{-- {{ ucfirst($row->status) }} --}}
+                            @if ($row->status=="diterima")
+                                <p class="text-primary">Diterima</p>
+                            @elseif($row->status=="diproses")
+                                <p class="text-warning">Diproses</p>
+                            @elseif($row->status=="selesai")
+                                <p class="text-success">Selesai</p>
+                            @elseif($row->status=="ditolak")
+                                <p class="text-danger">Ditolak</p>
+                            @endif
                         </td>
-
-                        <td>
-                            {{ $row->judul_laporan}}
-                        </td>
+                        
                         {{-- <td>
                             {{ $row->isi_laporan }}
                         {{ Str::limit($row->isi_laporan, 20, '...') }}
@@ -46,10 +67,7 @@
                             <img src="/foto/{{$row->foto}}" class="img-thumbnail" style="width:200px" />
                         </td> --}}
                         <td>
-                            {{ ucfirst($row->status) }}
-                        </td>
-                        <td>
-                            @if ($row->status == '0')
+                            @if ($row->status == 'diterima')
                             {{-- <a href="{{route('pengaduan.verifikasi.get', $row->id)}}" class="btn btn-primary
                             btn-sm"
                             title="Verifikasi Laporan">
@@ -59,9 +77,14 @@
                                 data-bs-target="#verifikasiModal-{{$row->id}}">
                                 <i class='bx bx-check'></i>
                             </button>
+
+                            <button type="button" class="btn btn-sm btn-danger" id="rejectBtn" data-bs-toggle="modal"
+                                data-bs-target="#rejectModal-{{$row->id}}">
+                                <i class='bx bx-x'></i>
+                            </button>
                             @endif
 
-                            @if ($row->status == 'proses')
+                            @if ($row->status == 'diproses')
                             {{-- <a href="{{route('tanggapan.create', $row->id)}}" class="btn btn-primary btn-sm"
                             title="Isi Tanggapan">
                             <i class='bx bx-comment'></i>
@@ -101,16 +124,16 @@
                                         <div class="row">
                                             <div class="col">
                                                 <input type="hidden" class="form-control" id="status" name="status"
-                                                    autocomplete="off" value="proses" />
+                                                    autocomplete="off" value="diproses" />
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row text-wrap">
                                             <strong>Judul Laporan :</strong>
                                             <p>{{ $row->judul_laporan }}</p>
                                         </div>
                                         <div class="row">
                                             <strong>Kategori Laporan :</strong>
-                                            <p>{{ $row->kategori }}</p>
+                                            <p>{{ (ucfirst(str_replace('_', ' ', $row->kategori))) }}</p>
                                         </div>
                                         <div class="row text-wrap">
                                             <strong>Isi Laporan :</strong>
@@ -118,7 +141,7 @@
                                         </div>
                                         <div class="row mb-3">
                                             <strong>Foto :</strong>
-                                            <img src="/foto/{{$row->foto}}" class="img-thumbnail"
+                                            <img src="/foto/{{$row->foto}}" 
                                                 style="width:200px"/>
                                         </div>
                                         <div class="btn-footer float-end">
@@ -127,6 +150,57 @@
                                             </button>
                                             <button type="submit" class="btn btn-primary"
                                                 id="submitVerifyButton">Verifikasi</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{--! Modal Reject --}}
+                    <div class="modal" id="rejectModal-{{$row->id}}" tabindex="-1" aria-hidden="true"
+                        style="display: none">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header ">
+                                    <h5 class="modal-title" id="modalCenterTitle">Tolak Laporan</h5>
+                                    <p class="modal-title">{{ $row->created_at->format('l, d F Y') }}</p>
+                                    {{-- <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button> --}}
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{route('pengaduan.reject', $row->id)}}" method="POST"
+                                        id="rejectForm">
+                                        @csrf
+                                        <div class="row">
+                                            <div class="col">
+                                                <input type="hidden" class="form-control" id="status" name="status"
+                                                    autocomplete="off" value="ditolak" />
+                                            </div>
+                                        </div>
+                                        <div class="row text-wrap">
+                                            <strong>Judul Laporan :</strong>
+                                            <p>{{ $row->judul_laporan }}</p>
+                                        </div>
+                                        <div class="row">
+                                            <strong>Kategori Laporan :</strong>
+                                            <p>{{ (ucfirst(str_replace('_', ' ', $row->kategori))) }}</p>
+                                        </div>
+                                        <div class="row text-wrap">
+                                            <strong>Isi Laporan :</strong>
+                                            <p>{{ $row->isi_laporan }}</p>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <strong>Foto :</strong>
+                                            <img src="/foto/{{$row->foto}}" 
+                                                style="width:200px"/>
+                                        </div>
+                                        <div class="btn-footer float-end">
+                                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                                                Close
+                                            </button>
+                                            <button type="submit" class="btn btn-primary"
+                                                id="submitRejectButton">Tolak</button>
                                         </div>
                                     </form>
                                 </div>
@@ -149,13 +223,13 @@
                                     <form action="{{route('tanggapan.store', $row->id)}}" method="POST"
                                         id="tanggapanForm">
                                         @csrf
-                                        <div class="row">
+                                        <div class="row text-wrap">
                                             <strong>Judul Laporan :</strong>
                                             <p>{{ $row->judul_laporan }}</p>
                                         </div>
                                         <div class="row">
                                             <strong>Kategori Laporan :</strong>
-                                            <p>{{ $row->kategori }}</p>
+                                            <p>{{ (ucfirst(str_replace('_', ' ', $row->kategori))) }}</p>
                                         </div>
                                         <div class="row text-wrap">
                                             <strong>Isi Laporan :</strong>
@@ -163,8 +237,7 @@
                                         </div>
                                         <div class="row mb-3">
                                             <strong>Foto :</strong>
-                                            <img src="/foto/{{$row->foto}}" class="img-thumbnail"
-                                                style="width:200px"/>
+                                            <img src="/foto/{{$row->foto}}" style="width:200px"/>
                                         </div>
                                         <div class="row">
                                             <input type="hidden" class="form-control" id="pengaduan_id" name="pengaduan_id" autocomplete="off" value="{{$row->id}}"/>
@@ -206,13 +279,13 @@
                                         aria-label="Close"></button> --}}
                                 </div>
                                 <div class="modal-body">
-                                    <div class="row">
+                                    <div class="row text-wrap">
                                         <strong>Judul Laporan :</strong>
                                         <p>{{ $row->judul_laporan }}</p>
                                     </div>
                                     <div class="row">
                                         <strong>Kategori Laporan :</strong>
-                                        <p>{{ $row->kategori }}</p>
+                                        <p>{{ (ucfirst(str_replace('_', ' ', $row->kategori))) }}</p>
                                     </div>
                                     <div class="row text-wrap">
                                         <strong>Isi Laporan :</strong>
@@ -220,8 +293,7 @@
                                     </div>
                                     <div class="row mb-3">
                                         <strong>Foto :</strong>
-                                        <img src="/foto/{{$row->foto}}" class="img-thumbnail"
-                                            style="width:200px"/>
+                                        <img src="/foto/{{$row->foto}}" style="width:200px"/>
                                     </div>
                                     <div class="btn-footer float-end">
                                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">

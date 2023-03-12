@@ -9,6 +9,12 @@ class Tanggapan extends Model
 {
     use HasFactory;
 
+    protected $table = 'tanggapans';
+
+    protected $fillable = [
+        'tanggapan'
+    ];
+
     public function pengaduan()
     {
         return $this->belongsTo(Pengaduan::class, 'pengaduan_id', 'id');

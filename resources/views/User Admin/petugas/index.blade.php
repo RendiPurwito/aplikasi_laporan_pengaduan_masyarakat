@@ -1,18 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="text-end">
+    <a href="{{route('admin.petugas.create')}}" class="btn btn-primary mb-3">
+        Tambah +
+    </a>
+</div>
 <div class="card">
-    <div class="card-header d-flex justify-content-between">
-        <h5 class="fw-bold">Petugas</h5>
-        <div class="btn-toolbar" role="toolbar">
-            <div class="btn-group" role="group" aria-label="Third group">
-                <a href="{{route('admin.petugas.create')}}" class="btn btn-primary">
-                    Tambah +
-                </a>
-            </div>
-        </div>
-    </div>
     <div class="card-body">
+        <h5 class="card-title">Petugas</h5>
         <div class="table-responsive text-nowrap">
             <table class="table table-striped " id="table">
                 <thead>

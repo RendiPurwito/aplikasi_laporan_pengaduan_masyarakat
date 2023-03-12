@@ -11,15 +11,15 @@
     </style>
 </head>
 <body>
-	<h1>Laporan #{{ $data->id }}</h1>
-    <p>Tanggal: {{ $data->created_at }}</p>
+	<h1>Laporan #{{ $tanggapan->id }}</h1>
+    <p>Tanggal: {{ $tanggapan->created_at }}</p>
     <p>Isi Laporan: <br>
-        {{ $data->pengaduan->isi_laporan }} 
+        {{ $tanggapan->pengaduan->isi_laporan }} 
     </p>
     {{-- <p>Foto: <img src="/foto/{{$data->pengaduan->foto}}" class="img-thumbnail" style="width:200px" /></p> --}}
     <p>Tanggapan: <br>
-        {{ $data->tanggapan }}
+        {{ $tanggapan->tanggapan }}
     </p>
-    <p>Petugas: {{ $data->petugas->nama }}</p>
+    <p>Petugas: {{ $tanggapan->petugas->nama }}</p>
 </body>
 </html>

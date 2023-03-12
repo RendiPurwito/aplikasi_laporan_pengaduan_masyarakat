@@ -3,11 +3,13 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Petugas\DashboardController;
 use App\Http\Controllers\PengaduanController;
 use App\Http\Controllers\TanggapanController;
-use App\Http\Controllers\Admin\PetugasController;
-use App\Http\Controllers\Admin\MasyarakatController;
+use App\Http\Controllers\Petugas\PetugasController;
+use App\Http\Controllers\Petugas\MasyarakatController;
+use App\Http\Controllers\Petugas\UserPetugasController;
+use App\Http\Controllers\Masyarakat\UserMasyarakatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,22 +21,6 @@ use App\Http\Controllers\Admin\MasyarakatController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-//! Auth
-    //! Login Form 
-    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.get');
-
-    //! Login 
-    Route::post('/login', [AuthController::class, 'login'])->name('login.post')->middleware('guest');
-
-    //! Logout
-    Route::get('/logout',[AuthController::class,'logout'])->name('logout');
-
-    //! Register Form
-    Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.get')->middleware('guest');
-
-    //! Register
-    Route::post('/register', [AuthController::class, 'register'])->name('register.post')->middleware('guest');
 
     //! Forgot Password Form
     Route::get('/forgot-password', [AuthController::class, 'getForgotPassword'])->name('forgot.password.get')->middleware('guest');
@@ -49,114 +35,128 @@ use App\Http\Controllers\Admin\MasyarakatController;
     Route::post('/reset-password/{token}', [AuthController::class, 'postResetPassword'])->name('reset.password.post');
 
 //! Masyarakat Routes
-    //! Form Laporan
-    Route::get('/pengaduan/form-laporan', [PengaduanController::class, 'create'])->name('pengaduan.create')->middleware('masyarakat');
-    
-    //! Store
-    Route::post('/pengaduan/feedback', [PengaduanController::class, 'store'])->name('pengaduan.store')->middleware('masyarakat');
-    
-    //! Feedback
-    Route::get('/pengaduan/feedback', function () {
-        return view('User Masyarakat.feedback');
-    })->middleware('masyarakat');
-    
-    //! List pengaduan
-    Route::get('/pengaduan/list', [PengaduanController::class, 'list'])->name('pengaduan.list')->middleware('masyarakat');
-    
-    //! Edit
-    Route::get('/pengaduan/{id}/edit', [PengaduanController::class, 'edit'])->name('pengaduan.edit')->middleware('masyarakat');
-    
-    //! Update
-    Route::post('/pengaduan/{id}', [PengaduanController::class, 'update'])->name('pengaduan.update')->middleware('masyarakat');
+    //! Auth
+        //! Login Form 
+        Route::get('/login', [UserMasyarakatController::class, 'formLogin'])->name('form-login');
+
+        //! Login 
+        Route::post('/login', [UserMasyarakatController::class, 'login'])->name('login')->middleware('guest');
+
+        //! Logout
+        Route::get('/logout',[UserMasyarakatController::class,'logout'])->name('logout');
+
+        //! Register Form
+        Route::get('/register', [UserMasyarakatController::class, 'formRegister'])->name('form-register')->middleware('guest');
+
+        //! Register
+        Route::post('/register', [UserMasyarakatController::class, 'register'])->name('register')->middleware('guest');
+
+    //! Home page
+    Route::get('/', [UserMasyarakatController::class, 'home'])->name('landing-page');
+
+    Route::middleware(['masyarakat'])->group(function () {
+        //! Form Laporan
+        Route::get('/form-laporan', [UserMasyarakatController::class, 'formLaporan'])->name('form-laporan')->middleware('masyarakat');
+        
+        //! Lapor
+        Route::post('/feedback', [UserMasyarakatController::class, 'lapor'])->name('simpan-laporan')->middleware('masyarakat');
+        
+        //! Feedback
+        Route::get('/feedback', function () {
+            return view('User Masyarakat.feedback');
+        })->name('feedback')->middleware('masyarakat');
+        
+        //! List pengaduan
+        Route::get('/laporan-saya', [UserMasyarakatController::class, 'myLaporan'])->name('laporan-saya')->middleware('masyarakat');
+    });
 
 
+//! User Admin & Petugas
+Route::prefix('admin')->group(function (){
 
-//! Petugas & Admin Routes
-Route::prefix('petugas')->group(function (){
-    //! Petugas
+    //! Auth
+        //! Login Form 
+        Route::get('/', [UserPetugasController::class, 'formLogin'])->name('admin.form-login');
+
+        //! Login 
+        Route::post('/login', [UserPetugasController::class, 'login'])->name('admin.login')->middleware('guest');
+
+        //! Logout
+        Route::get('/logout',[UserPetugasController::class,'logout'])->name('admin.logout');
+
+        //! Register Form
+        Route::get('/register', [UserPetugasController::class, 'formRegister'])->name('admin.form-register')->middleware('guest');
+
+        //! Register
+        Route::post('/registered', [UserPetugasController::class, 'register'])->name('admin.register')->middleware('guest');
+
+    //! User Admin
+    Route::middleware(['admin'])->group(function () {
         //! Dashboard
-        Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('petugas.dashboard')->middleware('petugas');
+        Route::get('/admin-dashboard', [DashboardController::class, 'adminDashboard'])->name('admin.dashboard');
 
-    //! CRUD Pengaduan
-        //! Index 
-        Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan.index')->middleware('petugas.admin');
-
-        //! Delete
-        // Route::delete('/pengaduan/{id}', [PengaduanController::class, 'destroy'])->name('pengaduan.delete')->middleware('petugas.admin');
-
-        //! Verifikasi
-        // Route::get('/pengaduan/{id}', [PengaduanController::class, 'verify'])->name('pengaduan.verifikasi.get')->middleware('petugas.admin');
-
-        //! Diverifikasi
-        Route::post('/pengaduan/{id}', [PengaduanController::class, 'verified'])->name('pengaduan.verifikasi')->middleware('petugas.admin');
-
-        //! Detail
-        Route::get('/pengaduan/{id}/detail', [PengaduanController::class, 'detail'])->name('pengaduan.detail')->middleware('petugas.admin');
-
-        //! PDF
-        Route::get('/pengaduan/{id}/pdf', [PengaduanController::class, 'pdf'])->name('pengaduan.pdf')->middleware('petugas.admin');
-
-
-    //! Tanggapan
-        //! Index
-        Route::get('/tanggapan', [TanggapanController::class, 'index'])->name('tanggapan.index')->middleware('petugas.admin');
-
-        //! Create
-        Route::get('/pengaduan/{id}', [TanggapanController::class, 'create'])->name('tanggapan.create')->middleware('petugas.admin');
-
-        //! Store
-        Route::post('/tanggapan/{id}', [TanggapanController::class, 'store'])->name('tanggapan.store')->middleware('petugas.admin');
-
-        //! Detail
-        Route::get('/tanggapan/{id}/detail', [TanggapanController::class, 'detail'])->name('tanggapan.detail')->middleware('petugas.admin');
-
-        //! PDF
-        Route::get('/tanggapan/{id}/pdf', [TanggapanController::class, 'pdf'])->name('tanggapan.pdf')->middleware('admin');
-
-    //! Admin Routes
-    Route::prefix('admin')->group(function (){
-
-        //! Admin registration
-            //! Register Form
-            Route::get('/register', [AuthController::class, 'showAdminRegisterForm'])->name('admin.register.get')->middleware('guest');
-
-            //! Register
-            Route::post('/registered', [AuthController::class, 'adminRegister'])->name('admin.register.post')->middleware('guest');
-
-        //! Dashboard
-        Route::get('/dashboard', [DashboardController::class, 'adminDashboard'])->name('admin.dashboard')->middleware('admin');
-
-        //! CRUD Masyarakat
+        //! Data Masyarakat
             //! Index 
-            Route::get('/masyarakat', [MasyarakatController::class, 'index'])->name('admin.masyarakat.index')->middleware('admin');
+            Route::get('/masyarakat', [MasyarakatController::class, 'index'])->name('admin.masyarakat.index');
 
-            //! Edit
-            Route::get('/masyarakat/{id}/edit', [MasyarakatController::class, 'edit'])->name('admin.masyarakat.edit')->middleware('admin');
-
-            //! Update
-            Route::post('/masyarakat/{id}', [MasyarakatController::class, 'update'])->name('admin.masyarakat.update')->middleware('admin');
-
-            //! Delete
-            Route::delete('/masyarakat/{id}', [MasyarakatController::class, 'destroy'])->name('admin.masyarakat.delete')->middleware('admin');
-
-        //! CRUD Petugas
+        //! Data Petugas
             //! Index
-            Route::get('/petugas', [PetugasController::class, 'index'])->name('admin.petugas.index')->middleware('admin');
+            Route::get('/petugas', [PetugasController::class, 'index'])->name('admin.petugas.index');
 
             //! Create
-            Route::get('/petugas/create', [PetugasController::class, 'create'])->name('admin.petugas.create')->middleware('admin');
+            Route::get('/petugas/create', [PetugasController::class, 'create'])->name('admin.petugas.create');
 
             //! Store
-            Route::post('/petugas', [PetugasController::class, 'store'])->name('admin.petugas.store')->middleware('admin');
+            Route::post('/petugas', [PetugasController::class, 'store'])->name('admin.petugas.store');
 
             //! Edit
-            Route::get('/petugas/{id}/edit', [PetugasController::class, 'edit'])->name('admin.petugas.edit')->middleware('admin');
+            Route::get('/petugas/{id}/edit', [PetugasController::class, 'edit'])->name('admin.petugas.edit');
 
             //! Update
-            Route::post('/petugas/{id}', [PetugasController::class, 'update'])->name('admin.petugas.update')->middleware('admin');
+            Route::post('/petugas/{id}', [PetugasController::class, 'update'])->name('admin.petugas.update');
 
             //! Delete
-            Route::delete('/petugas/{id}', [PetugasController::class, 'destroy'])->name('admin.petugas.delete')->middleware('admin');
+            Route::delete('/petugas/{id}', [PetugasController::class, 'destroy'])->name('admin.petugas.delete');
+    });
+    
+    //! User Petugas
+    Route::middleware(['petugas'])->group(function () {
+        //! Dashboard
+        Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('petugas.dashboard')->middleware('petugas');
+    });
+
+    Route::middleware(['petugas.admin'])->group(function () {
+        //! CRUD Pengaduan
+            //! Index 
+            Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan.index');
+    
+            //! Verifikasi
+            Route::post('/pengaduan/{id}/verifikasi', [PengaduanController::class, 'verify'])->name('pengaduan.verifikasi');
+
+            //! Reject
+            Route::post('/pengaduan/{id}', [PengaduanController::class, 'reject'])->name('pengaduan.reject');
+    
+            //! Detail
+            Route::get('/pengaduan/{id}/detail', [PengaduanController::class, 'detail'])->name('pengaduan.detail');
+    
+            //! PDF
+            Route::get('/pengaduan/{id}/pdf', [PengaduanController::class, 'pdf'])->name('pengaduan.pdf');
+    
+        //! CRUD Tanggapan
+            //! Index
+            Route::get('/tanggapan', [TanggapanController::class, 'index'])->name('tanggapan.index');
+    
+            //! Create
+            Route::get('/pengaduan/{id}', [TanggapanController::class, 'create'])->name('tanggapan.create');
+    
+            //! Store
+            Route::post('/tanggapan/{id}', [TanggapanController::class, 'store'])->name('tanggapan.store');
+    
+            //! Detail
+            Route::get('/tanggapan/{id}/detail', [TanggapanController::class, 'detail'])->name('tanggapan.detail');
+    
+            //! PDF
+            Route::get('/tanggapan/{id}/pdf', [TanggapanController::class, 'pdf'])->name('tanggapan.pdf')->middleware('admin');
     });
 });
 

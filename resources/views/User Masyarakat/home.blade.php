@@ -1,34 +1,65 @@
 @extends('layouts.main')
+@section('css')
+<style>
+    .container-p-y:not([class^=pb-]):not([class*=" pb-"]) {
+        padding-bottom: 1.625rem !important;
+    }
+
+    .masthead {
+        min-height: 30rem;
+        position: relative;
+        display: table;
+        width: 100%;
+        height: auto;
+        padding-top: 8rem;
+        padding-bottom: 8rem;
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.1) 100%), url("/img/bg.jpg");
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+@endsection
 @section('content')
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-            aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-            aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-            aria-label="Slide 3"></button>
+<header class="masthead d-flex align-items-center mb-3">
+    <div class="container px-4 px-lg-5 text-center">
+        <h1 class="mb-1 text-white">Selamat Datang</h1>
+        <h3 class="mb-5 text-white"><em>Layanan Pengaduan Online Masyarakat</em></h3>
     </div>
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="..." class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-            <img src="..." class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-            <img src="..." class="d-block w-100" alt="...">
+</header>
+
+@if (Auth::guard('masyarakats')->user())
+<h2>Laporan Terbaru</h2>
+<div class="row justify-content-center overflow-auto" style="height: 25rem;">
+    @foreach ($pengaduan as $card)
+    <div class="card col-10 mb-2">
+        <div class="card-body">
+            <div class="d-flex justify-content-between">
+                <h5 class="card-title me-3">{{$card->judul_laporan}}</h5>
+                {{-- <h5 class="card-title me-3">{{ $card->masyarakat->nama}}</h5> --}}
+                <p class="card-title">{{ $card->created_at->format('l, d F Y') }}</p>
+            </div>
+            {{-- <h5 class="card-title">{{$card->judul_laporan}}</h5> --}}
+            <p class="card-text">{{$card->isi_laporan}}</p>
+            <div class="d-flex">
+                <div class="flex-shrink-0 me-3">
+                    <div class="avatar">
+                        <img src="/sneat/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                    </div>
+                </div>
+                <div class="flex-shrink-0">
+                    <p class="fw-semibold d-block">{{Auth::guard('masyarakats')->user()->nama}}</p>
+                </div>
+            </div>
         </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-        data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
+    @endforeach
 </div>
+@endif
+
+<footer class="footer mt-3 py-3 bg-light">
+    <div class="container">
+        <span class="text-muted">Aplikasi Laporan Pengaduan Masyarakat &copy; {{ date('Y') }}</span>
+    </div>
+</footer>
 @endsection
