@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Masyarakat;
 
 use App\Models\Pengaduan;
+use App\Models\Tanggapan;
 use App\Models\Masyarakat;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -155,7 +156,10 @@ class UserMasyarakatController extends Controller
     }
 
     public function myLaporan(Request $request){
-        $pengaduan = Pengaduan::where('nik_pelapor', Auth::guard('masyarakats')->user()->nik)->orderBy('created_at')->get();
+        $pengaduan = Pengaduan::with(['tanggapan' => function ($query) {
+            $query->with('petugas');
+        }])->where('nik_pelapor', Auth::guard('masyarakats')->user()->nik)->orderBy('created_at')->get();
+        $tanggapan = Tanggapan::with('petugas')->get();
         return view('User Masyarakat.my-laporan', compact('pengaduan'));
     }
 }

@@ -23,7 +23,7 @@
                     @foreach ($pengaduan as $row)
                     <tr>
                         <td>
-                            {{ \Carbon\Carbon::parse($row->created_at)->formatLocalized('%d %B %Y') }}
+                            {{ \Carbon\Carbon::parse($row->created_at)->locale('id')->isoFormat('DD MMMM YYYY') }}
                             {{-- {{ $row->created_at}} --}}
                         </td>
 

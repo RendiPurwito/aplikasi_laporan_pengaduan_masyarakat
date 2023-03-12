@@ -16,18 +16,17 @@ return new class extends Migration
         Schema::create('tanggapans', function (Blueprint $table) {
             $table->id();
             // $table->integer('id_tanggapan');
-            $table->unsignedBigInteger('pengaduan_id');
-            $table->foreign('pengaduan_id')->references('id')->on('pengaduans')->onDelete('cascade');
+            // $table->unsignedBigInteger('pengaduan_id');
+            // $table->foreign('pengaduan_id')->references('id')->on('pengaduans')->onDelete('cascade');
+            $table->foreignId('pengaduan_id')->constrained('pengaduans');
+
             // $table->date('tgl_tanggapan');
             $table->text('tanggapan');
-            $table->unsignedBigInteger('petugas_id');
-            $table->foreign('petugas_id')->references('id')->on('petugas')->onDelete('cascade');
+            // $table->unsignedBigInteger('petugas_id');
+            // $table->foreign('petugas_id')->references('id')->on('petugas')->onDelete('cascade');
+            $table->foreignId('petugas_id')->constrained('petugas');
             $table->timestamps();
         });
-
-        // Schema::table('tanggapans', function (Blueprint $table) {
-        //     $table->foreign('pengaduan_id')->references('id')->on('pengaduans')->onDelete('cascade');
-        // });
     }
 
     /**

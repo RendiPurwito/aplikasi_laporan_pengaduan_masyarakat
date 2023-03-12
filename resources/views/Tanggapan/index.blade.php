@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="card">
-    <h5 class="card-header">Tanggapan</h5>
     <div class="card-body">
+        <h5 class="card-title">Tanggapan</h5>
         <div class="table-responsive text-nowrap">
             <table class="table table-striped " id="table">
                 <thead>
@@ -21,7 +21,7 @@
                     <tr>
                         <td>
                             {{-- {{ date('Y-m-d', strtotime($row->created_at)) }} --}}
-                            {{ $row->created_at->format('l, d F Y')}}
+                            {{ \Carbon\Carbon::parse($row->created_at)->locale('id')->isoFormat('DD MMMM YYYY')}}
                         </td>
                         {{-- <td>
                             {{ (ucfirst(str_replace('_', ' ', $row->pengaduan->kategori))) }}
@@ -81,12 +81,11 @@
                                     </div>
                                     <div class="row mb-3">
                                         <strong>Foto :</strong>
-                                        <img src="/foto/{{$row->pengaduan->foto}}" class="img-thumbnail"
-                                            style="width:200px"/>
+                                        <img src="/foto/{{$row->pengaduan->foto}}" style="width:200px"/>
                                     </div>
                                     <div class="row text-wrap mb-3">
                                         <strong>Tanggapan :</strong>
-                                        <textarea class="form-control" rows="5">{{ $row->tanggapan }}</textarea>
+                                        <textarea class="form-control" rows="5" disabled>{{ $row->tanggapan }}</textarea>
                                         {{-- <p>{{ $row->tanggapan }}</p> --}}
                                     </div>
                                     <div class="btn-footer float-end">

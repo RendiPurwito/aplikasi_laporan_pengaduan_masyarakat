@@ -41,7 +41,7 @@ class Petugas extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function tanggapans()
+    public function tanggapan()
     {
         return $this->hasMany(Tanggapan::class);
     }

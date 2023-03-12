@@ -1,74 +1,84 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="row">
-    <div class="col-lg-3 col-md-12 col-3 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <div class="card-title d-flex align-items-start">
-                    <div class="avatar me-2">
-                        <img src="/img/envelope.svg"
-                            alt="chart success" class="rounded" />
+<section class="section dashboard">\
+    <div class="row">
+        <div class="col-3">
+            <div class="card info-card revenue-card">
+                <div class="card-body">
+                    <h5 class="card-title">Laporan Diterima</h5>
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-envelope-check"></i>
+                        </div>
+                        <div class="ps-3">
+                            <h6>{{$diterima}}</h6>
+                        </div>
                     </div>
-                    <div>
-                        <h4 class="card-title mb-2">{{$belumdiverifikasi}}</h4>
-                        <span class="fw-semibold d-block mb-1">Belum Diverifikasi</span>
-                        {{-- <div class="btn btn-outline-primary float-end">See More</div> --}}
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card info-card revenue-card">
+                <div class="card-body">
+                    <h5 class="card-title">Laporan Diproses</h5>
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-envelope-check"></i>
+                        </div>
+                        <div class="ps-3">
+                            <h6>{{$diproses}}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card info-card revenue-card">
+                <div class="card-body">
+                    <h5 class="card-title">Laporan Selesai</h5>
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-envelope-check"></i>
+                        </div>
+                        <div class="ps-3">
+                            <h6>{{$selesai}}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card info-card customers-card">
+                <div class="card-body">
+                    <h5 class="card-title">Laporan Ditolak</h5>
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-envelope-x"></i>
+                        </div>
+                        <div class="ps-3">
+                            <h6>{{$ditolak}}</h6>
+                            {{-- {{dd($ditolak)}} --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="card info-card sales-card">
+                <div class="card-body">
+                    <h5 class="card-title">Tanggapan</h5>
+                    <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                            <i class="bi bi-chat-left-text"></i>
+                        </div>
+                        <div class="ps-3">
+                            <h6>{{$tanggapan}}</h6>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-12 col-3 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <div class="card-title d-flex align-items-start">
-                    <div class="avatar me-2">
-                        <img src="/img/envelope-check.svg"
-                            alt="chart success" class="rounded" />
-                    </div>
-                    <div>
-                        <h4 class="card-title mb-2">{{$sudahdiverifikasi}}</h4>
-                        <span class="fw-semibold d-block mb-1">Sudah Diverifikasi</span>
-                        {{-- <div class="btn btn-outline-primary float-end">See More</div> --}}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-12 col-3 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <div class="card-title d-flex align-items-start">
-                    <div class="avatar me-2">
-                        <img src="/img/envelope-check.svg"
-                            alt="chart success" class="rounded" />
-                    </div>
-                    <div>
-                        <h4 class="card-title mb-2">{{$sudahditanggapi}}</h4>
-                        <span class="fw-semibold d-block mb-1">Sudah Ditanggapi</span>
-                        {{-- <div class="btn btn-outline-primary float-end">See More</div> --}}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-12 col-3 mb-4">
-        <div class="card">
-            <div class="card-body">
-                <div class="card-title d-flex align-items-start">
-                    <div class="avatar me-2">
-                        <img src="/img/envelope-check.svg"
-                            alt="chart success" class="rounded" />
-                    </div>
-                    <div>
-                        <h4 class="card-title mb-2">{{$jumlahtanggapan}}</h4>
-                        <span class="fw-semibold d-block mb-1">Tanggapan</span>
-                        {{-- <div class="btn btn-outline-primary float-end">See More</div> --}}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+</section>
 @endsection

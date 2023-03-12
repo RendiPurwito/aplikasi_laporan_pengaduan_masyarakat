@@ -74,10 +74,31 @@
             <div class="card col-10 mb-3">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
-                        <h5 class="card-title">{{$card->judul_laporan}}</h5>
-                        <p>{{$card->created_at->format('l, d F Y')}}</p>
+                        <h5 class="card-title">
+                            {{$card->judul_laporan}} <br>
+                            <span >
+                                Status : 
+                                @if ($card->status=="diterima")
+                                    <span class="text-primary">Diterima</span>
+                                @elseif($card->status=="diproses")
+                                    <span class="text-warning">Diproses</span>
+                                @elseif($card->status=="selesai")
+                                    <span class="text-success">Selesai</span>
+                                @elseif($card->status=="ditolak")
+                                    <span class="text-danger">Ditolak</span>
+                                @endif
+                            </span>
+                        </h5>
+                        <p>{{\Carbon\Carbon::parse($card->created_at)->locale('id')->isoFormat('dddd,DD MMMM YYYY')}}</p>
                     </div>
                     <p>{{$card->isi_laporan}}</p>
+                    @if ($card->tanggapan)
+                        <p>Tanggapan Oleh 
+                            <strong>{{$card->tanggapan->petugas->nama}} </strong>: <br>
+                            {{$card->tanggapan->tanggapan}}
+                        </p>
+                        <p></p>
+                    @endif
                 </div>
             </div>
             @endforeach
