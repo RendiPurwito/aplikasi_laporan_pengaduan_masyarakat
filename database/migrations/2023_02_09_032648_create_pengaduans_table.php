@@ -25,8 +25,8 @@ return new class extends Migration
             $table->string('judul_laporan');
             $table->text('isi_laporan');
             $table->string('foto')->nullable();
+            $table->string('lokasi');
             $table->enum('status', ['diterima', 'diproses', 'selesai', 'ditolak'])->default('diterima');
-            $table->enum('visibilitas', ['publik', 'privat'])->default('publik');
             $table->timestamps();
         });
     }

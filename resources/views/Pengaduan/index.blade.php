@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="card">
     <div class="card-body">
@@ -9,13 +8,10 @@
                 <thead>
                     <tr>
                         <th>Tgl Pengaduan</th>
-                        {{-- <th>Visibilitas</th> --}}
                         <th>Judul Laporan</th>
                         <th>Kategori Laporan</th>
                         <th>Nama Pelapor</th>
                         <th>Status</th>
-                        {{-- <th>Isi Laporan</th>
-                        <th>Foto</th> --}}
                         <th data-sortable="false">Action</th>
                     </tr>
                 </thead>
@@ -24,20 +20,13 @@
                     <tr>
                         <td>
                             {{ \Carbon\Carbon::parse($row->created_at)->locale('id')->isoFormat('DD MMMM YYYY') }}
-                            {{-- {{ $row->created_at}} --}}
                         </td>
-
-
-                        {{-- <td>
-                            {{ ucfirst($row->visibilitas) }}
-                        </td> --}}
 
                         <td>
                             {{ Str::limit($row->judul_laporan, 20, '...') }}
                         </td>
                         
                         <td>
-                            {{-- {{ (ucfirst(str_replace('_', ' ', $row->kategori))) }} --}}
                             {{ $row->kategori->nama_kategori }}
                         </td>
                         
@@ -46,7 +35,6 @@
                         </td>
 
                         <td>
-                            {{-- {{ ucfirst($row->status) }} --}}
                             @if ($row->status=="diterima")
                                 <p class="text-primary">Diterima</p>
                             @elseif($row->status=="diproses")
@@ -58,22 +46,8 @@
                             @endif
                         </td>
                         
-                        {{-- <td>
-                            {{ $row->isi_laporan }}
-                        {{ Str::limit($row->isi_laporan, 20, '...') }}
-                        </td>
-                        <td>
-                            <a href="{{asset('foto/'.$row->foto)}}" target="_blank" rel="noopener noreferrer">Lihat
-                                Gambar</a>
-                            <img src="/foto/{{$row->foto}}" class="img-thumbnail" style="width:200px" />
-                        </td> --}}
                         <td>
                             @if ($row->status == 'diterima')
-                            {{-- <a href="{{route('pengaduan.verifikasi.get', $row->id)}}" class="btn btn-primary
-                            btn-sm"
-                            title="Verifikasi Laporan">
-                            <i class='bx bx-check'></i>
-                            </a> --}}
                             <button type="button" class="btn btn-sm btn-primary" id="verivBtn" data-bs-toggle="modal"
                                 data-bs-target="#verifikasiModal-{{$row->id}}">
                                 <i class='bx bx-check'></i>
@@ -86,20 +60,12 @@
                             @endif
 
                             @if ($row->status == 'diproses')
-                            {{-- <a href="{{route('tanggapan.create', $row->id)}}" class="btn btn-primary btn-sm"
-                            title="Isi Tanggapan">
-                            <i class='bx bx-comment'></i>
-                            </a> --}}
                             <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#tanggapanModal-{{$row->id}}">
                                 <i class='bx bx-comment'></i>
                             </button>
                             @endif
 
-                            {{-- <a href="{{route('pengaduan.detail', $row->id)}}" class="btn btn-primary btn-sm"
-                            title="Lihat Detail Laporan">
-                            <i class='bx bx-detail'></i>
-                            </a> --}}
                             <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#detailModal-{{$row->id}}">
                                 <i class='bx bx-detail'></i>
@@ -114,9 +80,7 @@
                             <div class="modal-content">
                                 <div class="modal-header ">
                                     <h5 class="modal-title" id="modalCenterTitle">Verifikasi Laporan</h5>
-                                    <p class="modal-title">{{ $row->created_at->format('l, d F Y') }}</p>
-                                    {{-- <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button> --}}
+                                    <p class="modal-title">{{\Carbon\Carbon::parse($row->created_at)->locale('id')->isoFormat('dddd, DD MMMM YYYY')}}</p>
                                 </div>
                                 <div class="modal-body">
                                     <form action="{{route('pengaduan.verifikasi', $row->id)}}" method="POST"
@@ -143,7 +107,11 @@
                                         <div class="row mb-3">
                                             <strong>Foto :</strong>
                                             <img src="/foto/{{$row->foto}}" 
-                                                style="width:200px"/>
+                                            style="width:200px"/>
+                                        </div>
+                                        <div class="row">
+                                            <strong>Lokasi :</strong>
+                                            <p>{{ $row->lokasi }}</p>
                                         </div>
                                         <div class="btn-footer float-end">
                                             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
@@ -165,9 +133,7 @@
                             <div class="modal-content">
                                 <div class="modal-header ">
                                     <h5 class="modal-title" id="modalCenterTitle">Tolak Laporan</h5>
-                                    <p class="modal-title">{{ $row->created_at->format('l, d F Y') }}</p>
-                                    {{-- <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button> --}}
+                                    <p class="modal-title">{{\Carbon\Carbon::parse($row->created_at)->locale('id')->isoFormat('dddd, DD MMMM YYYY')}}</p>
                                 </div>
                                 <div class="modal-body">
                                     <form action="{{route('pengaduan.reject', $row->id)}}" method="POST"
@@ -196,6 +162,10 @@
                                             <img src="/foto/{{$row->foto}}" 
                                                 style="width:200px"/>
                                         </div>
+                                        <div class="row">
+                                            <strong>Lokasi :</strong>
+                                            <p>{{ $row->lokasi }}</p>
+                                        </div>
                                         <div class="btn-footer float-end">
                                             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                                                 Close
@@ -216,9 +186,7 @@
                             <div class="modal-content">
                                 <div class="modal-header ">
                                     <h5 class="modal-title" id="modalCenterTitle">Verifikasi Laporan</h5>
-                                    <p class="modal-title">{{ $row->created_at->format('l, d F Y') }}</p>
-                                    {{-- <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button> --}}
+                                    <p class="modal-title">{{\Carbon\Carbon::parse($row->created_at)->locale('id')->isoFormat('dddd, DD MMMM YYYY')}}</p>
                                 </div>
                                 <div class="modal-body">
                                     <form action="{{route('tanggapan.store', $row->id)}}" method="POST"
@@ -241,9 +209,11 @@
                                             <img src="/foto/{{$row->foto}}" style="width:200px"/>
                                         </div>
                                         <div class="row">
-                                            <input type="hidden" class="form-control" id="pengaduan_id" name="pengaduan_id" autocomplete="off" value="{{$row->id}}"/>
+                                            <strong>Lokasi :</strong>
+                                            <p>{{ $row->lokasi }}</p>
                                         </div>
                                         <div class="row">
+                                            <input type="hidden" class="form-control" id="pengaduan_id" name="pengaduan_id" autocomplete="off" value="{{$row->id}}"/>
                                             <input type="hidden" class="form-control" id="petugas_id" name="petugas_id" autocomplete="off" value="{{Auth::guard('petugas')->user()->id}}"/>
                                         </div>
                                         <div class="row mb-3">
@@ -274,10 +244,8 @@
                         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                             <div class="modal-content">
                                 <div class="modal-header ">
-                                    <h5 class="modal-title" id="modalCenterTitle">Verifikasi Laporan</h5>
-                                    <p class="modal-title">{{ $row->created_at->format('l, d F Y') }}</p>
-                                    {{-- <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button> --}}
+                                    <h5 class="modal-title" id="modalCenterTitle">Detail Laporan</h5>
+                                    <p class="modal-title">{{\Carbon\Carbon::parse($row->created_at)->locale('id')->isoFormat('dddd, DD MMMM YYYY')}}</p>
                                 </div>
                                 <div class="modal-body">
                                     <div class="row text-wrap">
@@ -295,6 +263,10 @@
                                     <div class="row mb-3">
                                         <strong>Foto :</strong>
                                         <img src="/foto/{{$row->foto}}" style="width:200px"/>
+                                    </div>
+                                    <div class="row">
+                                        <strong>Lokasi :</strong>
+                                        <p>{{ $row->lokasi }}</p>
                                     </div>
                                     <div class="btn-footer float-end">
                                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">

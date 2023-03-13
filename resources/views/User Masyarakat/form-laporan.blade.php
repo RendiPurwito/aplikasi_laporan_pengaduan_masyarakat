@@ -47,7 +47,7 @@
             <a href="{{route('landing-page')}}" class="logo d-flex align-items-center">
                 <img src="/flexstart/assets/img/logo.png" alt="">
                 <span>Alapemas</span>
-        </a>
+            </a>
 
             <nav id="navbar" class="navbar">
                 <ul>
@@ -75,32 +75,17 @@
                 <form action="{{route('simpan-laporan')}}" method="POST" id="myForm" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
-                        <input type="hidden" class="form-control" id="nik_pelapor" name="nik_pelapor" autocomplete="off"
-                            value="{{Auth::guard('masyarakats')->user()->nik}}" />
+                        <input type="hidden" class="form-control" id="nik_pelapor" name="nik_pelapor" autocomplete="off" value="{{Auth::guard('masyarakats')->user()->nik}}" />
+                        <input type="hidden" class="form-control" id="status" name="status" autocomplete="off" value="diterima" />
+                        <input type="hidden" name="lokasi" id="lokasi" value="">
                     </div>
-
-                    <div class="mb-3">
-                        <input type="hidden" class="form-control" id="status" name="status" autocomplete="off"
-                            value="diterima" />
-                    </div>
-
                     <div class="mb-3">
                         <label class="form-label" for="basic-default-company">Kategori Laporan</label>
-                        <select id="defaultSelect" class="form-select" name="kategori">
+                        <select id="defaultSelect" class="form-select" name="kategori_id">
                             <option selected>Pilih Kategori</option>
-                            <option value="agama">Agama</option>
-                            <option value="corona_virus">Corona Virus</option>
-                            <option value="ekonomi">Ekonomi dan Keuangan</option>
-                            <option value="kesehatan">Kesehatan</option>
-                            <option value="kesetaraan_gender">Kesetaraan Gender</option>
-                            <option value="ketertiban_umum">Ketertiban Umum</option>
-                            <option value="lingkungan_hidup">Lingkungan Hidup</option>
-                            <option value="pendidikan">Pendidikan</option>
-                            <option value="pertanian">Pertanian</option>
-                            <option value="peternakan">Peternakan</option>
-                            <option value="politik">Politik</option>
-                            <option value="kekerasan">Kekerasan</option>
-                            <option value="teknologi_informasi">Teknologi Informasi dan Komunikasi</option>
+                            @foreach ($kategoris as $kategori)
+                                <option value="{{$kategori->id}}">{{$kategori->nama_kategori}}</option>
+                            @endforeach
                         </select>
                     </div>
 
@@ -130,20 +115,6 @@
                         <input class="form-control" type="file" id="formFile" name="foto" />
                     </div>
 
-                    <div class="mb-1">
-                        <small class="form-label d-block">Visibilitas</small>
-                        <div class="form-check form-check-inline mt-1">
-                            <input class="form-check-input" type="radio" name="visibilitas" id="inlineRadio1"
-                                value="public" />
-                            <label class="form-check-label" for="inlineRadio1">Public</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="visibilitas" id="inlineRadio2"
-                                value="private" />
-                            <label class="form-check-label" for="inlineRadio2">Private</label>
-                        </div>
-                    </div>
-
                     <div class="btn-footer d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary" id="submitButton">Lapor!</button>
                     </div>
@@ -164,6 +135,18 @@
 
     <!-- Template Main JS File -->
     <script src="/flexstart/assets/js/main.js"></script>
+    <script>
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            alert("Geolocation is not supported by this browser.");
+        }
+        function showPosition(position) {
+            var lat = position.coords.latitude;
+            var lng = position.coords.longitude;
+            document.getElementById("lokasi").value = lat + "," + lng;
+        }
+    </script>
 
 </body>
 

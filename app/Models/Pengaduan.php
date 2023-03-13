@@ -12,12 +12,13 @@ class Pengaduan extends Model
     protected $table = 'pengaduans';
 
     protected $fillable = [
-        'kategori', 
+        'nik_pelapor', 
+        'kategori_id', 
         'judul_laporan', 
         'isi_laporan', 
         'foto',
-        'status',
-        'visibilitas'
+        'lokasi',
+        'status'
     ];
 
     public function masyarakat()

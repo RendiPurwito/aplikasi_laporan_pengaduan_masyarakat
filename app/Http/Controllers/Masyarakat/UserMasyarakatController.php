@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Masyarakat;
 
+use App\Models\Kategori;
 use App\Models\Pengaduan;
 use App\Models\Tanggapan;
 use App\Models\Masyarakat;
@@ -117,31 +118,32 @@ class UserMasyarakatController extends Controller
     }
     
     public function home(Request $request){
-        $pengaduan = Pengaduan::where('visibilitas', 'public')->orderBy('created_at')->get();
-        $masyarakat = Masyarakat::all();
-        return view('landing-page', compact('pengaduan', 'masyarakat'));
+        return view('landing-page');
     }
 
     public function formLaporan(){
-        return view('User Masyarakat.form-laporan');
+        $kategoris = Kategori::all();
+        return view('User Masyarakat.form-laporan', compact('kategoris'));
     }
 
     public function lapor(Request $request){
         $request->validate([
             // 'tgl_pengaduan'  => 'required',
             'nik_pelapor'  => 'required',
-            'kategori'  => 'required',
+            'kategori_id'  => 'required',
             'judul_laporan'  => 'required',
             'isi_laporan'  => 'required',
             'foto'  => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            // 'lokasi' => 'required',
             'status' => 'required',
         ]);
 
         $pengaduan = new Pengaduan;
         $pengaduan->nik_pelapor = $request->nik_pelapor;
-        $pengaduan->kategori = $request->kategori;
+        $pengaduan->kategori_id = $request->kategori_id;
         $pengaduan->judul_laporan = $request->judul_laporan;
         $pengaduan->isi_laporan = $request->isi_laporan;
+        $pengaduan->lokasi = $request->lokasi;
         $pengaduan->status = $request->status;
 
         if($request->hasFile('foto')){
@@ -151,6 +153,7 @@ class UserMasyarakatController extends Controller
         }
 
         $pengaduan->save();
+        // dd($pengaduan);
         
         return redirect('/feedback')->with('success', 'Pengaduan berhasil ditambahkan.');
     }

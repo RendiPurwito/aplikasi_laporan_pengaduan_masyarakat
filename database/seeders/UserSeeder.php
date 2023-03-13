@@ -102,8 +102,8 @@ class UserSeeder extends Seeder
                 'judul_laporan' => 'Pelayanan Di Kantor Bpn Banyuwangi Sangat Mengecewakan',
                 'isi_laporan' => 'Tolong beri penjelasan secara detail terkait ketentuan dan dasar hukum atas tanggapan dari kantor bpn banyuwangi pada laporan saya sebelumnya (terlampir). karna saya mengajukan permohonan sudah sesuai dengan syarat, ketentuan dan petunjuk dari kantor bpn banyuwangi, berkas sudah diterima dan dinyatakan lengkap. kalau memang dinilai permohonan saya tidak sesuai dengan ketentuan dan dasar hukum yang berlaku, kenapa berkas tetap diterima dan disuruh membayar biaya pendaftaran?',
                 'foto' => '1.png',
+                'lokasi' => '-6.4048264,106.8803546',
                 'status' => 'selesai',
-                'visibilitas' => 'publik',
                 'created_at' => '2023-02-17 03:05:01'
             ],
             [
@@ -112,8 +112,8 @@ class UserSeeder extends Seeder
                 'judul_laporan' => 'Perbaikan Jalan',
                 'isi_laporan' => 'Assalamualaikum. Bapak/ibu yang terhormat. Terdapat jalan rusak setengah jalan amblas karena longsor tepatnya di jalan selagombong, kecamatan nyalindung kabupaten sukabumi. Dikhawatirkan terjadi hal yang tidak diinginkan karena sudah satu tahun lebih jalan tidak ada perbaikan kurang lebih sejak oktober 2017.',
                 'foto' => '1.png',
+                'lokasi' => '-6.4048264,106.8803546',
                 'status' => 'diproses',
-                'visibilitas' => 'publik',
                 'created_at' => '2023-02-18 03:05:01'
             ],
             [
@@ -122,8 +122,8 @@ class UserSeeder extends Seeder
                 'judul_laporan' => 'Pelayanan Lambat Di Kantor Bpn Banyuwangi Tidak Profesional Dan Melanggar Peraturan',
                 'isi_laporan' => 'Permohonan sertifikat pengganti karena hilang nomor berkas 204585/2022 tanggal 7 november 2022 sampai saat ini belum selesai. padahal pada lampiran ii peraturan kepala bpn no. 1 tahun 2010 harusnya selesai dalam waktu 40 hari. tapi faktanya sampai hari ini tidak ada informasi apapun terkait penyelesaian permohonan tersebut',
                 'foto' => '3.png',
+                'lokasi' => '-6.4048264,106.8803546',
                 'status' => 'diterima',
-                'visibilitas' => 'privat',
                 'created_at' => '2023-02-19 03:05:01'
             ],
             [
@@ -132,8 +132,8 @@ class UserSeeder extends Seeder
                 'judul_laporan' => 'Pelayanan Lambat Di Kantor Bpn Banyuwangi Tidak Profesional Dan Melanggar Peraturan',
                 'isi_laporan' => 'Permohonan sertifikat pengganti karena hilang nomor berkas 204585/2022 tanggal 7 november 2022 sampai saat ini belum selesai. padahal pada lampiran ii peraturan kepala bpn no. 1 tahun 2010 harusnya selesai dalam waktu 40 hari. tapi faktanya sampai hari ini tidak ada informasi apapun terkait penyelesaian permohonan tersebut',
                 'foto' => '3.png',
+                'lokasi' => '-6.4048264,106.8803546',
                 'status' => 'ditolak',
-                'visibilitas' => 'privat',
                 'created_at' => '2023-02-20 03:05:01'
             ],
             [
@@ -142,8 +142,8 @@ class UserSeeder extends Seeder
                 'judul_laporan' => 'Pelayanan Lambat Di Kantor Bpn Banyuwangi Tidak Profesional Dan Melanggar Peraturan',
                 'isi_laporan' => 'Permohonan sertifikat pengganti karena hilang nomor berkas 204585/2022 tanggal 7 november 2022 sampai saat ini belum selesai. padahal pada lampiran ii peraturan kepala bpn no. 1 tahun 2010 harusnya selesai dalam waktu 40 hari. tapi faktanya sampai hari ini tidak ada informasi apapun terkait penyelesaian permohonan tersebut',
                 'foto' => '3.png',
+                'lokasi' => '-6.4048264,106.8803546',
                 'status' => 'diterima',
-                'visibilitas' => 'publik',
                 'created_at' => '2023-03-01 03:05:01'
             ],
             [
@@ -152,8 +152,8 @@ class UserSeeder extends Seeder
                 'judul_laporan' => 'Pelayanan Lambat Di Kantor Bpn Banyuwangi Tidak Profesional Dan Melanggar Peraturan',
                 'isi_laporan' => 'Permohonan sertifikat pengganti karena hilang nomor berkas 204585/2022 tanggal 7 november 2022 sampai saat ini belum selesai. padahal pada lampiran ii peraturan kepala bpn no. 1 tahun 2010 harusnya selesai dalam waktu 40 hari. tapi faktanya sampai hari ini tidak ada informasi apapun terkait penyelesaian permohonan tersebut',
                 'foto' => '3.png',
+                'lokasi' => '-6.4048264,106.8803546',
                 'status' => 'diterima',
-                'visibilitas' => 'publik',
                 'created_at' => '2023-03-03 03:05:01'
             ],
             [
@@ -162,8 +162,8 @@ class UserSeeder extends Seeder
                 'judul_laporan' => 'Pelayanan Lambat Di Kantor Bpn Banyuwangi Tidak Profesional Dan Melanggar Peraturan',
                 'isi_laporan' => 'Permohonan sertifikat pengganti karena hilang nomor berkas 204585/2022 tanggal 7 november 2022 sampai saat ini belum selesai. padahal pada lampiran ii peraturan kepala bpn no. 1 tahun 2010 harusnya selesai dalam waktu 40 hari. tapi faktanya sampai hari ini tidak ada informasi apapun terkait penyelesaian permohonan tersebut',
                 'foto' => '3.png',
+                'lokasi' => '-6.4048264,106.8803546',
                 'status' => 'diterima',
-                'visibilitas' => 'publik',
                 'created_at' => '2023-03-05 03:05:01'
             ],
             [
@@ -172,8 +172,8 @@ class UserSeeder extends Seeder
                 'judul_laporan' => 'Pelayanan Lambat Di Kantor Bpn Banyuwangi Tidak Profesional Dan Melanggar Peraturan',
                 'isi_laporan' => 'Permohonan sertifikat pengganti karena hilang nomor berkas 204585/2022 tanggal 7 november 2022 sampai saat ini belum selesai. padahal pada lampiran ii peraturan kepala bpn no. 1 tahun 2010 harusnya selesai dalam waktu 40 hari. tapi faktanya sampai hari ini tidak ada informasi apapun terkait penyelesaian permohonan tersebut',
                 'foto' => '3.png',
+                'lokasi' => '-6.4048264,106.8803546',
                 'status' => 'diterima',
-                'visibilitas' => 'publik',
                 'created_at' => '2023-03-10 03:05:01'
             ],
             [
@@ -182,8 +182,8 @@ class UserSeeder extends Seeder
                 'judul_laporan' => 'Pelayanan Lambat Di Kantor Bpn Banyuwangi Tidak Profesional Dan Melanggar Peraturan',
                 'isi_laporan' => 'Permohonan sertifikat pengganti karena hilang nomor berkas 204585/2022 tanggal 7 november 2022 sampai saat ini belum selesai. padahal pada lampiran ii peraturan kepala bpn no. 1 tahun 2010 harusnya selesai dalam waktu 40 hari. tapi faktanya sampai hari ini tidak ada informasi apapun terkait penyelesaian permohonan tersebut',
                 'foto' => '3.png',
+                'lokasi' => '-6.4048264,106.8803546',
                 'status' => 'diterima',
-                'visibilitas' => 'publik',
                 'created_at' => '2023-03-13 03:05:01'
             ],
             [
@@ -192,8 +192,8 @@ class UserSeeder extends Seeder
                 'judul_laporan' => 'Pelayanan Lambat Di Kantor Bpn Banyuwangi Tidak Profesional Dan Melanggar Peraturan',
                 'isi_laporan' => 'Permohonan sertifikat pengganti karena hilang nomor berkas 204585/2022 tanggal 7 november 2022 sampai saat ini belum selesai. padahal pada lampiran ii peraturan kepala bpn no. 1 tahun 2010 harusnya selesai dalam waktu 40 hari. tapi faktanya sampai hari ini tidak ada informasi apapun terkait penyelesaian permohonan tersebut',
                 'foto' => '3.png',
+                'lokasi' => '-6.4048264,106.8803546',
                 'status' => 'diterima',
-                'visibilitas' => 'publik',
                 'created_at' => '2023-03-17 03:05:01'
             ],
             [
@@ -202,8 +202,8 @@ class UserSeeder extends Seeder
                 'judul_laporan' => 'Pelayanan Lambat Di Kantor Bpn Banyuwangi Tidak Profesional Dan Melanggar Peraturan',
                 'isi_laporan' => 'Permohonan sertifikat pengganti karena hilang nomor berkas 204585/2022 tanggal 7 november 2022 sampai saat ini belum selesai. padahal pada lampiran ii peraturan kepala bpn no. 1 tahun 2010 harusnya selesai dalam waktu 40 hari. tapi faktanya sampai hari ini tidak ada informasi apapun terkait penyelesaian permohonan tersebut',
                 'foto' => '3.png',
+                'lokasi' => '-6.4048264,106.8803546',
                 'status' => 'diterima',
-                'visibilitas' => 'publik',
                 'created_at' => '2023-03-19 03:05:01'
             ],
             [
@@ -212,8 +212,8 @@ class UserSeeder extends Seeder
                 'judul_laporan' => 'Pelayanan Lambat Di Kantor Bpn Banyuwangi Tidak Profesional Dan Melanggar Peraturan',
                 'isi_laporan' => 'Permohonan sertifikat pengganti karena hilang nomor berkas 204585/2022 tanggal 7 november 2022 sampai saat ini belum selesai. padahal pada lampiran ii peraturan kepala bpn no. 1 tahun 2010 harusnya selesai dalam waktu 40 hari. tapi faktanya sampai hari ini tidak ada informasi apapun terkait penyelesaian permohonan tersebut',
                 'foto' => '3.png',
+                'lokasi' => '-6.4048264,106.8803546',
                 'status' => 'diterima',
-                'visibilitas' => 'publik',
                 'created_at' => '2023-03-20 03:05:01'
             ],
             [
@@ -222,8 +222,8 @@ class UserSeeder extends Seeder
                 'judul_laporan' => 'Pelayanan Lambat Di Kantor Bpn Banyuwangi Tidak Profesional Dan Melanggar Peraturan',
                 'isi_laporan' => 'Permohonan sertifikat pengganti karena hilang nomor berkas 204585/2022 tanggal 7 november 2022 sampai saat ini belum selesai. padahal pada lampiran ii peraturan kepala bpn no. 1 tahun 2010 harusnya selesai dalam waktu 40 hari. tapi faktanya sampai hari ini tidak ada informasi apapun terkait penyelesaian permohonan tersebut',
                 'foto' => '3.png',
+                'lokasi' => '-6.4048264,106.8803546',
                 'status' => 'diterima',
-                'visibilitas' => 'publik',
                 'created_at' => '2023-03-22 03:05:01'
             ],
         ]);
