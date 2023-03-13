@@ -24,20 +24,60 @@ class DashboardController extends Controller
         $admin = Petugas::where('level', 'admin')->count();
         $masyarakat = Masyarakat::count();
 
-        $pengaduanByKategori = Pengaduan::select('kategori_id', \DB::raw('count(*) as total'))
-                                ->groupBy('kategori_id')
-                                ->get();
+        // Chart pengaduan berdasarkan kategori per bulan
+        $pengaduans = DB::table('pengaduans')
+                        ->select(DB::raw('MONTH(created_at) as bulan'), 'kategori_id', DB::raw('count(*) as total'))
+                        ->groupBy('bulan', 'kategori_id')
+                        ->orderBy('bulan', 'asc')
+                        ->get();
 
-        $chart = [];
-        foreach ($pengaduanByKategori as $pengaduan) {
-            $kategori = Kategori::find($pengaduan->kategori_id);
-            $chart[] = [
-                'kategori' => $kategori->nama_kategori,
-                'total' => $pengaduan->total
+        $kategoris = DB::table('kategoris')->pluck('nama_kategori', 'id');
+
+        $data = [];
+
+        foreach ($pengaduans as $pengaduan) {
+            $data[$pengaduan->kategori_id][] = $pengaduan->total;
+        }
+
+        $chartData = [];
+
+        foreach ($data as $kategoriId => $totals) {
+            $chartData[] = [
+                'name' => $kategoris[$kategoriId],
+                'data' => $totals,
             ];
         }
 
-        return view('User Admin.dashboard', compact('diterima', 'diproses', 'selesai', 'ditolak', 'tanggapan', 'petugas', 'admin', 'masyarakat', 'chart'));
+        // Pie Chart pengaduan berdasarkan kategori
+        // $pengaduanByKategori = Pengaduan::select('kategori_id', \DB::raw('count(*) as total'))
+        //                         ->groupBy('kategori_id')
+        //                         ->get();
+
+        // $chart = [];
+        // foreach ($pengaduanByKategori as $pengaduan) {
+        //     $kategori = Kategori::find($pengaduan->kategori_id);
+        //     $chart[] = [
+        //         'kategori' => $kategori->nama_kategori,
+        //         'total' => $pengaduan->total
+        //     ];
+        // }
+        $pengaduanByKategori = DB::table('pengaduans')
+        ->select('kategori_id', DB::raw('count(*) as total'))
+        ->groupBy('kategori_id')
+        ->get();
+
+        $kategoris = DB::table('kategoris')->pluck('nama_kategori', 'id');
+
+        $pieChartData = [];
+
+        foreach ($pengaduanByKategori as $pengaduan) {
+            $pieChartData[] = [
+                'name' => $kategoris[$pengaduan->kategori_id],
+                'y' => $pengaduan->total,
+            ];
+        }
+
+        return view('User Admin.dashboard', compact('diterima', 'diproses', 'selesai', 'ditolak', 'tanggapan', 'petugas', 'admin', 'masyarakat', 'chartData','pieChartData'));
         }
 
     public function dashboard(){
@@ -46,6 +86,48 @@ class DashboardController extends Controller
         $selesai = Pengaduan::where('status', 'selesai')->count();
         $ditolak = Pengaduan::where('status', 'ditolak')->count();
         $tanggapan = Tanggapan::count();
-        return view('User Petugas.dashboard', compact('diterima', 'diproses', 'selesai', 'ditolak', 'tanggapan'));
+
+        // Chart pengaduan berdasarkan kategori per bulan
+        $pengaduans = DB::table('pengaduans')
+                        ->select(DB::raw('MONTH(created_at) as bulan'), 'kategori_id', DB::raw('count(*) as total'))
+                        ->groupBy('bulan', 'kategori_id')
+                        ->orderBy('bulan', 'asc')
+                        ->get();
+
+        $kategoris = DB::table('kategoris')->pluck('nama_kategori', 'id');
+
+        $data = [];
+
+        foreach ($pengaduans as $pengaduan) {
+            $data[$pengaduan->kategori_id][] = $pengaduan->total;
+        }
+
+        $chartData = [];
+
+        foreach ($data as $kategoriId => $totals) {
+            $chartData[] = [
+                'name' => $kategoris[$kategoriId],
+                'data' => $totals,
+            ];
+        }
+
+        // Pie Chart pengaduan berdasarkan kategori
+        $pengaduanByKategori = DB::table('pengaduans')
+        ->select('kategori_id', DB::raw('count(*) as total'))
+        ->groupBy('kategori_id')
+        ->get();
+
+        $kategoris = DB::table('kategoris')->pluck('nama_kategori', 'id');
+
+        $pieChartData = [];
+
+        foreach ($pengaduanByKategori as $pengaduan) {
+            $pieChartData[] = [
+                'name' => $kategoris[$pengaduan->kategori_id],
+                'y' => $pengaduan->total,
+            ];
+        }
+        
+        return view('User Petugas.dashboard', compact('diterima', 'diproses', 'selesai', 'ditolak', 'tanggapan', 'chartData','pieChartData'));
     }
 }
