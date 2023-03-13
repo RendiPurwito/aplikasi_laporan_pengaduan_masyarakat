@@ -42,12 +42,6 @@
                                 data-bs-target="#detailModal-{{$row->id}}">
                                 <i class='bx bx-detail'></i>
                             </button>
-
-                            @if (Auth::guard('petugas')->user()->level == 'admin')
-                                <a href="{{route('tanggapan.pdf', $row->id)}}" class="btn btn-primary btn-sm" title="Export ke pdf">
-                                    <i class='bx bxs-file-pdf'></i>
-                                </a>
-                            @endif
                         </td>
                     </tr>
 

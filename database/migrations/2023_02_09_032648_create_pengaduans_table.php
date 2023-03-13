@@ -20,7 +20,8 @@ return new class extends Migration
             // $table->foreignId('masyarakat_nik');
             $table->string('nik_pelapor');
             $table->foreign('nik_pelapor')->references('nik')->on('masyarakats')->onDelete('cascade');
-            $table->enum('kategori', ['agama', 'corona_virus', 'ekonomi', 'kesehatan', 'kesetaraan_gender', 'ketertiban_umum', 'lingkungan_hidup', 'pendidikan', 'pertanian', 'peternakan', 'politik', 'kekerasan', 'teknologi_informasi']);
+            // $table->enum('kategori', ['agama', 'corona_virus', 'ekonomi', 'kesehatan', 'kesetaraan_gender', 'ketertiban_umum', 'lingkungan_hidup', 'pendidikan', 'pertanian', 'peternakan', 'politik', 'kekerasan', 'teknologi_informasi']);
+            $table->foreignId('kategori_id')->constrained('kategoris');
             $table->string('judul_laporan');
             $table->text('isi_laporan');
             $table->string('foto')->nullable();

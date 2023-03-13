@@ -5,7 +5,7 @@
         <h5 class="mb-0"></h5>
     </div> --}}
     <div class="card-body">
-        <form action="{{route('tanggapan.store')}}" method="POST" id="myForm" >
+        <form action="{{route('tanggapan.store', $pengaduan->id)}}" method="POST" id="myForm" >
             @csrf
 
             <div class="mb-3">

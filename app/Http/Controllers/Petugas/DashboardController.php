@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Petugas;
 
+use Charts;
 use App\Models\Petugas;
+use App\Models\Kategori;
 use App\Models\Pengaduan;
 use App\Models\Tanggapan;
 use App\Models\Masyarakat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
@@ -20,8 +23,22 @@ class DashboardController extends Controller
         $petugas = Petugas::where('level', 'petugas')->count();
         $admin = Petugas::where('level', 'admin')->count();
         $masyarakat = Masyarakat::count();
-        return view('User Admin.dashboard', compact('diterima', 'diproses', 'selesai', 'ditolak', 'tanggapan', 'petugas', 'admin', 'masyarakat'));
-    }
+
+        $pengaduanByKategori = Pengaduan::select('kategori_id', \DB::raw('count(*) as total'))
+                                ->groupBy('kategori_id')
+                                ->get();
+
+        $chart = [];
+        foreach ($pengaduanByKategori as $pengaduan) {
+            $kategori = Kategori::find($pengaduan->kategori_id);
+            $chart[] = [
+                'kategori' => $kategori->nama_kategori,
+                'total' => $pengaduan->total
+            ];
+        }
+
+        return view('User Admin.dashboard', compact('diterima', 'diproses', 'selesai', 'ditolak', 'tanggapan', 'petugas', 'admin', 'masyarakat', 'chart'));
+        }
 
     public function dashboard(){
         $diterima = Pengaduan::where('status', 'diterima')->count();

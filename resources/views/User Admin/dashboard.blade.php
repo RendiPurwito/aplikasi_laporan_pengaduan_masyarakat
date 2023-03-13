@@ -125,5 +125,57 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-5">
+            <h1>Chart</h1>
+        </div>
+        <div class="col-5">
+            <div class="card">
+                <div class="card-body">
+                    <canvas id="chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+@endsection
+
+@section('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+    <script>
+        var chart = @json($chart);
+
+        var labels = [];
+        var values = [];
+
+        chart.forEach(function(item) {
+            labels.push(item.kategori);
+            values.push(item.total);
+        });
+
+        var ctx = document.getElementById('chart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Pengaduan berdasarkan Kategori',
+                    data: values,
+                    backgroundColor: [
+                        '#ff6384',
+                        '#36a2eb',
+                        '#cc65fe',
+                        '#ffce56',
+                        '#1abc9c',
+                        '#2ecc71',
+                        '#3498db',
+                        '#9b59b6',
+                        '#e67e22',
+                        '#95a5a6'
+                    ]
+                }]
+            },
+            options: {}
+        });
+    </script>
 @endsection

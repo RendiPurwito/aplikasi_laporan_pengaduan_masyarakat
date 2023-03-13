@@ -25,6 +25,11 @@ class Pengaduan extends Model
         return $this->belongsTo(Masyarakat::class, 'nik_pelapor', 'nik');
     }
 
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class, 'kategori_id', 'id');
+    }
+
     public function tanggapan()
     {
         return $this->hasOne(Tanggapan::class, 'pengaduan_id', 'id');

@@ -37,7 +37,8 @@
                         </td>
                         
                         <td>
-                            {{ (ucfirst(str_replace('_', ' ', $row->kategori))) }}
+                            {{-- {{ (ucfirst(str_replace('_', ' ', $row->kategori))) }} --}}
+                            {{ $row->kategori->nama_kategori }}
                         </td>
                         
                         <td>
@@ -133,7 +134,7 @@
                                         </div>
                                         <div class="row">
                                             <strong>Kategori Laporan :</strong>
-                                            <p>{{ (ucfirst(str_replace('_', ' ', $row->kategori))) }}</p>
+                                            <p>{{ $row->kategori->nama_kategori }}</p>
                                         </div>
                                         <div class="row text-wrap">
                                             <strong>Isi Laporan :</strong>
@@ -184,7 +185,7 @@
                                         </div>
                                         <div class="row">
                                             <strong>Kategori Laporan :</strong>
-                                            <p>{{ (ucfirst(str_replace('_', ' ', $row->kategori))) }}</p>
+                                            <p>{{ $row->kategori->nama_kategori }}</p>
                                         </div>
                                         <div class="row text-wrap">
                                             <strong>Isi Laporan :</strong>
@@ -229,7 +230,7 @@
                                         </div>
                                         <div class="row">
                                             <strong>Kategori Laporan :</strong>
-                                            <p>{{ (ucfirst(str_replace('_', ' ', $row->kategori))) }}</p>
+                                            <p>{{ $row->kategori->nama_kategori }}</p>
                                         </div>
                                         <div class="row text-wrap">
                                             <strong>Isi Laporan :</strong>
@@ -285,7 +286,7 @@
                                     </div>
                                     <div class="row">
                                         <strong>Kategori Laporan :</strong>
-                                        <p>{{ (ucfirst(str_replace('_', ' ', $row->kategori))) }}</p>
+                                        <p>{{ $row->kategori->nama_kategori }}</p>
                                     </div>
                                     <div class="row text-wrap">
                                         <strong>Isi Laporan :</strong>

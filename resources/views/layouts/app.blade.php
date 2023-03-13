@@ -52,6 +52,10 @@
     {{--! Custom CSS --}}
     <link rel="stylesheet" href="/css/style.css">
 
+    {{--! Daterangepicker --}}
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Mar 09 2023 with Bootstrap v5.2.3
@@ -69,7 +73,7 @@
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.html" class="logo d-flex align-items-center">
                 <img src="/niceadmin/assets/img/logo.png" alt="">
-                <span class="d-none d-lg-block">NiceAdmin</span>
+                <span class="d-none d-lg-block">Alapemas</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div><!-- End Logo -->
@@ -291,6 +295,20 @@
                 </a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{route('tanggapan.index')}}">
+                    <i class="bi bi-chat-left-text"></i>
+                    <span>Tanggapan</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{route('pengaduan.generate-laporan')}}">
+                    <i class="bi bi-chat-left-text"></i>
+                    <span>Generate Laporan</span>
+                </a>
+            </li>
+
             @if (Auth::guard('petugas')->user()->level=='admin')
             <li class="nav-heading">User</li>
 
@@ -365,6 +383,7 @@
         }
     </script>
 
+    @yield('js')
 </body>
 
 </html>

@@ -43,17 +43,4 @@ class TanggapanController extends Controller
         $tanggapan->delete();
         return redirect()->route('tanggapan.index')->with('success','Laporan berhasil dihapus!');
     }
-
-    public function pdf($id)
-    {
-        $tanggapan = Tanggapan::find($id);
-        $pengaduan = Pengaduan::all();
-        $petugas = Petugas::all();
-        $pdf = PDF::loadview('Tanggapan.pdf',[
-            'tanggapan'=>$tanggapan,
-            'pengaduan'=>$pengaduan,
-            'petugas'=>$petugas,
-        ]);
-        return $pdf->stream();
-    }
 }

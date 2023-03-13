@@ -138,9 +138,15 @@ Route::prefix('admin')->group(function (){
     
             //! Detail
             Route::get('/pengaduan/{id}/detail', [PengaduanController::class, 'detail'])->name('pengaduan.detail');
-    
-            //! PDF
-            Route::get('/pengaduan/{id}/pdf', [PengaduanController::class, 'pdf'])->name('pengaduan.pdf');
+        
+            //! Generate Laporan 
+            Route::get('/generate-laporan/', [PengaduanController::class, 'generate'])->name('pengaduan.generate-laporan');
+
+            //! Export PDF berdasarkan ID
+            Route::get('/pengaduan/{id}/pdf', [PengaduanController::class, 'pdfByID'])->name('pengaduan.pdf');
+
+            //! Export Pengaduan By Kategori & Tanggal To PDF
+            Route::get('/pengaduan/pdf-by-kategori-tanggal/{kategori_id}/{tanggal_awal}/{tanggal_akhir}', [PengaduanController::class, 'pdfByKategoriTanggal'])->name('pengaduan.pdf-kategori-tanggal')->middleware('admin');
     
         //! CRUD Tanggapan
             //! Index
@@ -154,9 +160,6 @@ Route::prefix('admin')->group(function (){
     
             //! Detail
             Route::get('/tanggapan/{id}/detail', [TanggapanController::class, 'detail'])->name('tanggapan.detail');
-    
-            //! PDF
-            Route::get('/tanggapan/{id}/pdf', [TanggapanController::class, 'pdf'])->name('tanggapan.pdf')->middleware('admin');
-    });
+        });
 });
 
