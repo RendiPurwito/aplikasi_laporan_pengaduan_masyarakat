@@ -14,7 +14,6 @@
                 <thead>
                     <tr>
                         <th>Nama Kategori</th>
-                        <th data-sortable="false">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -22,9 +21,6 @@
                     <tr>
                         <td>
                             {{ $row->nama_kategori }}
-                        </td>
-                        <td>
-                            <a href="" class="btn btn-sm">A</a>
                         </td>
                     </tr>
                     @endforeach

@@ -7,8 +7,8 @@
             @csrf
             <div class="mb-3">
                 <label class="form-label" for="basic-default-fullname">Nama</label>
-                <input type="text" class="form-control" id="basic-default-fullname" placeholder="Nama Petugas" id="nama" name="nama" autocomplete="off" />
-                @error('nama')
+                <input type="text" class="form-control" id="basic-default-fullname" placeholder="Nama Petugas" id="nama_kategori" name="nama_kategori" autocomplete="off" />
+                @error('nama_kategori')
                     <div class="text-danger">
                         {{ $message }}
                     </div>

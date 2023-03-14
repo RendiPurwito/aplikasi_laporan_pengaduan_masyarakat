@@ -24,6 +24,6 @@ class KategoriController extends Controller
         $kategori = new Kategori;
         $kategori->nama_kategori = $request->nama_kategori;
         $kategori->save();
-        return redirect()->route('Kategori.index');
+        return redirect()->route('kategori.index');
     }
 }

@@ -15,7 +15,7 @@ $('#submitButton').on('click', function (e) {
             document.getElementById("myForm").submit();
             swal({
                 icon: "success",
-                title: 'Petugas berhasil ditambahkan!',
+                title: 'Data berhasil ditambahkan!',
             });
         }
     });
@@ -25,8 +25,7 @@ $('#submitEditButton').on('click', function (e) {
     e.preventDefault();
     swal({
         icon: "warning",
-        title: "Are you sure?",
-        text: "Simpan?",
+        title: "Apakah anda yakin ingin menyimpan data ini?",
         buttons: true,
         dangerMode: true
     }).then((isConfirm) => {
@@ -34,7 +33,7 @@ $('#submitEditButton').on('click', function (e) {
             document.getElementById("editForm").submit();
             swal({
                 icon: "success",
-                title: 'Petugas berhasil diupdate!',
+                title: 'Data berhasil diupdate!',
             });
         }
     });
@@ -46,8 +45,7 @@ $('#deleteButton').on('click', function (e) {
     var message = $('#deleteButton').attr('data-message');
     swal({
         icon: "warning",
-        title: "Are you sure?",
-        text: message,
+        title: "Apakah anda yakin ingin menghapus data ini?",
         buttons: true,
         dangerMode: true
     }).then((isConfirm) => {
@@ -55,7 +53,7 @@ $('#deleteButton').on('click', function (e) {
             form.submit();
             swal({
                 icon: "success",
-                title: 'Petugas berhasil dihapus!',
+                title: 'Data berhasil dihapus!',
             });
         }
     });

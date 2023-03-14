@@ -108,7 +108,7 @@ class UserPetugasController extends Controller
         $admin->telp = $request->telp;
         $admin->password = Hash::make($request->password);
         $admin->save();
-        return redirect("/admin/login")->with('succes', 'User registered successfully');
+        return redirect("/admin/")->with('succes', 'User registered successfully');
     }
 
     public function generatePdfReport($startDate, $endDate)
