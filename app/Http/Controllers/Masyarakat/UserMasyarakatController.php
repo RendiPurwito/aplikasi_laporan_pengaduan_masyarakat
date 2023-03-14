@@ -155,13 +155,13 @@ class UserMasyarakatController extends Controller
         $pengaduan->save();
         // dd($pengaduan);
         
-        return redirect('/feedback')->with('success', 'Pengaduan berhasil ditambahkan.');
+        return redirect('/laporan-saya')->with('success', 'Pengaduan berhasil ditambahkan.');
     }
 
     public function myLaporan(Request $request){
         $pengaduan = Pengaduan::with(['tanggapan' => function ($query) {
             $query->with('petugas');
-        }])->where('nik_pelapor', Auth::guard('masyarakats')->user()->nik)->orderBy('created_at')->get();
+        }])->where('nik_pelapor', Auth::guard('masyarakats')->user()->nik)->orderBy('created_at', 'desc')->paginate(5);
         $tanggapan = Tanggapan::with('petugas')->get();
         return view('User Masyarakat.my-laporan', compact('pengaduan'));
     }

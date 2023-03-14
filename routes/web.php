@@ -60,7 +60,7 @@ use App\Http\Controllers\Masyarakat\UserMasyarakatController;
         Route::get('/form-laporan', [UserMasyarakatController::class, 'formLaporan'])->name('form-laporan')->middleware('masyarakat');
         
         //! Lapor
-        Route::post('/feedback', [UserMasyarakatController::class, 'lapor'])->name('simpan-laporan')->middleware('masyarakat');
+        Route::post('/laporan-saya', [UserMasyarakatController::class, 'lapor'])->name('simpan-laporan')->middleware('masyarakat');
         
         //! Feedback
         Route::get('/feedback', function () {
@@ -118,12 +118,24 @@ Route::prefix('admin')->group(function (){
 
             //! Delete
             Route::delete('/petugas/{id}', [PetugasController::class, 'destroy'])->name('admin.petugas.delete');
+
+        //! Generate Laporan Pengaduan
+        Route::get('/generate-laporan/', [PengaduanController::class, 'generate'])->name('pengaduan.generate-laporan');
+
+        //! Export Pengaduan berdasarkan ID To PDF
+        Route::get('/pengaduan/{id}/pdf', [PengaduanController::class, 'pdfByID'])->name('pengaduan.pdf-id');
+
+        //! Export Pengaduan By Kategori & Tanggal To PDF
+        Route::get('/pengaduan/pdf-by-kategori-tanggal/', [PengaduanController::class, 'pdfByKategoriTanggal'])->name('pengaduan.pdf-kategori-tanggal');
+
+        //! Export Pengaduan By Kategori & Tanggal To Excel
+        Route::get('/pengaduan/excel/by-kategori-tanggal', [PengaduanController::class, 'exportToExcel'])->name('pengaduan.excel');
     });
     
     //! User Petugas
     Route::middleware(['petugas'])->group(function () {
         //! Dashboard
-        Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('petugas.dashboard')->middleware('petugas');
+        Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('petugas.dashboard');
     });
 
     Route::middleware(['petugas.admin'])->group(function () {
@@ -145,22 +157,10 @@ Route::prefix('admin')->group(function (){
             Route::post('/pengaduan/{id}/verifikasi', [PengaduanController::class, 'verify'])->name('pengaduan.verifikasi');
 
             //! Reject
-            Route::post('/pengaduan/{id}', [PengaduanController::class, 'reject'])->name('pengaduan.reject');
+            Route::post('/pengaduan/{id}/reject', [PengaduanController::class, 'reject'])->name('pengaduan.reject');
     
             //! Detail
             Route::get('/pengaduan/{id}/detail', [PengaduanController::class, 'detail'])->name('pengaduan.detail');
-        
-            //! Generate Laporan 
-            Route::get('/generate-laporan/', [PengaduanController::class, 'generate'])->name('pengaduan.generate-laporan');
-
-            //! Export PDF berdasarkan ID
-            Route::get('/pengaduan/{id}/pdf', [PengaduanController::class, 'pdfByID'])->name('pengaduan.pdf-id');
-
-            //! Export Pengaduan By Kategori & Tanggal To PDF
-            Route::get('/pengaduan/pdf-by-kategori-tanggal/', [PengaduanController::class, 'pdfByKategoriTanggal'])->name('pengaduan.pdf-kategori-tanggal')->middleware('admin');
-
-            //! Export Pengaduan By Kategori & Tanggal To Excel
-            Route::get('/pengaduan/excel/by-kategori-tanggal', [PengaduanController::class, 'exportToExcel'])->name('pengaduan.excel')->middleware('admin');
     
         //! CRUD Tanggapan
             //! Index
@@ -170,10 +170,7 @@ Route::prefix('admin')->group(function (){
             Route::get('/pengaduan/{id}', [TanggapanController::class, 'create'])->name('tanggapan.create');
     
             //! Store
-            Route::post('/tanggapan/{id}', [TanggapanController::class, 'store'])->name('tanggapan.store');
-    
-            //! Detail
-            Route::get('/tanggapan/{id}/detail', [TanggapanController::class, 'detail'])->name('tanggapan.detail');
+            Route::post('/pengaduan/{id}', [TanggapanController::class, 'store'])->name('tanggapan.store');
         });
 });
 

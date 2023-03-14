@@ -43,10 +43,21 @@
 					<td>{{ $row->kategori->nama_kategori }}</td>
 					<td>{{ $row->judul_laporan }}</td>
 					<td>{{ $row->isi_laporan }}</td>
-					<td><img src="{{ public_path('foto/'.$row->foto) }}" width="100px"/></td>
+					<td>
+                        @if ($row->foto)
+                            <img src="{{ public_path('foto/'.$row->foto) }}" width="100px"/>
+                        @else
+                            Tidak ada foto
+                        @endif
+                    </td>
 					<td>{{ $row->status }}</td>
-					<td>{{ $row->tanggapan->tanggapan }}</td>
-					<td>{{ $row->tanggapan->petugas->nama }}</td>
+					@if ($row->tanggapan)
+                        <td>{{ $row->tanggapan->tanggapan }}</td>
+                        <td>{{ $row->tanggapan->petugas->nama }}</td>
+                    @else
+                        <td colspan="2">Belum Ditanggapi</td>
+                        {{-- <td> Belum Ditanggapi</td> --}}
+                    @endif
                 </tr>
             @endforeach
         </tbody>

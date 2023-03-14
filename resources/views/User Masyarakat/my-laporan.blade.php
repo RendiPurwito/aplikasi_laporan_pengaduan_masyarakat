@@ -70,7 +70,7 @@
     <div id="hero" class="hero align-items-center pt-5">
         <h2 class="text-center mb-3 mt-5">Laporan Saya</h2>
         <div class="row justify-content-center">
-            @foreach ($pengaduan as $card)
+            @forelse ($pengaduan as $card)
             <div class="card col-10 mb-3">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
@@ -89,9 +89,11 @@
                                 @endif
                             </span>
                         </h5>
-                        <p>{{\Carbon\Carbon::parse($card->created_at)->locale('id')->isoFormat('dddd,DD MMMM YYYY')}}</p>
+                        <p>{{\Carbon\Carbon::parse($card->created_at)->locale('id')->isoFormat('dddd, DD MMMM YYYY')}}</p>
                     </div>
                     <p>{{$card->isi_laporan}}</p>
+                    <img src="/foto/{{$card->foto}}" 
+                                            style="width:200px"/>
                     @if ($card->tanggapan)
                         <p>Tanggapan Oleh 
                             <strong>{{$card->tanggapan->petugas->nama}} </strong>: <br>
@@ -101,7 +103,16 @@
                     @endif
                 </div>
             </div>
-            @endforeach
+            @empty
+            <div class="card col-10 mb-3">
+                <div class="card-body">
+                    <p>Belum ada laporan</p>
+                </div>
+            </div>
+            @endforelse
+        </div>
+        <div class="d-flex justify-content-center">
+            {{$pengaduan->links('vendor.pagination.simple-bootstrap-5')}}
         </div>
     </div>
 

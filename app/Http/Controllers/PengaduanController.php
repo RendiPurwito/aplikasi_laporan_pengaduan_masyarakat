@@ -61,11 +61,14 @@ class PengaduanController extends Controller
 
     public function generate(Request $request){
         $kategori = Kategori::all();
-        $pengaduan = Pengaduan::with(['tanggapan.petugas'])
-        ->where('status', 'selesai');
+        $pengaduan = Pengaduan::with(['tanggapan.petugas']);
 
         if ($request->filled('kategori_id')) {
             $pengaduan->where('kategori_id', $request->kategori_id);
+        }
+
+        if ($request->filled('status')) {
+            $pengaduan->where('status', $request->status);
         }
     
         if ($request->filled('tanggal_awal') && $request->filled('tanggal_akhir')) {
@@ -78,11 +81,13 @@ class PengaduanController extends Controller
 
     public function pdfByKategoriTanggal(Request $request){
         $kategori_id = $request->input('kategori_id');
+        $status = $request->input('status');
         $tanggal_awal = $request->input('tanggal_awal');
         $tanggal_akhir = $request->input('tanggal_akhir');
         // Validate the category ID
         $validator = Validator::make($request->all(), [
             'kategori_id' => 'nullable|integer|exists:kategoris,id',
+            'status' => 'nullable|in:diterima,diproses,selesai,ditolak',
             'tanggal_awal' => 'nullable|date_format:Y-m-d',
             'tanggal_akhir' => 'nullable|date_format:Y-m-d|after_or_equal:tanggal_awal',
         ]);
@@ -96,11 +101,14 @@ class PengaduanController extends Controller
         
         // Build the query
         $kategori = Kategori::where('kategori_id', $request->kategori_id);
-        $pengaduan = Pengaduan::with(['tanggapan.petugas'])
-        ->where('status', 'selesai');
+        $pengaduan = Pengaduan::with(['tanggapan.petugas']);
         
         if ($request->filled('kategori_id')) {
             $pengaduan->where('kategori_id', $request->kategori_id);
+        }
+
+        if ($request->filled('status')) {
+            $pengaduan->where('status', $request->status);
         }
 
         if ($request->filled('tanggal_awal') && $request->filled('tanggal_akhir')) {
@@ -122,11 +130,13 @@ class PengaduanController extends Controller
     public function exportToExcel(Request $request)
     {
         $kategori_id = $request->input('kategori_id');
+        $status = $request->input('status');
         $tanggal_awal = $request->input('tanggal_awal');
         $tanggal_akhir = $request->input('tanggal_akhir');
         // Validate the category ID
         $validator = Validator::make($request->all(), [
             'kategori_id' => 'nullable|integer|exists:kategoris,id',
+            'status' => 'nullable|in:diterima,diproses,selesai,ditolak',
             'tanggal_awal' => 'nullable|date_format:Y-m-d',
             'tanggal_akhir' => 'nullable|date_format:Y-m-d|after_or_equal:tanggal_awal',
         ]);
@@ -140,11 +150,14 @@ class PengaduanController extends Controller
         
         // Build the query
         $kategori = Kategori::where('kategori_id', $request->kategori_id);
-        $pengaduan = Pengaduan::with(['tanggapan.petugas'])
-        ->where('status', 'selesai');
+        $pengaduan = Pengaduan::with(['tanggapan.petugas']);
         
         if ($request->filled('kategori_id')) {
             $pengaduan->where('kategori_id', $request->kategori_id);
+        }
+
+        if ($request->filled('status')) {
+            $pengaduan->where('status', $request->status);
         }
 
         if ($request->filled('tanggal_awal') && $request->filled('tanggal_akhir')) {

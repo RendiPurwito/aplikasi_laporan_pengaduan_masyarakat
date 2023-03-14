@@ -71,7 +71,7 @@
         {{-- <h2 class="text-center mb-3 mt-4">Layanan Pengaduan Online Masyarakat</h2> --}}
         <div class="card mx-5 mt-5">
             <div class="card-body">
-                <h3 class="text-center">Pengaduan anda akan segera diproses, mohon tunggu selama beberapa waktu</h3>
+                <h3 class="text-center">Pengaduan anda akan  diproses, mohon tunggu selama beberapa waktu</h3>
             </div>
         </div>
     </div>

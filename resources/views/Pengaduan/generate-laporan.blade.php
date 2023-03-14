@@ -3,7 +3,7 @@
 <div class="row">
     <form method="GET" action="{{ route('pengaduan.generate-laporan') }}">
     <div class="row">
-        <div class="form-group col-4">
+        <div class="form-group col-3">
             <label for="kategori">Kategori:</label>
             <select class="form-control" id="kategori" name="kategori_id">
                 <option value="">Semua</option>
@@ -13,16 +13,27 @@
             </select>
         </div>
 
+        <div class="form-group col-3">
+            <label for="status">Status:</label>
+            <select class="form-control" id="status" name="status">
+                <option value="">Semua</option>
+                <option value="diterima">Diterima</option>
+                <option value="diproses">Diproses</option>
+                <option value="selesai">Selesai</option>
+                <option value="ditolak">Ditolak</option>
+            </select>
+        </div>
+
         {{-- <div class="form-group col-4">
             <label for="created_at">Tanggal:</label>
             <input type="text" class="form-control" id="created_at" name="created_at" value="" />
         </div> --}}
         
-        <div class="form-group col-4">
+        <div class="form-group col-3">
             <label for="tanggal_awal">Tanggal Awal:</label>
             <input type="date" class="form-control" id="tanggal_awal" name="tanggal_awal">
         </div>
-        <div class="form-group col-4">
+        <div class="form-group col-3">
             <label for="tanggal_akhir">Tanggal Akhir:</label>
             <input type="date" class="form-control" id="tanggal_akhir" name="tanggal_akhir">
         </div>
@@ -37,11 +48,13 @@
             <div class="card-title">
                 <a href="{{route('pengaduan.pdf-kategori-tanggal', [
                     'kategori_id' => request('kategori_id'), 
+                    'status' => request('status'), 
                     'tanggal_awal' => request('tanggal_awal'), 
                     'tanggal_akhir' => request('tanggal_akhir')
                     ])}}" class="btn btn-sm btn-danger">Export to PDF</a>
                 <a href="{{route('pengaduan.excel', [
                     'kategori_id' => request('kategori_id'), 
+                    'status' => request('status'), 
                     'tanggal_awal' => request('tanggal_awal'), 
                     'tanggal_akhir' => request('tanggal_akhir')
                     ])}}" class="btn btn-sm btn-success">Export to Excel</a>
