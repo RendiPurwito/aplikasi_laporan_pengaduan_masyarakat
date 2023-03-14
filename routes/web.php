@@ -158,6 +158,9 @@ Route::prefix('admin')->group(function (){
 
             //! Export Pengaduan By Kategori & Tanggal To PDF
             Route::get('/pengaduan/pdf-by-kategori-tanggal/', [PengaduanController::class, 'pdfByKategoriTanggal'])->name('pengaduan.pdf-kategori-tanggal')->middleware('admin');
+
+            //! Export Pengaduan By Kategori & Tanggal To Excel
+            Route::get('/pengaduan/excel/by-kategori-tanggal', [PengaduanController::class, 'exportToExcel'])->name('pengaduan.excel')->middleware('admin');
     
         //! CRUD Tanggapan
             //! Index

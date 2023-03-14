@@ -9,6 +9,8 @@ use App\Models\Pengaduan;
 use App\Models\Tanggapan;
 use App\Models\Masyarakat;
 use Illuminate\Http\Request;
+use App\Exports\PengaduanExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 
 class PengaduanController extends Controller
@@ -115,6 +117,44 @@ class PengaduanController extends Controller
             'chroot' => base_path()
         ]);
         return $pdf->stream();
+    }
+
+    public function exportToExcel(Request $request)
+    {
+        $kategori_id = $request->input('kategori_id');
+        $tanggal_awal = $request->input('tanggal_awal');
+        $tanggal_akhir = $request->input('tanggal_akhir');
+        // Validate the category ID
+        $validator = Validator::make($request->all(), [
+            'kategori_id' => 'nullable|integer|exists:kategoris,id',
+            'tanggal_awal' => 'nullable|date_format:Y-m-d',
+            'tanggal_akhir' => 'nullable|date_format:Y-m-d|after_or_equal:tanggal_awal',
+        ]);
+        
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'errors' => $validator->errors()
+            ], 422);
+        }
+        
+        // Build the query
+        $kategori = Kategori::where('kategori_id', $request->kategori_id);
+        $pengaduan = Pengaduan::with(['tanggapan.petugas'])
+        ->where('status', 'selesai');
+        
+        if ($request->filled('kategori_id')) {
+            $pengaduan->where('kategori_id', $request->kategori_id);
+        }
+
+        if ($request->filled('tanggal_awal') && $request->filled('tanggal_akhir')) {
+            $pengaduan->whereBetween('created_at', [$request->tanggal_awal, $request->tanggal_akhir]);
+        }
+
+        // Get the results and generate the PDF
+        $pengaduan = $pengaduan->get();
+
+        return Excel::download(new PengaduanExport($pengaduan, $kategori), 'data_pengaduan.xlsx');
     }
 
 }
