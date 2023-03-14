@@ -3,10 +3,11 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Petugas\DashboardController;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PengaduanController;
 use App\Http\Controllers\TanggapanController;
 use App\Http\Controllers\Petugas\PetugasController;
+use App\Http\Controllers\Petugas\DashboardController;
 use App\Http\Controllers\Petugas\MasyarakatController;
 use App\Http\Controllers\Petugas\UserPetugasController;
 use App\Http\Controllers\Masyarakat\UserMasyarakatController;
@@ -126,6 +127,16 @@ Route::prefix('admin')->group(function (){
     });
 
     Route::middleware(['petugas.admin'])->group(function () {
+        //! CRUD Kategori
+            //! Index
+            Route::get('/kategori', [KategoriController::class, 'index'])->name('kategori.index');
+
+            //! Create
+            Route::get('/kategori/create', [KategoriController::class, 'create'])->name('kategori.create');
+
+            //! Store
+            Route::post('/kategori/store', [KategoriController::class, 'store'])->name('kategori.store');
+            
         //! CRUD Pengaduan
             //! Index 
             Route::get('/pengaduan', [PengaduanController::class, 'index'])->name('pengaduan.index');
@@ -143,10 +154,10 @@ Route::prefix('admin')->group(function (){
             Route::get('/generate-laporan/', [PengaduanController::class, 'generate'])->name('pengaduan.generate-laporan');
 
             //! Export PDF berdasarkan ID
-            Route::get('/pengaduan/{id}/pdf', [PengaduanController::class, 'pdfByID'])->name('pengaduan.pdf');
+            Route::get('/pengaduan/{id}/pdf', [PengaduanController::class, 'pdfByID'])->name('pengaduan.pdf-id');
 
             //! Export Pengaduan By Kategori & Tanggal To PDF
-            Route::get('/pengaduan/pdf-by-kategori-tanggal/{kategori_id}/{tanggal_awal}/{tanggal_akhir}', [PengaduanController::class, 'pdfByKategoriTanggal'])->name('pengaduan.pdf-kategori-tanggal')->middleware('admin');
+            Route::get('/pengaduan/pdf-by-kategori-tanggal/', [PengaduanController::class, 'pdfByKategoriTanggal'])->name('pengaduan.pdf-kategori-tanggal')->middleware('admin');
     
         //! CRUD Tanggapan
             //! Index

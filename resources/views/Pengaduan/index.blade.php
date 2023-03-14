@@ -70,6 +70,11 @@
                                 data-bs-target="#detailModal-{{$row->id}}">
                                 <i class='bx bx-detail'></i>
                             </button>
+                            @if ($row->status=="selesai")
+                                <a href="{{route('pengaduan.pdf-id', $row->id)}}" class="btn btn-sm btn-danger">
+                                    <i class='bx bxs-file-pdf'></i>
+                                </a>
+                            @endif
                         </td>
                     </tr>
 
@@ -268,6 +273,20 @@
                                         <strong>Lokasi :</strong>
                                         <p>{{ $row->lokasi }}</p>
                                     </div>
+                                    @if ($row->tanggapan)
+                                        <div class="row">
+                                            <strong>Petugas :</strong>
+                                            <p>{{ $row->tanggapan->petugas->nama }}</p>
+                                        </div>
+                                        <div class="row text-wrap">
+                                            <strong>Tanggal Tanggapan :</strong>
+                                            <p>{{\Carbon\Carbon::parse($row->tanggapan->created_at)->locale('id')->isoFormat('dddd, DD MMMM YYYY')}}</p>
+                                        </div>
+                                        <div class="row text-wrap">
+                                            <strong>Tanggapan :</strong>
+                                            <p>{{ $row->tanggapan->tanggapan }}</p>
+                                        </div>
+                                    @endif
                                     <div class="btn-footer float-end">
                                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                                             Close

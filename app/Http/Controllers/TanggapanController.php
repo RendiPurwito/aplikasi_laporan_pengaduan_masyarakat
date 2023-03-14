@@ -35,7 +35,7 @@ class TanggapanController extends Controller
         $tanggapan->tanggapan = $request->tanggapan;
         $tanggapan->petugas_id = $request->petugas_id;
         $tanggapan->save();
-        return redirect()->route('tanggapan.index')->with('success','Tanggapan berhasil ditambahkan!');
+        return redirect()->route('pengaduan.index')->with('success','Tanggapan berhasil ditambahkan!');
     }
 
     public function destroy($id){

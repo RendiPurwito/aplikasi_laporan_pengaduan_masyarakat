@@ -20,7 +20,7 @@
     </style>
 </head>
 <body>
-    <h2>Pengaduan Berdasarkan Tanggal</h2>
+    <h2>Pengaduan Berdasarkan Kategori Dan Tanggal</h2>
     <table>
         <thead>
             <tr>

@@ -56,6 +56,9 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    {{--! Specific Page CSS --}}
+    @yield('css')
     <!-- =======================================================
   * Template Name: NiceAdmin
   * Updated: Mar 09 2023 with Bootstrap v5.2.3
@@ -289,25 +292,34 @@
             @endif
 
             <li class="nav-item">
+                <a class="nav-link collapsed" href="{{route('kategori.index')}}">
+                    <i class="bi bi-list-ul"></i>
+                    <span>Kategori</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="{{route('pengaduan.index')}}">
                     <i class="bi bi-journal-text"></i>
                     <span>Pengaduan</span>
                 </a>
             </li>
 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link collapsed" href="{{route('tanggapan.index')}}">
                     <i class="bi bi-chat-left-text"></i>
                     <span>Tanggapan</span>
                 </a>
-            </li>
+            </li> --}}
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{route('pengaduan.generate-laporan')}}">
-                    <i class="bi bi-chat-left-text"></i>
-                    <span>Generate Laporan</span>
-                </a>
-            </li>
+            @if (Auth::guard('petugas')->user()->level=='admin')
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{route('pengaduan.generate-laporan')}}">
+                        <i class="bi bi-printer"></i>
+                        <span>Generate Laporan</span>
+                    </a>
+                </li>
+            @endif
 
             @if (Auth::guard('petugas')->user()->level=='admin')
             <li class="nav-heading">User</li>

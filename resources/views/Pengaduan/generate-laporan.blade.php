@@ -35,7 +35,11 @@
         <div class="d-flex justify-content-between">
             <h5 class="card-title">Pengaduan</h5>
             <div class="card-title">
-                <a href="{{route('pengaduan.pdf-kategori-tanggal', ['kategori_id' => request('kategori_id'), 'tanggal_awal' => request('tanggal_awal'), 'tanggal_akhir' => request('tanggal_akhir')])}}" class="btn btn-sm btn-danger">Export to PDF</a>
+                <a href="{{route('pengaduan.pdf-kategori-tanggal', [
+                    'kategori_id' => request('kategori_id'), 
+                    'tanggal_awal' => request('tanggal_awal'), 
+                    'tanggal_akhir' => request('tanggal_akhir')
+                    ])}}" class="btn btn-sm btn-danger">Export to PDF</a>
                 <a href="" class="btn btn-sm btn-success">Export to Excel</a>
             </div>
         </div>

@@ -14,10 +14,13 @@ use Illuminate\Support\Facades\Validator;
 class PengaduanController extends Controller
 {
     public function index(Request $request){
-        $pengaduan = Pengaduan::orderBy('created_at', 'asc')->get();
+        $pengaduan = Pengaduan::with(['tanggapan' => function ($query) {
+            $query->with('petugas');
+        }])->orderBy('created_at', 'asc')->get();
+        $tanggapan = Tanggapan::with('petugas')->get();
         $kategori = Kategori::all();
         $masyarakat = Masyarakat::all();
-        return view('pengaduan.index', compact('pengaduan', 'kategori', 'masyarakat'));
+        return view('pengaduan.index', compact('pengaduan', 'tanggapan', 'kategori', 'masyarakat'));
     }
 
     public function verify(Request $request, $id){
@@ -39,13 +42,15 @@ class PengaduanController extends Controller
         return view('pengaduan.detail', compact('pengaduan'));
     }
 
-    public function pdf($id)
+    public function pdfById($id)
     {
         $pengaduan = Pengaduan::find($id);
+        $masyarakat = Masyarakat::all();
         $tanggapan = Tanggapan::all();
         $petugas = Petugas::all();
         $pdf = PDF::loadview('Pengaduan.pdf-id',[
             'pengaduan'=>$pengaduan,
+            'masyarakat'=>$masyarakat,
             'tanggapan'=>$tanggapan,
             'petugas'=>$petugas,
         ]);
